@@ -1,6 +1,6 @@
 [project]
 name = "mujoco-cable-dynamics"
-version = "0.1.0"
+version = "0.1.1"
 description = "Unilateral surface-envelope cable dynamics plugin for MuJoCo"
 requires-python = ">=3.10"
 dependencies = ["mujoco>=3.4,<3.5", "numpy>=1.26", "pillow>=10"]

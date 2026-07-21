@@ -5,8 +5,8 @@ with the operating system, CPU architecture, and MuJoCo ABI against which it
 was built. Release bundles therefore use names such as:
 
 ```text
-mujoco-cable-dynamics-v0.1.0-darwin-arm64.tar.gz
-mujoco-cable-dynamics-v0.1.0-linux-x86_64.tar.gz
+mujoco-cable-dynamics-v0.1.1-darwin-arm64.tar.gz
+mujoco-cable-dynamics-v0.1.1-linux-x86_64.tar.gz
 ```
 
 Each bundle contains:

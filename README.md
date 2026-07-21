@@ -64,7 +64,7 @@ python -m pip install "mujoco>=3.4,<3.5" numpy
 Download and extract the archive for your operating system and CPU, then run:
 
 ```bash
-cd mujoco-cable-dynamics-v0.1.0-<platform>-<architecture>
+cd mujoco-cable-dynamics-v0.1.1-<platform>-<architecture>
 ./scripts/run_demo.sh 15 --show-route-debug --duration 120
 ```
 
@@ -219,7 +219,7 @@ comparison, and repository path portability.
 ./scripts/package_release.sh build/plugin/libcable_unilateral.dylib dist
 ```
 
-Pushing a tag such as `v0.1.0` runs the GitHub Actions release workflow, builds
+Pushing a tag such as `v0.1.1` runs the GitHub Actions release workflow, builds
 platform bundles, generates SHA-256 files, and attaches them to a GitHub
 Release.
 

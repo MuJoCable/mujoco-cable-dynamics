@@ -55,7 +55,7 @@ python -m pip install "mujoco>=3.4,<3.5" numpy
 下载并解压对应平台的压缩包后：
 
 ```bash
-cd mujoco-cable-dynamics-v0.1.0-<platform>-<architecture>
+cd mujoco-cable-dynamics-v0.1.1-<platform>-<architecture>
 ./scripts/run_demo.sh 15 --show-route-debug --duration 120
 ```
 
@@ -205,7 +205,7 @@ Faive PIP 对照以及仓库相对路径检查。
 ./scripts/package_release.sh build/plugin/libcable_unilateral.dylib dist
 ```
 
-推送 `v0.1.0` 一类 tag 后，GitHub Actions 会构建各平台压缩包、生成 SHA-256 文件并
+推送 `v0.1.1` 一类 tag 后，GitHub Actions 会构建各平台压缩包、生成 SHA-256 文件并
 上传到 GitHub Release。
 
 ## 当前限制

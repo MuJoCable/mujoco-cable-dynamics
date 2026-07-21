@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(mujoco_cable_dynamics VERSION 0.1.0 LANGUAGES CXX)
+project(mujoco_cable_dynamics VERSION 0.1.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -20,10 +20,15 @@ endif()
 if(NOT mujoco_FOUND AND NOT MUJOCO_EXTERNAL_INCLUDE_DIR AND MUJOCO_PYTHON_PACKAGE_DIR)
   if(EXISTS "${MUJOCO_PYTHON_PACKAGE_DIR}/include/mujoco/mujoco.h")
     set(MUJOCO_EXTERNAL_INCLUDE_DIR "${MUJOCO_PYTHON_PACKAGE_DIR}/include")
-    file(GLOB MUJOCO_EXTERNAL_LIBRARY
-         "${MUJOCO_PYTHON_PACKAGE_DIR}/libmujoco*${CMAKE_SHARED_LIBRARY_SUFFIX}"
+    file(GLOB MUJOCO_EXTERNAL_LIBRARIES
+         "${MUJOCO_PYTHON_PACKAGE_DIR}/libmujoco*${CMAKE_SHARED_LIBRARY_SUFFIX}*"
     )
-    list(GET MUJOCO_EXTERNAL_LIBRARY 0 MUJOCO_EXTERNAL_LIBRARY)
+    if(NOT MUJOCO_EXTERNAL_LIBRARIES)
+      message(FATAL_ERROR
+        "MuJoCo shared library not found in ${MUJOCO_PYTHON_PACKAGE_DIR}"
+      )
+    endif()
+    list(GET MUJOCO_EXTERNAL_LIBRARIES 0 MUJOCO_EXTERNAL_LIBRARY)
   else()
     message(FATAL_ERROR "MUJOCO_PYTHON_PACKAGE_DIR does not contain include/mujoco/mujoco.h")
   endif()
