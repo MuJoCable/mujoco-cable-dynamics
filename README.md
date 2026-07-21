@@ -8,7 +8,10 @@ over cylinders and closed mesh surfaces. The plugin computes runtime cable
 length, free length, tension, surface contact points, and rigid-body forces
 without discretizing the cable into rigid links.
 
-![Three-strut tensegrity](cable_plugin_demos/screenshots/demo17_three_strut_nine_cable.png)
+![MuJoCo cable dynamics demonstrations: a surface-cable rolling joint, a three-strut tensegrity structure, and a runtime surface-envelope pulley](cable_plugin_demos/screenshots/readme_mujoco_overview.gif)
+
+*MuJoCo rollouts of the Faive PIP surface-cable joint (left), three-strut
+tensegrity (upper right), and runtime surface-envelope pulley (lower right).*
 
 ## Capabilities
 

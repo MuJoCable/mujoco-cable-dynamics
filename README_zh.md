@@ -7,7 +7,10 @@
 无质量单边受拉绳索。插件不把绳子离散成大量刚体，而是在运行时计算绳长、自由长度、
 张力、表面接触点以及作用于刚体的力和力矩。
 
-![三杆九索张拉整体](cable_plugin_demos/screenshots/demo17_three_strut_nine_cable.png)
+![MuJoCo 绳索动力学示例：表面绳索滚动关节、三杆九索张拉整体和运行时表面包络滑轮](cable_plugin_demos/screenshots/readme_mujoco_overview.gif)
+
+*MuJoCo 仿真动图：Faive PIP 表面绳索滚动关节（左）、三杆九索张拉整体（右上）和
+运行时表面包络滑轮（右下）。*
 
 ## 主要能力
 
