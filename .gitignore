@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# CMake and native binaries
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+compile_commands.json
+Makefile
+*.dylib
+*.so
+*.dll
+*.a
+*.o
+
+# Generated data
+dist/
+output/
+outputs/
+MUJOCO_LOG.TXT
+*.log
+
+# Editors, local agents, and automation state
+.codex/
+.agents/
+.claude/
+.openai/
+.playwright-cli/
+.idea/
+.vscode/
+
+# macOS metadata
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes

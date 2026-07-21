@@ -1,0 +1,204 @@
+<mujoco model="cable_demo_controlled_thumb_cmc_saddle_joint">
+  <compiler autolimits="true" angle="radian" alignfree="false"
+            meshdir="assets/passive_saddle_joint" />
+  <size nuser_site="1" memory="96M" />
+  <option timestep="0.0005" gravity="0 0 0" integrator="implicitfast">
+    <flag contact="enable" />
+  </option>
+
+  <extension>
+    <plugin plugin="mujoco.cable.unilateral">
+      <instance name="passive_figure_eight_upper">
+        <config key="route_mode" value="surface" />
+        <config key="mesh_route_mode" value="taut_obstacle" />
+        <config key="route_tendon" value="figure_eight_upper_seed" />
+        <config key="wrap_geoms" value="proximal_saddle_visual distal_saddle_visual" />
+        <config key="home_length" value="auto_initial" />
+        <config key="stiffness" value="400" />
+        <config key="damping" value="2" />
+        <config key="slack" value="0.0002" />
+        <config key="taut_transition" value="0.00015" />
+        <config key="taut_hysteresis" value="0.00005" />
+        <config key="pretension_offset" value="0.001575" />
+        <config key="max_tension" value="3" />
+        <config key="route_hysteresis" value="0.00002" />
+        <config key="visual_width" value="1.3" />
+        <config key="visual_smoothing_timeconstant" value="0.025" />
+      </instance>
+      <instance name="passive_figure_eight_lower">
+        <config key="route_mode" value="surface" />
+        <config key="mesh_route_mode" value="taut_obstacle" />
+        <config key="route_tendon" value="figure_eight_lower_seed" />
+        <config key="wrap_geoms" value="proximal_saddle_visual distal_saddle_visual" />
+        <config key="home_length" value="auto_initial" />
+        <config key="stiffness" value="400" />
+        <config key="damping" value="2" />
+        <config key="slack" value="0.0002" />
+        <config key="taut_transition" value="0.00015" />
+        <config key="taut_hysteresis" value="0.00005" />
+        <config key="pretension_offset" value="0.001575" />
+        <config key="max_tension" value="3" />
+        <config key="route_hysteresis" value="0.00002" />
+        <config key="visual_width" value="1.3" />
+        <config key="visual_smoothing_timeconstant" value="0.025" />
+      </instance>
+      <instance name="upper_control_cable">
+        <config key="route_mode" value="surface" />
+        <config key="mesh_route_mode" value="taut_obstacle" />
+        <config key="route_tendon" value="upper_control_seed" />
+        <config key="wrap_geoms" value="proximal_saddle_visual distal_saddle_visual" />
+        <config key="home_length" value="auto_initial" />
+        <config key="stiffness" value="1800" />
+        <config key="damping" value="8" />
+        <config key="slack" value="0.0015" />
+        <config key="taut_transition" value="0.00015" />
+        <config key="taut_hysteresis" value="0.00005" />
+        <config key="pretension_offset" value="0" />
+        <config key="max_tension" value="15" />
+        <config key="ctrl_mode" value="target_contraction" />
+        <config key="control_timeconstant" value="0.25" />
+        <config key="max_contraction_rate" value="0.003" />
+        <config key="route_hysteresis" value="0.00002" />
+        <config key="visual_width" value="1.7" />
+        <config key="visual_smoothing_timeconstant" value="0.025" />
+      </instance>
+      <instance name="lower_control_cable">
+        <config key="route_mode" value="surface" />
+        <config key="mesh_route_mode" value="taut_obstacle" />
+        <config key="route_tendon" value="lower_control_seed" />
+        <config key="wrap_geoms" value="proximal_saddle_visual distal_saddle_visual" />
+        <config key="home_length" value="auto_initial" />
+        <config key="stiffness" value="1800" />
+        <config key="damping" value="8" />
+        <config key="slack" value="0.0015" />
+        <config key="taut_transition" value="0.00015" />
+        <config key="taut_hysteresis" value="0.00005" />
+        <config key="pretension_offset" value="0" />
+        <config key="max_tension" value="15" />
+        <config key="ctrl_mode" value="target_contraction" />
+        <config key="control_timeconstant" value="0.25" />
+        <config key="max_contraction_rate" value="0.003" />
+        <config key="route_hysteresis" value="0.00002" />
+        <config key="visual_width" value="1.7" />
+        <config key="visual_smoothing_timeconstant" value="0.025" />
+      </instance>
+    </plugin>
+  </extension>
+
+  <asset>
+    <texture name="sky" type="skybox" builtin="gradient"
+             rgb1="0.16 0.19 0.23" rgb2="0.02 0.025 0.03" width="256" height="256" />
+    <material name="proximal_bone" rgba="0.18 0.48 0.63 1" />
+    <material name="distal_bone" rgba="0.93 0.52 0.12 1" />
+    <material name="joint_surface" rgba="0.08 0.09 0.11 1" />
+    <mesh name="proximal_visual" file="test_1_routed.stl" scale="0.2 0.2 0.25" />
+    <mesh name="distal_visual" file="test_2_routed.stl" scale="0.25 0.25 0.25" />
+  </asset>
+
+  <visual>
+    <headlight diffuse="0.7 0.7 0.7" ambient="0.25 0.25 0.25" specular="0.08 0.08 0.08" />
+    <global azimuth="-92" elevation="-18" />
+  </visual>
+
+  <default>
+    <site size="0.0022" />
+    <default class="route_hint">
+      <site size="0.0002" rgba="0 0 0 0" user="2" />
+    </default>
+  </default>
+
+  <worldbody>
+    <light name="key" pos="0.10 -0.55 0.40" dir="0 1 -0.55" />
+    <light name="fill" pos="0.42 0.30 0.18" dir="-1 -0.4 -0.2" diffuse="0.35 0.35 0.35" />
+    <camera name="overview" pos="0.19 -0.43 0.24" xyaxes="1 0 0 0 0.49 0.872" />
+
+    <body name="proximal_cmc" euler="1.57079632679 0 0">
+      <inertial pos="0.10 0 0" mass="0.09" diaginertia="0.000060 0.00032 0.00032" />
+      <geom name="proximal_link_visual" type="capsule" fromto="0 0 0 0.165 0 0"
+            size="0.018" material="proximal_bone" density="0"
+            contype="0" conaffinity="0" />
+      <geom name="proximal_saddle_visual" type="mesh" mesh="proximal_visual"
+            pos="0.2 0 -0.03" material="joint_surface" density="0"
+            contype="0" conaffinity="0" />
+      <flexcomp name="proximal_contact" type="mesh" file="proximal_contact_patch.obj"
+                dim="2" rigid="true" radius="0.000885" rgba="0 0 0 0">
+        <contact contype="1" conaffinity="1" condim="3" friction="0.6 0.02 0.005"
+                 solref="0.020 1" solimp="0.90 0.98 0.002" selfcollide="none"
+                 vertcollide="true" internal="false" />
+      </flexcomp>
+
+      <site name="figure8_prox_upper" pos="0.120 0.022 0" user="1" />
+      <site name="figure8_prox_lower" pos="0.120 -0.022 0" user="1" />
+      <site name="figure8_prox_hint_upper" class="route_hint" pos="0.2 0.020 0" />
+      <site name="figure8_prox_hint_lower" class="route_hint" pos="0.2 -0.020 0" />
+    </body>
+
+    <body name="distal_metacarpal" pos="0.243625 0 0" euler="1.57079632679 0 0">
+      <freejoint name="distal_free" />
+      <inertial pos="0.095 0 0" mass="0.05" diaginertia="0.000035 0.00018 0.00018" />
+      <geom name="distal_link_visual" type="capsule" fromto="0.025 0 0 0.205 0 0"
+            size="0.016" material="distal_bone" density="0"
+            contype="0" conaffinity="0" />
+      <geom name="distal_saddle_visual" type="mesh" mesh="distal_visual"
+            pos="0 0 -0.026" material="joint_surface" density="0"
+            contype="0" conaffinity="0" />
+      <flexcomp name="distal_contact" type="mesh" file="distal_contact_patch.obj"
+                dim="2" rigid="true" radius="0.000885" rgba="0 0 0 0">
+        <contact contype="1" conaffinity="1" condim="3" friction="0.6 0.02 0.005"
+                 solref="0.020 1" solimp="0.90 0.98 0.002" selfcollide="none"
+                 vertcollide="true" internal="false" />
+      </flexcomp>
+
+      <site name="figure8_dist_lower" pos="0.070 -0.022 0" user="1" />
+      <site name="figure8_dist_upper" pos="0.070 0.022 0" user="1" />
+      <site name="figure8_dist_hint_lower" class="route_hint" pos="-0.012 -0.022 0" />
+      <site name="figure8_dist_hint_upper" class="route_hint" pos="-0.012 0.022 0" />
+      <site name="distal_tip" pos="0.205 0 0" size="0.006" rgba="0.72 0.04 0.08 1" />
+    </body>
+  </worldbody>
+
+  <tendon>
+    <spatial name="figure_eight_upper_seed" width="0.000000001" rgba="1.00 0.58 0.05 1">
+      <site site="figure8_prox_upper" />
+      <site site="figure8_prox_hint_upper" />
+      <site site="figure8_dist_hint_lower" />
+      <site site="figure8_dist_lower" />
+    </spatial>
+    <spatial name="figure_eight_lower_seed" width="0.000000001" rgba="0.58 0.27 0.82 1">
+      <site site="figure8_prox_lower" />
+      <site site="figure8_prox_hint_lower" />
+      <site site="figure8_dist_hint_upper" />
+      <site site="figure8_dist_upper" />
+    </spatial>
+    <spatial name="upper_control_seed" width="0.000000001" rgba="0.91 0.12 0.10 1">
+      <site site="figure8_prox_upper" />
+      <site site="figure8_prox_hint_upper" />
+      <site site="figure8_dist_hint_upper" />
+      <site site="figure8_dist_upper" />
+    </spatial>
+    <spatial name="lower_control_seed" width="0.000000001" rgba="0.08 0.42 0.88 1">
+      <site site="figure8_prox_lower" />
+      <site site="figure8_prox_hint_lower" />
+      <site site="figure8_dist_hint_lower" />
+      <site site="figure8_dist_lower" />
+    </spatial>
+  </tendon>
+
+  <actuator>
+    <plugin name="saddle_upper_control" tendon="upper_control_seed" gear="0"
+            instance="upper_control_cable" ctrllimited="true" ctrlrange="-0.006 0.006" />
+    <plugin name="saddle_lower_control" tendon="lower_control_seed" gear="0"
+            instance="lower_control_cable" ctrllimited="true" ctrlrange="-0.006 0.006" />
+  </actuator>
+
+  <sensor>
+    <plugin name="passive_figure_eight_upper_state" instance="passive_figure_eight_upper" />
+    <plugin name="passive_figure_eight_lower_state" instance="passive_figure_eight_lower" />
+    <plugin name="upper_control_state" instance="upper_control_cable" />
+    <plugin name="lower_control_state" instance="lower_control_cable" />
+    <framepos name="distal_position" objtype="body" objname="distal_metacarpal" />
+    <framequat name="distal_orientation" objtype="body" objname="distal_metacarpal" />
+    <framelinvel name="distal_linear_velocity" objtype="body" objname="distal_metacarpal" />
+    <frameangvel name="distal_angular_velocity" objtype="body" objname="distal_metacarpal" />
+  </sensor>
+</mujoco>

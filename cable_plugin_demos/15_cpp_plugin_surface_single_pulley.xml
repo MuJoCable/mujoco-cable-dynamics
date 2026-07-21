@@ -1,0 +1,102 @@
+<mujoco model="cable_demo_surface_single_fixed_pulley">
+  <compiler autolimits="true" angle="radian" />
+  <size nuser_site="1" />
+  <option timestep="0.001" gravity="0 0 -9.81" integrator="implicitfast" />
+
+  <extension>
+    <plugin plugin="mujoco.cable.unilateral">
+      <instance name="surface_pulley_cable">
+        <config key="stiffness" value="1500" />
+        <config key="damping" value="25" />
+        <config key="slack" value="0.0001" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.00135" />
+        <config key="max_tension" value="40" />
+        <config key="ctrl_mode" value="target_contraction" />
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="surface_pulley_seed" />
+        <config key="wrap_geoms" value="fixed_pulley_wrap" />
+        <config key="site_role_user_index" value="0" />
+        <config key="visual_width" value="2" />
+      </instance>
+    </plugin>
+  </extension>
+
+  <asset>
+    <material name="mat_frame" rgba="0.52 0.61 0.68 1" />
+    <material name="mat_pulley" rgba="0.68 0.72 0.75 1" />
+    <material name="mat_payload" rgba="0.08 0.34 0.86 1" />
+  </asset>
+
+  <default>
+    <geom friction="0.8 0.08 0.02" />
+    <site size="0.004" />
+    <default class="route_hint">
+      <site size="0.0001" rgba="1 0.8 0 0" user="2" />
+    </default>
+  </default>
+
+  <worldbody>
+    <light name="key" pos="-0.25 -0.75 0.65" dir="0.2 0.8 -0.7" />
+    <camera name="overview" pos="0 -0.68 0.20" xyaxes="1 0 0 0 0 1" />
+
+    <geom name="floor" type="plane" pos="0 0 -0.01" size="0.55 0.35 0.01"
+          rgba="0.13 0.15 0.17 1" />
+    <geom name="left_post" type="capsule" fromto="-0.28 0.03 0 -0.28 0.03 0.39"
+          size="0.008" material="mat_frame" contype="0" conaffinity="0" />
+    <geom name="top_beam" type="capsule" fromto="-0.30 0.03 0.39 0.15 0.03 0.39"
+          size="0.008" material="mat_frame" contype="0" conaffinity="0" />
+
+    <site name="cable_fixed_end" pos="-0.22 0 0.30" user="1"
+          size="0.006" rgba="0.95 0.12 0.04 1" />
+
+    <body name="fixed_pulley" pos="0 0 0.30">
+      <geom name="fixed_pulley_wrap" type="cylinder"
+            euler="1.57079632679 0 0" size="0.040 0.018"
+            material="mat_pulley" contype="0" conaffinity="0" />
+      <geom name="pulley_hub" type="cylinder"
+            euler="1.57079632679 0 0" size="0.010 0.023"
+            rgba="0.56 0.61 0.65 1" contype="0" conaffinity="0" />
+      <geom name="pulley_spoke" type="capsule" fromto="0 0 0 0.031 0 0"
+            size="0.0025" rgba="0.82 0.84 0.86 1"
+            contype="0" conaffinity="0" />
+    </body>
+
+    <!-- This site selects the upper route only during initialization. -->
+    <site name="pulley_upper_hint" class="route_hint" pos="0 0 0.345" />
+
+    <body name="free_payload" pos="0.040 0 0.105">
+      <freejoint name="payload_free" />
+      <geom name="payload" type="box" size="0.036 0.036 0.025"
+            mass="0.20" material="mat_payload" />
+      <geom name="payload_hook_visual" type="sphere" pos="0 0 0.034"
+            size="0.006" rgba="0.05 0.82 0.22 1"
+            contype="0" conaffinity="0" />
+      <site name="payload_cable_end" pos="0 0 0.034" user="1"
+            size="0.005" rgba="0.05 0.82 0.22 1" />
+    </body>
+  </worldbody>
+
+  <tendon>
+    <!-- The seed records endpoint/hint order but is not the runtime force path. -->
+    <spatial name="surface_pulley_seed" limited="false" width="0.000000001"
+             rgba="1.0 0.22 0.03 1">
+      <site site="cable_fixed_end" />
+      <site site="pulley_upper_hint" />
+      <site site="payload_cable_end" />
+    </spatial>
+  </tendon>
+
+  <actuator>
+    <plugin name="cable_contraction" tendon="surface_pulley_seed" gear="0"
+            instance="surface_pulley_cable" ctrllimited="true"
+            ctrlrange="-0.015 0.090" />
+  </actuator>
+
+  <sensor>
+    <plugin name="surface_pulley_state" instance="surface_pulley_cable" />
+    <actuatorfrc name="reported_cable_force" actuator="cable_contraction" />
+    <framepos name="payload_position" objtype="body" objname="free_payload" />
+    <framelinvel name="payload_velocity" objtype="body" objname="free_payload" />
+  </sensor>
+</mujoco>

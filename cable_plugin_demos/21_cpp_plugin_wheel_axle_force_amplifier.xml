@@ -1,0 +1,184 @@
+<mujoco model="cable_demo_wheel_axle_force_amplifier">
+  <compiler autolimits="true" angle="radian" />
+  <option timestep="0.0005" gravity="0 0 -9.81" integrator="implicitfast" />
+
+  <!--
+    Manual winding-debug contract:
+      fixed: rotates with the drum and represents the rope tie point;
+      exit: fixed in world and represents the free rope tangent point;
+      hook: physical endpoint on the suspended body.
+    The wound arc between fixed and exit is visualized by the viewer's spool
+    debug mode. It is not part of the native
+    tendon length, because joint_spool_angle already accounts for wound length.
+  -->
+  <custom>
+    <text name="spool_debug_large"
+          data="large_drum_input_cable large_input_drum large_drum_fixed large_drum_exit large_drum_input" />
+    <text name="spool_debug_small"
+          data="small_drum_output_cable small_output_drum small_drum_fixed small_drum_exit small_drum_output" />
+  </custom>
+
+  <extension>
+    <plugin plugin="mujoco.cable.unilateral">
+      <instance name="large_drum_input_cable">
+        <config key="stiffness" value="8000" />
+        <config key="damping" value="20" />
+        <config key="slack" value="0" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.0000981" />
+        <config key="max_tension" value="20" />
+        <config key="ctrl_mode" value="joint_spool_angle" />
+        <config key="spool_radius" value="0.060" />
+        <config key="spool_joint" value="compound_drum_hinge" />
+        <config key="spool_reserve_length" value="0.12" />
+        <config key="spool_reserve_direction" value="positive" />
+        <config key="spool_reaction_torque" value="true" />
+      </instance>
+      <instance name="small_drum_output_cable">
+        <config key="stiffness" value="8000" />
+        <config key="damping" value="20" />
+        <config key="slack" value="0" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.0002943" />
+        <config key="max_tension" value="20" />
+        <config key="ctrl_mode" value="joint_spool_angle" />
+        <config key="spool_radius" value="0.020" />
+        <config key="spool_joint" value="compound_drum_hinge" />
+        <config key="spool_reserve_length" value="0.12" />
+        <config key="spool_reserve_direction" value="negative" />
+        <config key="spool_reaction_torque" value="true" />
+      </instance>
+    </plugin>
+  </extension>
+
+  <default>
+    <joint damping="2.0" armature="0.001" />
+    <geom friction="0.8 0.05 0.01" />
+  </default>
+
+  <asset>
+    <texture name="grid_texture" type="2d" builtin="checker"
+             rgb1="0.16 0.17 0.18" rgb2="0.24 0.25 0.27"
+             width="512" height="512" />
+    <material name="grid_material" texture="grid_texture"
+              texrepeat="8 8" reflectance="0.08" />
+    <material name="frame_material" rgba="0.48 0.57 0.64 1" />
+    <material name="drum_material" rgba="0.08 0.09 0.11 1" />
+    <material name="input_material" rgba="0.88 0.20 0.12 1" />
+    <material name="output_material" rgba="0.10 0.38 0.88 1" />
+  </asset>
+
+  <worldbody>
+    <light name="key" pos="-0.35 -0.8 0.85" dir="0.25 0.75 -0.65" />
+    <camera name="overview" pos="0.42 -0.88 0.43"
+            xyaxes="0.90 0.43 0 -0.17 0.35 0.92" />
+
+    <geom name="floor" type="plane" pos="0 0 -0.01"
+          size="0.55 0.42 0.01" material="grid_material" />
+    <geom name="left_frame" type="capsule"
+          fromto="-0.19 0.08 0 -0.19 0.08 0.38"
+          size="0.008" material="frame_material"
+          contype="0" conaffinity="0" />
+    <geom name="right_frame" type="capsule"
+          fromto="0.19 0.08 0 0.19 0.08 0.38"
+          size="0.008" material="frame_material"
+          contype="0" conaffinity="0" />
+    <geom name="top_frame" type="capsule"
+          fromto="-0.20 0.08 0.38 0.20 0.08 0.38"
+          size="0.008" material="frame_material"
+          contype="0" conaffinity="0" />
+
+    <!-- USER TUNING: world-fixed tangent exits of the free cable spans. -->
+    <site name="large_drum_exit" pos="-0.060 -0.052 0.300"
+          size="0.0045" rgba="1 0.82 0.05 1" />
+    <site name="small_drum_exit" pos="0.020 0.057 0.300"
+          size="0.0045" rgba="1 0.82 0.05 1" />
+
+    <body name="compound_drum" pos="0 0 0.300">
+      <joint name="compound_drum_hinge" type="hinge" axis="0 1 0"
+             damping="0.025" armature="0.0008" />
+      <geom name="large_input_drum" type="cylinder"
+            pos="0 -0.032 0" euler="1.57079632679 0 0"
+            size="0.060 0.018" mass="0.10"
+            material="drum_material" contype="0" conaffinity="0" />
+      <geom name="small_output_drum" type="cylinder"
+            pos="0 0.035 0" euler="1.57079632679 0 0"
+            size="0.020 0.018" mass="0.025"
+            material="drum_material" contype="0" conaffinity="0" />
+      <geom name="shaft" type="cylinder"
+            euler="1.57079632679 0 0" size="0.008 0.073"
+            rgba="0.62 0.65 0.68 1" contype="0" conaffinity="0" />
+      <geom name="large_spoke" type="capsule"
+            fromto="0 -0.053 0 0.050 -0.053 0"
+            size="0.0028" rgba="0.82 0.84 0.86 1"
+            contype="0" conaffinity="0" />
+      <geom name="small_spoke" type="capsule"
+            fromto="0 0.057 0 -0.016 0.057 0"
+            size="0.0024" rgba="0.82 0.84 0.86 1"
+            contype="0" conaffinity="0" />
+
+      <!--
+        USER TUNING: body-fixed rope tie points.
+        These initial phases match the two 0.12 m reserves:
+          large: theta_fixed = theta_exit - 0.12 / 0.060
+          small: theta_fixed = theta_exit - (-0.12 / 0.020)
+      -->
+      <site name="large_drum_fixed"
+            pos="0.024969 -0.052 0.054558"
+            type="sphere" size="0.0052" rgba="0.20 1 0.35 1" />
+      <site name="small_drum_fixed"
+            pos="0.019203 0.057 -0.005588"
+            type="sphere" size="0.0042" rgba="0.20 1 0.35 1" />
+    </body>
+
+    <body name="input_weight" pos="-0.060 -0.052 0.135">
+      <joint name="input_slide" type="slide" axis="0 0 1"
+             range="-0.080 0.080" />
+      <geom name="input_mass" type="box" size="0.030 0.027 0.022"
+            mass="0.080" material="input_material" />
+      <site name="input_hook" pos="0 0 0.027"
+            size="0.0045" rgba="0.95 0.15 0.08 1" />
+    </body>
+
+    <body name="output_load" pos="0.020 0.057 0.135">
+      <joint name="output_slide" type="slide" axis="0 0 1"
+             range="-0.080 0.080" />
+      <geom name="output_mass" type="box" size="0.038 0.032 0.027"
+            mass="0.240" material="output_material" />
+      <site name="output_hook" pos="0 0 0.032"
+            size="0.0045" rgba="0.08 0.32 0.95 1" />
+    </body>
+  </worldbody>
+
+  <tendon>
+    <spatial name="large_drum_input" limited="false" width="0.003"
+             rgba="0.95 0.15 0.08 1">
+      <site site="large_drum_exit" />
+      <site site="input_hook" />
+    </spatial>
+    <spatial name="small_drum_output" limited="false" width="0.003"
+             rgba="0.08 0.32 0.95 1">
+      <site site="small_drum_exit" />
+      <site site="output_hook" />
+    </spatial>
+  </tendon>
+
+  <actuator>
+    <plugin name="large_drum_input_cable_actuator"
+            tendon="large_drum_input" instance="large_drum_input_cable" />
+    <plugin name="small_drum_output_cable_actuator"
+            tendon="small_drum_output" instance="small_drum_output_cable" />
+    <motor name="input_pull" joint="input_slide" gear="-1"
+           ctrllimited="true" ctrlrange="0 0.40" />
+  </actuator>
+
+  <sensor>
+    <plugin name="large_drum_input_state"
+            instance="large_drum_input_cable" />
+    <plugin name="small_drum_output_state"
+            instance="small_drum_output_cable" />
+    <jointpos name="compound_drum_angle" joint="compound_drum_hinge" />
+    <jointpos name="input_position" joint="input_slide" />
+    <jointpos name="output_position" joint="output_slide" />
+  </sensor>
+</mujoco>

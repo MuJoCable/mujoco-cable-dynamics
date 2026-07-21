@@ -1,0 +1,279 @@
+<mujoco model="cable_demo_surface_route_rolling_joint_figure_eight">
+  <compiler autolimits="true" angle="radian" />
+  <size nuser_site="1" />
+  <option timestep="0.001" gravity="0 0 0" integrator="implicit" />
+
+  <extension>
+    <plugin plugin="mujoco.cable.unilateral">
+      <instance name="upper_drive_cable">
+        <config key="stiffness" value="1400.0" />
+        <config key="damping" value="16.0" />
+        <config key="slack" value="0.0002" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.0015" />
+        <config key="max_tension" value="120.0" />
+        <config key="ctrl_mode" value="target_contraction" />
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="upper_drive_seed" />
+        <config key="wrap_geoms" value="proximal_roller distal_roller" />
+      </instance>
+      <instance name="lower_drive_cable">
+        <config key="stiffness" value="1400.0" />
+        <config key="damping" value="16.0" />
+        <config key="slack" value="0.0002" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.0015" />
+        <config key="max_tension" value="120.0" />
+        <config key="ctrl_mode" value="target_contraction" />
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="lower_drive_seed" />
+        <config key="wrap_geoms" value="proximal_roller distal_roller" />
+      </instance>
+      <instance name="upper_strap_cable">
+        <config key="stiffness" value="20000" />
+        <config key="damping" value="600" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.00010" />
+        <config key="max_tension" value="100" />
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="upper_strap_seed" />
+        <config key="wrap_geoms" value="proximal_roller distal_roller" />
+      </instance>
+      <instance name="lower_strap_cable">
+        <config key="stiffness" value="20000" />
+        <config key="damping" value="600" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.00010" />
+        <config key="max_tension" value="100" />
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="lower_strap_seed" />
+        <config key="wrap_geoms" value="proximal_roller distal_roller" />
+      </instance>
+      <instance name="left_ligament_a_cable">
+        <config key="stiffness" value="5000" />
+        <config key="damping" value="150" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.00010" />
+        <config key="max_tension" value="50" />
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="left_ligament_a_seed" />
+        <config key="wrap_geoms" value="proximal_side_left distal_side_left" />
+      </instance>
+      <instance name="left_ligament_b_cable">
+        <config key="stiffness" value="5000" />
+        <config key="damping" value="150" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.00010" />
+        <config key="max_tension" value="50" />
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="left_ligament_b_seed" />
+        <config key="wrap_geoms" value="proximal_side_left distal_side_left" />
+      </instance>
+      <instance name="right_ligament_a_cable">
+        <config key="stiffness" value="5000" />
+        <config key="damping" value="150" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.00010" />
+        <config key="max_tension" value="50" />
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="right_ligament_a_seed" />
+        <config key="wrap_geoms" value="proximal_side_right distal_side_right" />
+      </instance>
+      <instance name="right_ligament_b_cable">
+        <config key="stiffness" value="5000" />
+        <config key="damping" value="150" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.00010" />
+        <config key="max_tension" value="50" />
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="right_ligament_b_seed" />
+        <config key="wrap_geoms" value="proximal_side_right distal_side_right" />
+      </instance>
+    </plugin>
+  </extension>
+
+  <asset>
+    <material name="mat_proximal" rgba="0.08 0.22 0.34 1" />
+    <material name="mat_distal" rgba="0.85 0.44 0.10 1" />
+    <material name="mat_roller" rgba="0.035 0.035 0.035 1" />
+  </asset>
+
+  <default>
+    <geom friction="1.4 0.08 0.02" solref="0.003 1" solimp="0.96 0.995 0.001" />
+    <site size="0.0025" />
+    <default class="route_hint">
+      <site size="0.0002" rgba="1 0.82 0 0" user="2" />
+    </default>
+    <default class="massless_wrap">
+      <geom contype="0" conaffinity="0" density="0" material="mat_roller"
+            rgba="0.035 0.035 0.035 0.45" />
+    </default>
+  </default>
+
+  <worldbody>
+    <light name="key" pos="0 -0.8 0.55" dir="0 1 -0.45" />
+    <camera name="overview" pos="0.16 -0.45 0.20"
+            xyaxes="1 0 0 0 0.42 0.9075" />
+
+    <body name="proximal_link" pos="0 0 0" euler="1.57079632679 0 0">
+      <geom name="proximal_body" type="box" pos="0.10 0 0"
+            size="0.10 0.025 0.015" material="mat_proximal" density="2800"
+            contype="0" conaffinity="0" />
+      <geom name="proximal_roller" type="cylinder" pos="0.20 0 0"
+            size="0.030 0.032" material="mat_roller" density="2800"
+            contype="0" conaffinity="0" />
+      <geom name="proximal_contact" type="cylinder" pos="0.20 0 0"
+            size="0.031 0.032" density="0" contype="1" conaffinity="1"
+            rgba="0 0 0 0" />
+      <geom name="proximal_side_left" class="massless_wrap" type="cylinder"
+            pos="0.20 0 0.026" size="0.030 0.008" />
+      <geom name="proximal_side_right" class="massless_wrap" type="cylinder"
+            pos="0.20 0 -0.026" size="0.030 0.008" />
+
+      <site name="prox_anchor_upper" pos="0.05 0.035 0" user="1"
+            rgba="1 0.25 0.05 0.85" />
+      <site name="prox_anchor_lower" pos="0.05 -0.035 0" user="1"
+            rgba="0.05 0.35 1 0.85" />
+      <site name="prox_strap_upper" pos="0.16 0.040 0" user="1"
+            rgba="1 0.62 0.02 0.75" />
+      <site name="prox_strap_lower" pos="0.16 -0.040 0" user="1"
+            rgba="0.58 0.20 0.95 0.75" />
+
+      <site name="prox_hint_upper" class="route_hint" pos="0.232 0.018 0" />
+      <site name="prox_hint_lower" class="route_hint" pos="0.232 -0.018 0" />
+
+      <site name="prox_left_dn" pos="0.15 -0.018 0.020" user="1"
+            rgba="0.05 0.62 0.22 0.75" />
+      <site name="prox_left_up" pos="0.15 0.018 0.020" user="1"
+            rgba="0 0.62 0.72 0.75" />
+      <site name="prox_right_dn" pos="0.15 -0.018 -0.020" user="1"
+            rgba="0.58 0.22 0.88 0.75" />
+      <site name="prox_right_up" pos="0.15 0.018 -0.020" user="1"
+            rgba="0.88 0.20 0.58 0.75" />
+      <site name="prox_hint_left_a" class="route_hint" pos="0.232 -0.016 0.026" />
+      <site name="prox_hint_left_b" class="route_hint" pos="0.232 0.016 0.026" />
+      <site name="prox_hint_right_a" class="route_hint" pos="0.232 -0.016 -0.026" />
+      <site name="prox_hint_right_b" class="route_hint" pos="0.232 0.016 -0.026" />
+    </body>
+
+    <body name="distal_link" pos="0.2575 0 0" euler="1.57079632679 0 0">
+      <joint name="distal_free" type="free" damping="0.30" />
+      <geom name="distal_roller" type="cylinder" size="0.025 0.032"
+            material="mat_roller" mass="0.030" contype="0" conaffinity="0" />
+      <geom name="distal_contact" type="cylinder" size="0.026 0.032"
+            density="0" contype="1" conaffinity="1" rgba="0 0 0 0" />
+      <geom name="distal_body" type="box" pos="0.10 0 0"
+            size="0.10 0.022 0.015" material="mat_distal" density="1900"
+            contype="0" conaffinity="0" />
+      <geom name="distal_side_left" class="massless_wrap" type="cylinder"
+            pos="0 0 0.026" size="0.025 0.008" />
+      <geom name="distal_side_right" class="massless_wrap" type="cylinder"
+            pos="0 0 -0.026" size="0.025 0.008" />
+
+      <site name="dist_anchor_upper" pos="0.055 0.030 0" user="1"
+            rgba="1 0.25 0.05 0.85" />
+      <site name="dist_anchor_lower" pos="0.055 -0.030 0" user="1"
+            rgba="0.05 0.35 1 0.85" />
+      <site name="dist_strap_upper" pos="0.045 0.035 0" user="1"
+            rgba="0.58 0.20 0.95 0.75" />
+      <site name="dist_strap_lower" pos="0.045 -0.035 0" user="1"
+            rgba="1 0.62 0.02 0.75" />
+      <site name="dist_hint_upper" class="route_hint" pos="-0.028 0.015 0" />
+      <site name="dist_hint_lower" class="route_hint" pos="-0.028 -0.015 0" />
+
+      <site name="dist_left_up" pos="0.05 0.010 0.020" user="1"
+            rgba="0.05 0.62 0.22 0.75" />
+      <site name="dist_left_dn" pos="0.05 -0.010 0.020" user="1"
+            rgba="0 0.62 0.72 0.75" />
+      <site name="dist_right_up" pos="0.05 0.010 -0.020" user="1"
+            rgba="0.58 0.22 0.88 0.75" />
+      <site name="dist_right_dn" pos="0.05 -0.010 -0.020" user="1"
+            rgba="0.88 0.20 0.58 0.75" />
+      <site name="dist_hint_left_a" class="route_hint" pos="-0.027 0.014 0.026" />
+      <site name="dist_hint_left_b" class="route_hint" pos="-0.027 -0.014 0.026" />
+      <site name="dist_hint_right_a" class="route_hint" pos="-0.027 0.014 -0.026" />
+      <site name="dist_hint_right_b" class="route_hint" pos="-0.027 -0.014 -0.026" />
+
+      <site name="tip" pos="0.20 0 0" size="0.007" rgba="0.55 0 0.1 1" />
+    </body>
+  </worldbody>
+
+  <tendon>
+    <spatial name="upper_strap_seed" limited="false" width="0.000000001"
+             rgba="1 0.62 0.02 0.9">
+      <site site="prox_strap_upper" />
+      <site site="prox_hint_upper" />
+      <site site="dist_hint_lower" />
+      <site site="dist_strap_lower" />
+    </spatial>
+    <spatial name="lower_strap_seed" limited="false" width="0.000000001"
+             rgba="0.58 0.20 0.95 0.9">
+      <site site="prox_strap_lower" />
+      <site site="prox_hint_lower" />
+      <site site="dist_hint_upper" />
+      <site site="dist_strap_upper" />
+    </spatial>
+    <spatial name="upper_drive_seed" limited="false" width="0.000000001"
+             rgba="1 0.25 0.05 1">
+      <site site="prox_anchor_upper" />
+      <site site="prox_hint_upper" />
+      <site site="dist_hint_lower" />
+      <site site="dist_anchor_lower" />
+    </spatial>
+    <spatial name="lower_drive_seed" limited="false" width="0.000000001"
+             rgba="0.05 0.35 1 1">
+      <site site="prox_anchor_lower" />
+      <site site="prox_hint_lower" />
+      <site site="dist_hint_upper" />
+      <site site="dist_anchor_upper" />
+    </spatial>
+    <spatial name="left_ligament_a_seed" limited="false" width="0.000000001"
+             rgba="0.05 0.62 0.22 0.9">
+      <site site="prox_left_dn" />
+      <site site="prox_hint_left_a" />
+      <site site="dist_hint_left_a" />
+      <site site="dist_left_up" />
+    </spatial>
+    <spatial name="left_ligament_b_seed" limited="false" width="0.000000001"
+             rgba="0 0.62 0.72 0.9">
+      <site site="prox_left_up" />
+      <site site="prox_hint_left_b" />
+      <site site="dist_hint_left_b" />
+      <site site="dist_left_dn" />
+    </spatial>
+    <spatial name="right_ligament_a_seed" limited="false" width="0.000000001"
+             rgba="0.58 0.22 0.88 0.9">
+      <site site="prox_right_dn" />
+      <site site="prox_hint_right_a" />
+      <site site="dist_hint_right_a" />
+      <site site="dist_right_up" />
+    </spatial>
+    <spatial name="right_ligament_b_seed" limited="false" width="0.000000001"
+             rgba="0.88 0.20 0.58 0.9">
+      <site site="prox_right_up" />
+      <site site="prox_hint_right_b" />
+      <site site="dist_hint_right_b" />
+      <site site="dist_right_dn" />
+    </spatial>
+  </tendon>
+
+  <actuator>
+    <plugin name="upper_drive_contraction" tendon="upper_drive_seed" gear="0"
+            instance="upper_drive_cable" ctrllimited="true"
+            ctrlrange="-0.006 0.060" />
+    <plugin name="lower_drive_contraction" tendon="lower_drive_seed" gear="0"
+            instance="lower_drive_cable" ctrllimited="true"
+            ctrlrange="-0.006 0.060" />
+  </actuator>
+
+  <sensor>
+    <plugin name="upper_drive_state" instance="upper_drive_cable" />
+    <plugin name="lower_drive_state" instance="lower_drive_cable" />
+    <plugin name="upper_strap_state" instance="upper_strap_cable" />
+    <plugin name="lower_strap_state" instance="lower_strap_cable" />
+    <actuatorfrc name="upper_drive_force" actuator="upper_drive_contraction" />
+    <actuatorfrc name="lower_drive_force" actuator="lower_drive_contraction" />
+    <framepos name="distal_position" objtype="body" objname="distal_link" />
+    <framequat name="distal_orientation" objtype="body" objname="distal_link" />
+  </sensor>
+</mujoco>

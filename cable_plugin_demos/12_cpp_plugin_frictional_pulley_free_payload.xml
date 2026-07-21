@@ -1,0 +1,62 @@
+<mujoco model="cable_demo_cpp_plugin_frictional_pulley_free_payload">
+  <compiler autolimits="true" angle="radian" />
+  <option timestep="0.001" gravity="0 0 -9.81" integrator="implicit" />
+
+  <extension>
+    <plugin plugin="mujoco.cable.unilateral">
+      <instance name="frictional_pulley_cable">
+        <config key="stiffness" value="650.0" />
+        <config key="damping" value="2.5" />
+        <config key="slack" value="0.0005" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.010" />
+        <config key="max_tension" value="80.0" />
+        <config key="ctrl_mode" value="target_contraction" />
+        <config key="capstan_mu" value="0.25" />
+        <config key="capstan_direction" value="forward" />
+      </instance>
+    </plugin>
+  </extension>
+
+  <asset>
+    <material name="mat_frame" rgba="0.55 0.62 0.68 1" />
+    <material name="mat_payload" rgba="0.1 0.35 0.9 1" />
+    <material name="mat_pulley" rgba="0.68 0.72 0.75 1" />
+    <material name="mat_anchor" rgba="1.0 0.05 0.02 1" />
+  </asset>
+
+  <worldbody>
+    <light name="key" pos="0 -1 1" dir="0 1 -1" />
+    <camera name="overview" pos="0 -0.60 0.18" xyaxes="1 0 0 0 0 1" />
+
+    <geom name="left_post" type="capsule" fromto="-0.16 0.02 0 -0.16 0.02 0.34" size="0.008" material="mat_frame" contype="0" conaffinity="0" />
+    <geom name="top_beam" type="capsule" fromto="-0.20 0.02 0.34 0.18 0.02 0.34" size="0.008" material="mat_frame" contype="0" conaffinity="0" />
+    <site name="site_fixed_anchor" pos="-0.17 0 0.24" size="0.006" rgba="1 0 0 1" />
+
+    <geom name="friction_pulley_visual" type="cylinder" pos="0.04 0 0.30" euler="1.57079632679 0 0" size="0.032 0.012" material="mat_pulley" contype="0" conaffinity="0" />
+    <site name="site_friction_pulley_side_upper" pos="0.04 0 0.358" size="0.0005" rgba="1 0.8 0 0" />
+
+    <body name="load" pos="0.12 0 0.13">
+      <freejoint name="load_free" />
+      <geom name="load_mass" type="box" size="0.032 0.032 0.023" mass="0.28" material="mat_payload" />
+      <geom name="load_hook_visual" type="sphere" pos="0 0 0.030" size="0.0055" rgba="0 0.85 0.15 1" contype="0" conaffinity="0" />
+      <site name="site_load_hook" pos="0 0 0.033" size="0.0055" rgba="0 1 0 1" />
+    </body>
+  </worldbody>
+
+  <tendon>
+    <spatial name="frictional_pulley_load" limited="false" width="0.003" rgba="1.0 0.35 0.05 0.95">
+      <site site="site_fixed_anchor" />
+      <geom geom="friction_pulley_visual" sidesite="site_friction_pulley_side_upper" />
+      <site site="site_load_hook" />
+    </spatial>
+  </tendon>
+
+  <actuator>
+    <plugin name="frictional_pulley_cable_actuator" tendon="frictional_pulley_load" instance="frictional_pulley_cable" ctrlrange="0 0.08" />
+  </actuator>
+
+  <sensor>
+    <plugin name="frictional_pulley_cable_state" instance="frictional_pulley_cable" />
+  </sensor>
+</mujoco>

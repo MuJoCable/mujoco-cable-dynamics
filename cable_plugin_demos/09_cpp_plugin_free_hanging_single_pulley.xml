@@ -1,0 +1,84 @@
+<mujoco model="cable_demo_cpp_plugin_joint_spool_free_hanging_single_pulley">
+  <compiler autolimits="true" angle="radian" />
+  <size nuser_site="1" />
+  <option timestep="0.001" gravity="0 0 -9.81" integrator="implicitfast" />
+
+  <extension>
+    <plugin plugin="mujoco.cable.unilateral">
+      <instance name="winch_cable">
+        <config key="stiffness" value="450.0" />
+        <config key="damping" value="3.0" />
+        <config key="slack" value="0.0005" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.006" />
+        <config key="max_tension" value="45.0" />
+        <config key="ctrl_mode" value="joint_spool_angle" />
+        <config key="spool_radius" value="0.025" />
+        <config key="spool_joint" value="winch_hinge" />
+        <config key="spool_reserve_length" value="0.03" />
+        <config key="spool_reserve_direction" value="positive" />
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="winch_pulley_load_seed" />
+        <config key="wrap_geoms" value="winch_drum_visual top_pulley_visual" />
+        <config key="site_role_user_index" value="0" />
+        <config key="visual_width" value="2" />
+      </instance>
+    </plugin>
+  </extension>
+
+  <default>
+    <geom friction="0.8 0.1 0.1" />
+  </default>
+
+  <asset>
+    <material name="mat_frame" rgba="0.55 0.62 0.68 1" />
+    <material name="mat_payload" rgba="0.1 0.35 0.9 1" />
+    <material name="mat_pulley" rgba="0.68 0.72 0.75 1" />
+    <material name="mat_cable" rgba="1.0 0.35 0.05 0.9" />
+    <material name="mat_anchor" rgba="1.0 0.05 0.02 1" />
+  </asset>
+
+  <worldbody>
+    <light name="key" pos="0 -1 1" dir="0 1 -1" />
+    <camera name="overview" pos="0 -0.62 0.20" xyaxes="1 0 0 0 0 1" />
+
+    <geom name="left_post" type="capsule" fromto="-0.18 0.02 0 -0.18 0.02 0.36" size="0.008" material="mat_frame" contype="0" conaffinity="0" />
+    <geom name="top_beam" type="capsule" fromto="-0.2 0.02 0.36 0.2 0.02 0.36" size="0.008" material="mat_frame" contype="0" conaffinity="0" />
+
+    <body name="winch_spool" pos="-0.18 0 0.28">
+      <joint name="winch_hinge" type="hinge" axis="0 1 0" damping="0.04" armature="0.0004" />
+      <geom name="winch_drum_visual" type="cylinder" euler="1.57079632679 0 0" size="0.025 0.018" material="mat_pulley" contype="0" conaffinity="0" />
+      <geom name="winch_anchor_visual" type="sphere" pos="-0.01968 -0.008 -0.01992" size="0.0055" material="mat_anchor" contype="0" conaffinity="0" />
+      <site name="site_spool_anchor" pos="-0.01968 -0.008 -0.01992" size="0.006" rgba="1 0 0 1" user="1" />
+      <site name="site_spool_wrap_lower" pos="0 0 -0.030" size="0.0001" rgba="1 0.8 0 0" user="2" />
+    </body>
+
+    <geom name="top_pulley_visual" type="cylinder" pos="0.08 0 0.34" euler="1.57079632679 0 0" size="0.03 0.020" material="mat_pulley" contype="0" conaffinity="0" />
+    <site name="site_top_pulley_side_upper" pos="0.08 0 0.375" size="0.0001" rgba="1 0.8 0 0" user="2" />
+
+    <body name="load" pos="0.12 0 0.16">
+      <freejoint name="load_free" />
+      <geom name="load_mass" type="box" size="0.035 0.035 0.025" mass="0.3" material="mat_payload" />
+      <geom name="load_hook_visual" type="sphere" pos="0 0 0.032" size="0.006" rgba="0 0.85 0.15 1" contype="0" conaffinity="0" />
+      <site name="site_load_hook" pos="0 0 0.035" size="0.006" rgba="0 1 0 1" user="1" />
+    </body>
+  </worldbody>
+
+  <tendon>
+    <spatial name="winch_pulley_load_seed" limited="false" width="0.000000001" rgba="1.0 0.35 0.05 0.95">
+      <site site="site_spool_anchor" />
+      <site site="site_spool_wrap_lower" />
+      <site site="site_top_pulley_side_upper" />
+      <site site="site_load_hook" />
+    </spatial>
+  </tendon>
+
+  <actuator>
+    <velocity name="winch_motor" joint="winch_hinge" kv="1.5" ctrlrange="-0.25 0.25" />
+    <plugin name="winch_cable_actuator" tendon="winch_pulley_load_seed" gear="0" instance="winch_cable" />
+  </actuator>
+
+  <sensor>
+    <plugin name="winch_cable_state" instance="winch_cable" />
+  </sensor>
+</mujoco>

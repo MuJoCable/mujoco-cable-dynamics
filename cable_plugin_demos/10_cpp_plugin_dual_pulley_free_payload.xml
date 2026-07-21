@@ -1,0 +1,87 @@
+<mujoco model="cable_demo_cpp_plugin_dual_pulley_free_payload">
+  <compiler autolimits="true" angle="radian" />
+  <size nuser_site="1" />
+  <option timestep="0.001" gravity="0 0 -9.81" integrator="implicitfast" />
+
+  <extension>
+    <plugin plugin="mujoco.cable.unilateral">
+      <instance name="dual_pulley_cable">
+        <config key="stiffness" value="520.0" />
+        <config key="damping" value="3.2" />
+        <config key="slack" value="0.0005" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.008" />
+        <config key="max_tension" value="70.0" />
+        <config key="ctrl_mode" value="joint_spool_angle" />
+        <config key="spool_radius" value="0.023" />
+        <config key="spool_joint" value="winch_hinge" />
+        <config key="spool_reserve_length" value="0.025" />
+        <config key="spool_reserve_direction" value="positive" />
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="dual_pulley_load_seed" />
+        <config key="wrap_geoms" value="winch_drum_visual left_pulley_visual right_pulley_visual" />
+        <config key="site_role_user_index" value="0" />
+        <config key="visual_width" value="2" />
+      </instance>
+    </plugin>
+  </extension>
+
+  <default>
+    <geom friction="0.8 0.1 0.1" />
+  </default>
+
+  <asset>
+    <material name="mat_frame" rgba="0.55 0.62 0.68 1" />
+    <material name="mat_payload" rgba="0.1 0.35 0.9 1" />
+    <material name="mat_pulley" rgba="0.68 0.72 0.75 1" />
+    <material name="mat_anchor" rgba="1.0 0.05 0.02 1" />
+  </asset>
+
+  <worldbody>
+    <light name="key" pos="0 -1 1" dir="0 1 -1" />
+    <camera name="overview" pos="0 -0.70 0.20" xyaxes="1 0 0 0 0 1" />
+
+    <geom name="left_post" type="capsule" fromto="-0.24 0.02 0 -0.24 0.02 0.40" size="0.008" material="mat_frame" contype="0" conaffinity="0" />
+    <geom name="top_beam" type="capsule" fromto="-0.26 0.02 0.40 0.25 0.02 0.40" size="0.008" material="mat_frame" contype="0" conaffinity="0" />
+
+    <body name="winch_spool" pos="-0.24 0 0.28">
+      <joint name="winch_hinge" type="hinge" axis="0 1 0" damping="0.04" armature="0.0004" />
+      <geom name="winch_drum_visual" type="cylinder" euler="1.57079632679 0 0" size="0.023 0.018" material="mat_pulley" contype="0" conaffinity="0" />
+      <geom name="winch_anchor_visual" type="sphere" pos="-0.0175 -0.008 -0.015" size="0.0055" material="mat_anchor" contype="0" conaffinity="0" />
+      <site name="site_spool_anchor" pos="-0.0175 -0.008 -0.015" size="0.006" rgba="1 0 0 1" user="1" />
+      <site name="site_spool_wrap_lower" pos="0 0 -0.028" size="0.0001" rgba="1 0.8 0 0" user="2" />
+    </body>
+
+    <geom name="left_pulley_visual" type="cylinder" pos="-0.02 0 0.36" euler="1.57079632679 0 0" size="0.026 0.020" material="mat_pulley" contype="0" conaffinity="0" />
+    <site name="site_left_pulley_side_upper" pos="-0.02 0 0.391" size="0.0001" rgba="1 0.8 0 0" user="2" />
+
+    <geom name="right_pulley_visual" type="cylinder" pos="0.16 0 0.32" euler="1.57079632679 0 0" size="0.024 0.020" material="mat_pulley" contype="0" conaffinity="0" />
+    <site name="site_right_pulley_side_upper_right" pos="0.18036 0 0.34036" size="0.0001" rgba="1 0.8 0 0" user="2" />
+
+    <body name="load" pos="0.20 0 0.13">
+      <freejoint name="load_free" />
+      <geom name="load_mass" type="box" size="0.032 0.032 0.023" mass="0.25" material="mat_payload" />
+      <geom name="load_hook_visual" type="sphere" pos="0 0 0.030" size="0.0055" rgba="0 0.85 0.15 1" contype="0" conaffinity="0" />
+      <site name="site_load_hook" pos="0 0 0.033" size="0.0055" rgba="0 1 0 1" user="1" />
+    </body>
+  </worldbody>
+
+  <tendon>
+    <spatial name="dual_pulley_load_seed" limited="false" width="0.000000001" rgba="1.0 0.35 0.05 0.95">
+      <site site="site_spool_anchor" />
+      <site site="site_spool_wrap_lower" />
+      <site site="site_left_pulley_side_upper" />
+      <site site="site_right_pulley_side_upper_right" />
+      <site site="site_load_hook" />
+    </spatial>
+  </tendon>
+
+  <actuator>
+    <velocity name="winch_motor" joint="winch_hinge" kv="1.5" ctrlrange="-0.25 0.25" />
+    <plugin name="dual_pulley_cable_actuator" tendon="dual_pulley_load_seed" gear="0" instance="dual_pulley_cable" />
+  </actuator>
+
+  <sensor>
+    <plugin name="dual_pulley_cable_state" instance="dual_pulley_cable" />
+  </sensor>
+</mujoco>

@@ -1,0 +1,8 @@
+*.obj binary
+*.stl binary
+*.png binary
+*.dylib binary
+*.so binary
+*.dll binary
+*.zip binary
+*.gz binary

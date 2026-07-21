@@ -1,0 +1,76 @@
+<mujoco model="faive_index_pip_virtual_hinge_baseline">
+  <compiler angle="radian" autolimits="true"
+            meshdir="assets/faive_index_pip" />
+  <option timestep="0.0005" gravity="0 0 0" integrator="implicitfast" />
+
+  <asset>
+    <mesh name="faive_index_pp" file="index_pp.stl" scale="0.001 0.001 0.001" />
+    <mesh name="faive_index_mp" file="index_mp.stl" scale="0.001 0.001 0.001" />
+    <material name="proximal_material" rgba="0.10 0.48 0.72 1" />
+    <material name="distal_material" rgba="0.95 0.48 0.10 1" />
+  </asset>
+
+  <visual>
+    <headlight diffuse="0.75 0.75 0.75" ambient="0.25 0.25 0.25" />
+    <global azimuth="93" elevation="-18" />
+  </visual>
+
+  <default>
+    <joint type="hinge" limited="true" range="0 0.96"
+           damping="0.05" armature="0.001" frictionloss="0.001" />
+  </default>
+
+  <worldbody>
+    <light name="key" pos="0.12 0.02 0.30" dir="-0.2 0.4 -1" />
+    <camera name="overview" pos="0.14 0.05 0.20"
+            xyaxes="0.80 0.60 0 -0.35 0.47 0.81" />
+
+    <body name="faive_index_pp">
+      <geom type="mesh" mesh="faive_index_pp" material="proximal_material"
+            contype="0" conaffinity="0" density="0" />
+
+      <!-- Original Faive approximation: one rolling contact is represented
+           by two hinge axes at the two circular-surface centers. -->
+      <body name="faive_index_mp_virtual">
+        <joint name="pip_virtual_hinge"
+               pos="-0.034941788 0.163761751 0.023795479"
+               axis="-0.990425995 -0.104241813 -0.090498584" />
+        <inertial pos="0 0 0" mass="0.001"
+                  diaginertia="4e-10 4e-10 3e-10" />
+        <body name="faive_index_mp">
+          <joint name="pip_distal_hinge"
+                 pos="-0.036318552 0.175595650 0.025231923"
+                 axis="-0.990425995 -0.104241813 -0.090498584" />
+          <inertial pos="-0.03673 0.18778 0.02466" mass="0.008"
+                    diaginertia="3e-7 8e-7 8e-7" />
+          <geom type="mesh" mesh="faive_index_mp" material="distal_material"
+                contype="0" conaffinity="0" density="0" />
+          <site name="distal_tip" pos="-0.039015 0.198770 0.028045"
+                size="0.0018" rgba="0.75 0.02 0.08 1" />
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <tendon>
+    <fixed name="pip_virtual_coupling" limited="true"
+           range="-0.00001 0.00001">
+      <joint joint="pip_virtual_hinge" coef="1" />
+      <joint joint="pip_distal_hinge" coef="-1" />
+    </fixed>
+  </tendon>
+
+  <actuator>
+    <position name="pip_joint_command" joint="pip_distal_hinge"
+              ctrlrange="0 0.48" kp="4" kv="0.08"
+              forcelimited="true" forcerange="-1 1" />
+  </actuator>
+
+  <sensor>
+    <jointpos name="virtual_hinge_angle" joint="pip_virtual_hinge" />
+    <jointpos name="distal_hinge_angle" joint="pip_distal_hinge" />
+    <framepos name="tip_position" objtype="site" objname="distal_tip" />
+    <framelinvel name="tip_velocity" objtype="site" objname="distal_tip" />
+    <actuatorfrc name="command_force" actuator="pip_joint_command" />
+  </sensor>
+</mujoco>

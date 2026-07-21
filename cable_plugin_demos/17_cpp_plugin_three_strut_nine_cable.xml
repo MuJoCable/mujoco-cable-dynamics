@@ -1,0 +1,211 @@
+<mujoco model="cable_demo_three_strut_nine_cable_tensegrity">
+  <compiler autolimits="true" angle="radian" />
+  <option timestep="0.0005" gravity="0 0 -9.81" integrator="implicitfast" iterations="100" tolerance="1e-10" />
+  <statistic center="0 0 0.19" extent="0.62" />
+
+  <!--
+    The 30 degree top-triangle twist admits the symmetric self-stress
+    T_ring / T_cross = 0.48405. With k=1500 N/m, the offsets below give
+    approximately 1.452 N in each ring cable and 3.000 N in each cross cable.
+  -->
+  <extension>
+    <plugin plugin="mujoco.cable.unilateral">
+      <instance name="cable_bottom_01">
+        <config key="route_mode" value="native" />
+        <config key="stiffness" value="1500" />
+        <config key="damping" value="4" />
+        <config key="slack" value="0" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.00096810" />
+        <config key="max_tension" value="80" />
+        <config key="control_timeconstant" value="0.04" />
+        <config key="max_contraction_rate" value="0.025" />
+      </instance>
+      <instance name="cable_bottom_12">
+        <config key="route_mode" value="native" />
+        <config key="stiffness" value="1500" />
+        <config key="damping" value="4" />
+        <config key="slack" value="0" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.00096810" />
+        <config key="max_tension" value="80" />
+        <config key="control_timeconstant" value="0.04" />
+        <config key="max_contraction_rate" value="0.025" />
+      </instance>
+      <instance name="cable_bottom_20">
+        <config key="route_mode" value="native" />
+        <config key="stiffness" value="1500" />
+        <config key="damping" value="4" />
+        <config key="slack" value="0" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.00096810" />
+        <config key="max_tension" value="80" />
+        <config key="control_timeconstant" value="0.04" />
+        <config key="max_contraction_rate" value="0.025" />
+      </instance>
+      <instance name="cable_top_01">
+        <config key="route_mode" value="native" />
+        <config key="stiffness" value="1500" />
+        <config key="damping" value="4" />
+        <config key="slack" value="0" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.00096810" />
+        <config key="max_tension" value="80" />
+        <config key="control_timeconstant" value="0.04" />
+        <config key="max_contraction_rate" value="0.025" />
+      </instance>
+      <instance name="cable_top_12">
+        <config key="route_mode" value="native" />
+        <config key="stiffness" value="1500" />
+        <config key="damping" value="4" />
+        <config key="slack" value="0" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.00096810" />
+        <config key="max_tension" value="80" />
+        <config key="control_timeconstant" value="0.04" />
+        <config key="max_contraction_rate" value="0.025" />
+      </instance>
+      <instance name="cable_top_20">
+        <config key="route_mode" value="native" />
+        <config key="stiffness" value="1500" />
+        <config key="damping" value="4" />
+        <config key="slack" value="0" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.00096810" />
+        <config key="max_tension" value="80" />
+        <config key="control_timeconstant" value="0.04" />
+        <config key="max_contraction_rate" value="0.025" />
+      </instance>
+      <instance name="cable_cross_00">
+        <config key="route_mode" value="native" />
+        <config key="stiffness" value="1500" />
+        <config key="damping" value="4" />
+        <config key="slack" value="0" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.00200000" />
+        <config key="max_tension" value="80" />
+        <config key="control_timeconstant" value="0.04" />
+        <config key="max_contraction_rate" value="0.025" />
+      </instance>
+      <instance name="cable_cross_11">
+        <config key="route_mode" value="native" />
+        <config key="stiffness" value="1500" />
+        <config key="damping" value="4" />
+        <config key="slack" value="0" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.00200000" />
+        <config key="max_tension" value="80" />
+        <config key="control_timeconstant" value="0.04" />
+        <config key="max_contraction_rate" value="0.025" />
+      </instance>
+      <instance name="cable_cross_22">
+        <config key="route_mode" value="native" />
+        <config key="stiffness" value="1500" />
+        <config key="damping" value="4" />
+        <config key="slack" value="0" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.00200000" />
+        <config key="max_tension" value="80" />
+        <config key="control_timeconstant" value="0.04" />
+        <config key="max_contraction_rate" value="0.025" />
+      </instance>
+    </plugin>
+  </extension>
+
+  <default>
+    <joint damping="0.02" />
+    <!-- Bit 2 struts collide with the bit 1 ground, but not with each other. -->
+    <geom contype="2" conaffinity="1" friction="0.9 0.02 0.005" solref="0.01 1" solimp="0.9 0.95 0.001" />
+    <site type="sphere" size="0.010" />
+  </default>
+
+  <asset>
+    <texture name="tex_ground_grid" type="2d" builtin="checker"
+             rgb1="0.16 0.18 0.20" rgb2="0.72 0.75 0.78" width="512" height="512" />
+    <material name="mat_ground_grid" texture="tex_ground_grid" texrepeat="16 16"
+              texuniform="true" reflectance="0.05" />
+    <material name="mat_strut_0" rgba="0.12 0.36 0.72 1" />
+    <material name="mat_strut_1" rgba="0.88 0.34 0.10 1" />
+    <material name="mat_strut_2" rgba="0.20 0.62 0.34 1" />
+  </asset>
+
+  <worldbody>
+    <light name="key" pos="0.2 -1.1 1.3" dir="-0.1 0.8 -1" />
+    <light name="fill" pos="-0.8 0.4 0.8" dir="0.8 -0.3 -0.5" diffuse="0.35 0.35 0.35" />
+    <geom name="grid_ground" type="plane" pos="0 0 0" size="1.2 1.2 0.05"
+          material="mat_ground_grid" contype="1" conaffinity="2" />
+
+    <!-- Strut 0: B0 -> T1. Local endpoints are symmetric about the body COM. -->
+    <body name="strut_0" pos="0.0120577 0.045 0.192">
+      <joint name="strut_0_free" type="free" />
+      <geom name="strut_0_capsule" type="capsule"
+            fromto="0.1679423 -0.045 -0.18 -0.1679423 0.045 0.18"
+            size="0.012" density="500" material="mat_strut_0" />
+      <site name="node_b0" pos="0.1679423 -0.045 -0.18" rgba="0.95 0.20 0.10 1" />
+      <site name="node_t1" pos="-0.1679423 0.045 0.18" rgba="0.10 0.65 0.95 1" />
+    </body>
+
+    <!-- Strut 1: B1 -> T2. -->
+    <body name="strut_1" pos="-0.045 -0.0120577 0.192">
+      <joint name="strut_1_free" type="free" />
+      <geom name="strut_1_capsule" type="capsule"
+            fromto="-0.045 0.1679423 -0.18 0.045 -0.1679423 0.18"
+            size="0.012" density="500" material="mat_strut_1" />
+      <site name="node_b1" pos="-0.045 0.1679423 -0.18" rgba="0.95 0.20 0.10 1" />
+      <site name="node_t2" pos="0.045 -0.1679423 0.18" rgba="0.10 0.65 0.95 1" />
+    </body>
+
+    <!-- Strut 2: B2 -> T0. -->
+    <body name="strut_2" pos="0.0329423 -0.0329423 0.192">
+      <joint name="strut_2_free" type="free" />
+      <geom name="strut_2_capsule" type="capsule"
+            fromto="-0.1229423 -0.1229423 -0.18 0.1229423 0.1229423 0.18"
+            size="0.012" density="500" material="mat_strut_2" />
+      <site name="node_b2" pos="-0.1229423 -0.1229423 -0.18" rgba="0.95 0.20 0.10 1" />
+      <site name="node_t0" pos="0.1229423 0.1229423 0.18" rgba="0.10 0.65 0.95 1" />
+    </body>
+  </worldbody>
+
+  <tendon>
+    <!-- Bottom ring: B0-B1-B2-B0. -->
+    <spatial name="bottom_01" width="0.0022" rgba="0.84 0.15 0.16 0.95"><site site="node_b0" /><site site="node_b1" /></spatial>
+    <spatial name="bottom_12" width="0.0022" rgba="0.95 0.43 0.08 0.95"><site site="node_b1" /><site site="node_b2" /></spatial>
+    <spatial name="bottom_20" width="0.0022" rgba="0.92 0.68 0.08 0.95"><site site="node_b2" /><site site="node_b0" /></spatial>
+
+    <!-- Top ring: T0-T1-T2-T0. -->
+    <spatial name="top_01" width="0.0022" rgba="0.10 0.45 0.82 0.95"><site site="node_t0" /><site site="node_t1" /></spatial>
+    <spatial name="top_12" width="0.0022" rgba="0.00 0.68 0.78 0.95"><site site="node_t1" /><site site="node_t2" /></spatial>
+    <spatial name="top_20" width="0.0022" rgba="0.32 0.30 0.78 0.95"><site site="node_t2" /><site site="node_t0" /></spatial>
+
+    <!-- Cross-layer cables: B_i-T_i. The struts use B_i-T_(i+1). -->
+    <spatial name="cross_00" width="0.0024" rgba="0.12 0.62 0.32 0.95"><site site="node_b0" /><site site="node_t0" /></spatial>
+    <spatial name="cross_11" width="0.0024" rgba="0.72 0.20 0.68 0.95"><site site="node_b1" /><site site="node_t1" /></spatial>
+    <spatial name="cross_22" width="0.0024" rgba="0.30 0.16 0.48 0.95"><site site="node_b2" /><site site="node_t2" /></spatial>
+  </tendon>
+
+  <!-- Controls are held at zero in this passive tensegrity demo. Each plugin
+       actuator is the native tendon-force transmission required by route_mode=native. -->
+  <actuator>
+    <plugin name="act_bottom_01" tendon="bottom_01" instance="cable_bottom_01" ctrlrange="0 0.06" />
+    <plugin name="act_bottom_12" tendon="bottom_12" instance="cable_bottom_12" ctrlrange="0 0.06" />
+    <plugin name="act_bottom_20" tendon="bottom_20" instance="cable_bottom_20" ctrlrange="0 0.06" />
+    <plugin name="act_top_01" tendon="top_01" instance="cable_top_01" ctrlrange="0 0.06" />
+    <plugin name="act_top_12" tendon="top_12" instance="cable_top_12" ctrlrange="0 0.06" />
+    <plugin name="act_top_20" tendon="top_20" instance="cable_top_20" ctrlrange="0 0.06" />
+    <plugin name="act_cross_00" tendon="cross_00" instance="cable_cross_00" ctrlrange="0 0.06" />
+    <plugin name="act_cross_11" tendon="cross_11" instance="cable_cross_11" ctrlrange="0 0.06" />
+    <plugin name="act_cross_22" tendon="cross_22" instance="cable_cross_22" ctrlrange="0 0.06" />
+  </actuator>
+
+  <sensor>
+    <plugin name="state_bottom_01" instance="cable_bottom_01" />
+    <plugin name="state_bottom_12" instance="cable_bottom_12" />
+    <plugin name="state_bottom_20" instance="cable_bottom_20" />
+    <plugin name="state_top_01" instance="cable_top_01" />
+    <plugin name="state_top_12" instance="cable_top_12" />
+    <plugin name="state_top_20" instance="cable_top_20" />
+    <plugin name="state_cross_00" instance="cable_cross_00" />
+    <plugin name="state_cross_11" instance="cable_cross_11" />
+    <plugin name="state_cross_22" instance="cable_cross_22" />
+  </sensor>
+</mujoco>

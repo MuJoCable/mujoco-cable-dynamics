@@ -1,0 +1,278 @@
+{
+  "contact_extraction_distance_m": 0.002,
+  "generated": {
+    "distal": {
+      "contact_patch": {
+        "aligned_world_center_m": [
+          0.22013751525685585,
+          0.0,
+          0.0
+        ],
+        "alignment_rotation": [
+          [
+            0.9410370926872792,
+            -0.021820818859977862,
+            0.33759893668516394
+          ],
+          [
+            0.021820818859977862,
+            0.9997546939532924,
+            0.003795231565888954
+          ],
+          [
+            -0.33759893668516394,
+            0.003795231565888954,
+            0.9412823987339868
+          ]
+        ],
+        "bounds_max_m": [
+          -0.023344864064183107,
+          0.006,
+          0.007
+        ],
+        "bounds_min_m": [
+          -0.02348748474314416,
+          -0.006,
+          -0.007
+        ],
+        "closed": false,
+        "cluster_voxel_m": 0.003469446951953614,
+        "contact_crown_m": 4e-05,
+        "contact_gap_m": 0.00175,
+        "convex_local_test": true,
+        "degenerate_faces": 0,
+        "faces": 6,
+        "file": "distal_contact_patch.obj",
+        "manifold": true,
+        "one_ring_faces": 90,
+        "sample_extents_m": [
+          0.006,
+          0.007
+        ],
+        "sample_grid": [
+          3,
+          3
+        ],
+        "seed_faces_within_2mm": 23,
+        "shared_saddle_curvatures_per_m": [
+          -1.0792968663143445,
+          2.0709258397626202
+        ],
+        "source_patch_center_m": [
+          -0.02341505878277877,
+          0.0006784268223771591,
+          -0.010006627200592661
+        ],
+        "source_patch_normal": [
+          0.9410370926872792,
+          -0.021820818859977862,
+          0.33759893668516394
+        ],
+        "source_quadratic_curvatures_per_m": [
+          18.85814166066028,
+          14.18438340060837
+        ],
+        "source_quadratic_fit_rmse_m": 1.598857064574923e-05,
+        "unique_edges": 14,
+        "vertices": 9
+      }
+    },
+    "proximal": {
+      "contact_patch": {
+        "aligned_world_center_m": [
+          0.21838751525685587,
+          0.0,
+          0.0
+        ],
+        "alignment_rotation": [
+          [
+            0.9419245681803293,
+            0.07304032723306468,
+            0.3277853237348908
+          ],
+          [
+            -0.07304032723306468,
+            0.9972527823738735,
+            -0.012328773063634873
+          ],
+          [
+            -0.3277853237348908,
+            -0.012328773063634873,
+            0.9446717858064558
+          ]
+        ],
+        "bounds_max_m": [
+          0.21848899062300425,
+          0.006,
+          0.007
+        ],
+        "bounds_min_m": [
+          0.21834866056966856,
+          -0.006,
+          -0.007
+        ],
+        "closed": false,
+        "cluster_voxel_m": 0.003469446951953614,
+        "contact_crown_m": 0.0,
+        "contact_gap_m": 0.00175,
+        "convex_local_test": true,
+        "degenerate_faces": 0,
+        "faces": 6,
+        "file": "proximal_contact_patch.obj",
+        "manifold": true,
+        "one_ring_faces": 46,
+        "sample_extents_m": [
+          0.006,
+          0.007
+        ],
+        "sample_grid": [
+          3,
+          3
+        ],
+        "seed_faces_within_2mm": 15,
+        "shared_saddle_curvatures_per_m": [
+          -1.0792968663143445,
+          2.0709258397626202
+        ],
+        "source_patch_center_m": [
+          0.21831508929649046,
+          0.0010980825768118457,
+          -0.010587003152218779
+        ],
+        "source_patch_normal": [
+          0.9419245681803293,
+          0.07304032723306468,
+          0.3277853237348908
+        ],
+        "source_quadratic_curvatures_per_m": [
+          -29.651110323803724,
+          6.524874997017829
+        ],
+        "source_quadratic_fit_rmse_m": 6.891141062677257e-05,
+        "unique_edges": 14,
+        "vertices": 9
+      }
+    }
+  },
+  "generator": "scripts/prepare_passive_saddle_assets.py",
+  "max_contact_patch_faces": 12,
+  "neutral_pose": {
+    "distal_body_x_m": 0.243625,
+    "minimum_sample_distance_m": 0.0018214150570804303,
+    "near_vertex_count": 9,
+    "offset_m": -0.001375
+  },
+  "sources": [
+    {
+      "bounds_max_m": [
+        0.22526928186416628,
+        0.02672020494937897,
+        0.0325
+      ],
+      "bounds_min_m": [
+        0.17473381757736206,
+        -0.026720887422561648,
+        -0.029999999929341062
+      ],
+      "closed": true,
+      "convex_local_test": false,
+      "degenerate_faces": 0,
+      "faces": 41152,
+      "file": "test_1_routed.stl",
+      "geom_offset_m": [
+        0.2,
+        0.0,
+        -0.03
+      ],
+      "manifold": true,
+      "repair": {
+        "method": "Blender voxel remesh followed by quadric decimation",
+        "purpose": "remove source triangle self-intersections while preserving the joint surface",
+        "voxel_size_source_units": 0.001
+      },
+      "scale": [
+        0.2,
+        0.2,
+        0.25
+      ],
+      "source_file": "test_1_visual.stl",
+      "source_topology": {
+        "bounds_max_m": [
+          0.2252693921327591,
+          0.026724830269813538,
+          0.0325
+        ],
+        "bounds_min_m": [
+          0.17473347187042237,
+          -0.02672504484653473,
+          -0.03000000000000005
+        ],
+        "closed": true,
+        "convex_local_test": false,
+        "degenerate_faces": 0,
+        "faces": 41996,
+        "manifold": true,
+        "unique_edges": 62994,
+        "vertices": 21000
+      },
+      "unique_edges": 61728,
+      "vertices": 20578
+    },
+    {
+      "bounds_max_m": [
+        0.02502068504691124,
+        0.02501959353685379,
+        0.02400017583370209
+      ],
+      "bounds_min_m": [
+        -0.0250227153301239,
+        -0.025020543485879898,
+        -0.026000240221822877
+      ],
+      "closed": true,
+      "convex_local_test": false,
+      "degenerate_faces": 0,
+      "faces": 13716,
+      "file": "test_2_routed.stl",
+      "geom_offset_m": [
+        0.0,
+        0.0,
+        -0.026
+      ],
+      "manifold": true,
+      "repair": {
+        "method": "Blender voxel remesh followed by quadric decimation",
+        "purpose": "remove source triangle self-intersections while preserving the joint surface",
+        "voxel_size_source_units": 0.001
+      },
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "source_file": "test_2_visual.stl",
+      "source_topology": {
+        "bounds_max_m": [
+          0.025023533031344414,
+          0.025022663176059723,
+          0.02400000074505806
+        ],
+        "bounds_min_m": [
+          -0.02502276748418808,
+          -0.025022253394126892,
+          -0.026
+        ],
+        "closed": true,
+        "convex_local_test": false,
+        "degenerate_faces": 0,
+        "faces": 13822,
+        "manifold": true,
+        "unique_edges": 20733,
+        "vertices": 6913
+      },
+      "unique_edges": 20574,
+      "vertices": 6860
+    }
+  ],
+  "units": "m"
+}

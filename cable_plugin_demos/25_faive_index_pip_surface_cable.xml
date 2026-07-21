@@ -1,0 +1,295 @@
+<mujoco model="faive_index_pip_surface_cable">
+  <compiler angle="radian" autolimits="true" alignfree="false"
+            meshdir="assets/faive_index_pip" />
+  <size nuser_site="1" />
+  <option timestep="0.0002" gravity="0 0 0" integrator="implicitfast" />
+
+  <extension>
+    <plugin plugin="mujoco.cable.unilateral">
+      <instance name="pip_flexor_cable">
+        <config key="route_mode" value="surface" />
+        <config key="mesh_route_mode" value="guided_surface" />
+        <config key="mesh_guide_axis"
+                value="-0.990425995 -0.104241813 -0.090498584" />
+        <config key="mesh_guide_weight" value="20" />
+        <config key="route_tendon" value="pip_flexor_seed" />
+        <config key="wrap_geoms"
+                value="proximal_route_surface distal_route_surface" />
+        <config key="home_length" value="auto_initial" />
+        <config key="stiffness" value="3000" />
+        <config key="damping" value="1.0" />
+        <config key="slack" value="0.00010" />
+        <config key="pretension_offset" value="0" />
+        <config key="max_tension" value="12" />
+        <config key="ctrl_mode" value="target_contraction" />
+        <config key="control_timeconstant" value="0.02" />
+        <config key="max_contraction_rate" value="0.030" />
+        <config key="taut_transition" value="0.00008" />
+        <config key="taut_hysteresis" value="0.00003" />
+        <config key="route_hysteresis" value="0.00001" />
+        <config key="composite_merge_distance" value="0.00080" />
+        <config key="visual_width" value="1.2" />
+        <config key="visual_smoothing_timeconstant" value="0.02" />
+      </instance>
+      <instance name="pip_extensor_cable">
+        <config key="route_mode" value="surface" />
+        <config key="mesh_route_mode" value="guided_surface" />
+        <config key="mesh_guide_axis"
+                value="-0.990425995 -0.104241813 -0.090498584" />
+        <config key="mesh_guide_weight" value="20" />
+        <config key="route_tendon" value="pip_extensor_seed" />
+        <config key="wrap_geoms"
+                value="proximal_route_surface distal_route_surface" />
+        <config key="home_length" value="auto_initial" />
+        <config key="stiffness" value="3000" />
+        <config key="damping" value="1.0" />
+        <config key="slack" value="0.00010" />
+        <config key="pretension_offset" value="0" />
+        <config key="max_tension" value="12" />
+        <config key="ctrl_mode" value="target_contraction" />
+        <config key="control_timeconstant" value="0.02" />
+        <config key="max_contraction_rate" value="0.030" />
+        <config key="taut_transition" value="0.00008" />
+        <config key="taut_hysteresis" value="0.00003" />
+        <config key="route_hysteresis" value="0.00001" />
+        <config key="composite_merge_distance" value="0.00080" />
+        <config key="visual_width" value="1.2" />
+        <config key="visual_smoothing_timeconstant" value="0.02" />
+      </instance>
+      <instance name="pip_ligament_right_upper">
+        <config key="route_mode" value="surface" />
+        <config key="mesh_route_mode" value="guided_surface" />
+        <config key="mesh_guide_axis"
+                value="-0.990425995 -0.104241813 -0.090498584" />
+        <config key="mesh_guide_weight" value="20" />
+        <config key="route_tendon" value="ligament_right_upper_seed" />
+        <config key="wrap_geoms"
+                value="proximal_route_surface distal_route_surface" />
+        <config key="home_length" value="auto_initial" />
+        <config key="stiffness" value="50" />
+        <config key="damping" value="0.02" />
+        <config key="pretension_offset" value="0.00005" />
+        <config key="max_tension" value="2" />
+        <config key="taut_transition" value="0.00010" />
+        <config key="taut_hysteresis" value="0.00002" />
+        <config key="route_hysteresis" value="0.00001" />
+        <config key="composite_merge_distance" value="0.00080" />
+        <config key="visual_width" value="3.5" />
+      </instance>
+      <instance name="pip_ligament_right_lower">
+        <config key="route_mode" value="surface" />
+        <config key="mesh_route_mode" value="guided_surface" />
+        <config key="mesh_guide_axis"
+                value="-0.990425995 -0.104241813 -0.090498584" />
+        <config key="mesh_guide_weight" value="20" />
+        <config key="route_tendon" value="ligament_right_lower_seed" />
+        <config key="wrap_geoms"
+                value="proximal_route_surface distal_route_surface" />
+        <config key="home_length" value="auto_initial" />
+        <config key="stiffness" value="50" />
+        <config key="damping" value="0.02" />
+        <config key="pretension_offset" value="0.00005" />
+        <config key="max_tension" value="2" />
+        <config key="taut_transition" value="0.00010" />
+        <config key="taut_hysteresis" value="0.00002" />
+        <config key="route_hysteresis" value="0.00001" />
+        <config key="composite_merge_distance" value="0.00080" />
+        <config key="visual_width" value="3.5" />
+      </instance>
+    </plugin>
+  </extension>
+
+  <asset>
+    <mesh name="faive_index_pp" file="index_pp.stl" scale="0.001 0.001 0.001" />
+    <mesh name="faive_index_mp" file="index_mp.stl" scale="0.001 0.001 0.001" />
+    <mesh name="faive_index_pp_outer" file="index_pp_outer.obj" />
+    <mesh name="faive_index_mp_outer" file="index_mp_outer.obj" />
+    <material name="proximal_material" rgba="0.10 0.48 0.72 0.72" />
+    <material name="distal_material" rgba="0.95 0.48 0.10 0.72" />
+    <material name="surface_material" rgba="0.035 0.035 0.04 0.9" />
+  </asset>
+
+  <visual>
+    <headlight diffuse="0.75 0.75 0.75" ambient="0.25 0.25 0.25" />
+    <global azimuth="93" elevation="-18" />
+  </visual>
+
+  <default>
+    <geom friction="1.2 0.02 0.005" solref="0.020 1"
+          solimp="0.90 0.98 0.002" margin="0.00010" />
+    <site size="0.0011" />
+    <default class="route_hint">
+      <site user="2" size="0.0001" rgba="0 0 0 0" />
+    </default>
+    <default class="endpoint">
+      <site user="1" size="0.0008" />
+    </default>
+  </default>
+
+  <worldbody>
+    <light name="key" pos="0.12 0.02 0.30" dir="-0.2 0.4 -1" />
+    <camera name="overview" pos="0.14 0.05 0.20"
+            xyaxes="0.80 0.60 0 -0.35 0.47 0.81" />
+    <!-- Same viewing direction as overview, translated so the rolling
+         interface remains centered when rendered into a half-width panel. -->
+    <camera name="split_oblique" pos="0.093934 -0.001312 0.181134"
+            xyaxes="0.80 0.60 0 -0.35 0.47 0.81" />
+    <!-- Looks along mesh_guide_axis, normal to the initialized cable-routing
+         section. Camera x is the projected finger axis and camera y is the
+         section's transverse direction. -->
+    <camera name="route_normal" pos="0.082051 0.185509 0.034360"
+            xyaxes="-0.103809 0.994552 -0.009485 -0.090994 0 0.995851" />
+
+    <body name="faive_index_pp">
+      <geom name="proximal_visual_mesh" type="mesh" mesh="faive_index_pp" material="proximal_material"
+            contype="0" conaffinity="0" density="0" />
+      <!-- The closed shell preserves the source STL triangles selected as the
+           connected maximum-volume exterior. It is the actual route obstacle. -->
+      <geom name="proximal_route_surface" type="mesh" mesh="faive_index_pp_outer"
+            density="0" contype="0" conaffinity="0" rgba="0 0 0 0" />
+      <!-- Rigid flex contact retains the joint-facing triangles from the same
+           exterior shell; unlike an ordinary mesh geom it is not convexified. -->
+      <flexcomp name="proximal_mesh_contact" type="mesh" file="index_pp_contact.obj"
+                dim="2" rigid="true" radius="0.00005" rgba="0 0 0 0">
+        <contact contype="1" conaffinity="1" condim="3"
+                 friction="1.2 0.02 0.005" margin="0.00010"
+                 solref="0.005 1" solimp="0.95 0.995 0.0005"
+                 selfcollide="none"
+                 vertcollide="true" internal="false" />
+      </flexcomp>
+
+      <site name="flexor_prox" class="endpoint"
+            pos="-0.031955428 0.147558191 0.009776696" rgba="0.90 0.08 0.06 1" />
+      <!-- The active flexor runs around the lower outer arc of both rigid
+           shells. Hints select the initial support faces only. -->
+      <site name="flexor_prox_hint" class="route_hint"
+            pos="-0.032981030 0.166022540 0.015613570" />
+      <!-- Blue control cable: y/z follows ligament_right_lower_prox while x
+           uses the measured lateral midplane of the imported proximal mesh. -->
+      <site name="extensor_prox" class="endpoint"
+            pos="-0.034025209 0.151656207 0.026339542" rgba="0.08 0.30 0.95 1" />
+      <site name="extensor_prox_hint" class="route_hint"
+            pos="-0.034001320 0.166635910 0.027240750" />
+
+      <site name="ligament_right_upper_prox" class="endpoint"
+            pos="-0.032529261 0.161816672 0.013197530" rgba="0.12 0.65 0.34 1" />
+      <site name="ligament_right_lower_prox" class="endpoint"
+            pos="-0.032529261 0.151656207 0.026339542" rgba="0.00 0.62 0.72 1" />
+      <!-- Joint hints are projected onto inward-facing bands of the two actual
+           shells. They select a captured ligament corridor across the contact
+           region; runtime contact points slide on the mesh and do not follow
+           the sites. Endpoint x coordinates use the shell midplane, while the
+           hints remain on the user-selected contact-arc triangles. -->
+      <!-- Preserved user tuning marker. It is intentionally not part of the
+           runtime seed tendon: forcing this outer point made the route climb
+           the nearly vertical side wall instead of following the contact arc. -->
+      <site name="ligament_right_upper_prox_hint" user="0"
+            size="0.0001" rgba="0 0 0 0"
+            pos="-0.038340120 0.169 0.017315670" />
+      <site name="ligament_right_lower_prox_hint" class="route_hint"
+            pos="-0.037340120 0.169600000 0.025000000" />
+      <!-- Runtime seed on the proximal contact arc. The endpoint chooses the
+           entry side; this hint selects the measured common-tangent support
+           band and is not a runtime cable node. -->
+      <site name="ligament_right_upper_prox_bridge_hint" class="route_hint"
+            pos="-0.036209000 0.169682000 0.023489000" />
+    </body>
+
+    <!-- Rigid neutral-pose tuning offset. Adjust this body pos before moving
+         individual distal geoms or sites; values are in meters. -->
+    <body name="faive_index_mp" pos="0 0.00005 0">
+      <joint name="pip_free" type="free" damping="0.05" />
+      <inertial pos="-0.03673 0.18778 0.02466" mass="0.008"
+                diaginertia="3e-7 8e-7 8e-7" />
+      <geom name="distal_visual_mesh" type="mesh" mesh="faive_index_mp" material="distal_material"
+            contype="0" conaffinity="0" density="0" />
+      <geom name="distal_route_surface" type="mesh" mesh="faive_index_mp_outer"
+            density="0" contype="0" conaffinity="0" rgba="0 0 0 0" />
+      <flexcomp name="distal_mesh_contact" type="mesh" file="index_mp_contact.obj"
+                dim="2" rigid="true" radius="0.00005" rgba="0 0 0 0">
+        <contact contype="1" conaffinity="1" condim="3"
+                 friction="1.2 0.02 0.005" margin="0.00010"
+                 solref="0.005 1" solimp="0.95 0.995 0.0005"
+                 selfcollide="none"
+                 vertcollide="true" internal="false" />
+      </flexcomp>
+      <site name="distal_tip" pos="-0.039015 0.198770 0.028045"
+            size="0.0018" rgba="0.75 0.02 0.08 1" />
+
+      <site name="flexor_dist" class="endpoint"
+            pos="-0.037462485 0.194893784 0.015522472" rgba="0.90 0.08 0.06 1" />
+      <site name="flexor_dist_hint" class="route_hint"
+            pos="-0.037501640 0.170877580 0.021110700" />
+      <!-- y/z follows ligament_right_upper_dist; x uses the measured lateral
+           midplane of the imported distal mesh. -->
+      <site name="extensor_dist" class="endpoint"
+            pos="-0.037926041 0.185185586 0.030409466" rgba="0.08 0.30 0.95 1" />
+      <site name="extensor_dist_hint" class="route_hint"
+            pos="-0.036064000 0.171083280 0.027347960" />
+
+      <site name="ligament_right_upper_dist" class="endpoint"
+            pos="-0.036771730 0.185185586 0.030409466" rgba="0.12 0.65 0.34 1" />
+      <site name="ligament_right_lower_dist" class="endpoint"
+            pos="-0.036771730 0.178346051 0.018011379" rgba="0.00 0.62 0.72 1" />
+      <site name="ligament_right_upper_dist_hint" user="0"
+            size="0.0001" rgba="0 0 0 0"
+            pos="-0.038872068 0.172705480 0.028499040" />
+      <site name="ligament_right_lower_dist_hint" class="route_hint"
+            pos="-0.036400390 0.169200000 0.024750000" />
+      <!-- Distal inner capture paired with the proximal bridge above. -->
+      <site name="ligament_right_upper_dist_bridge_hint" class="route_hint"
+            pos="-0.036341000 0.169614000 0.024954000" />
+    </body>
+  </worldbody>
+
+  <tendon>
+    <!-- Active seed tendons encode endpoint/surface order only. Their nearly
+         zero width hides MuJoCo's straight site polyline; the plugin draws and
+         loads the runtime envelope on both real mesh shells. -->
+    <spatial name="pip_flexor_seed" width="0.000000001" rgba="0.90 0.08 0.06 1">
+      <site site="flexor_prox" />
+      <site site="flexor_prox_hint" />
+      <site site="flexor_dist_hint" />
+      <site site="flexor_dist" />
+    </spatial>
+    <spatial name="pip_extensor_seed" width="0.000000001" rgba="0.08 0.30 0.95 1">
+      <site site="extensor_prox" />
+      <site site="extensor_prox_hint" />
+      <site site="extensor_dist_hint" />
+      <site site="extensor_dist" />
+    </spatial>
+    <!-- Keep seed tendons effectively invisible. The visible cable is emitted
+         by the plugin visualize callback from the runtime surface route. -->
+    <spatial name="ligament_right_upper_seed" width="0.000000001" rgba="0.12 0.65 0.34 1">
+      <site site="ligament_right_upper_prox" />
+      <site site="ligament_right_upper_prox_bridge_hint" />
+      <site site="ligament_right_upper_dist_bridge_hint" />
+      <site site="ligament_right_upper_dist" />
+    </spatial>
+    <spatial name="ligament_right_lower_seed" width="0.000000001" rgba="0.00 0.62 0.72 1">
+      <site site="ligament_right_lower_prox" />
+      <site site="ligament_right_lower_prox_hint" />
+      <site site="ligament_right_lower_dist_hint" />
+      <site site="ligament_right_lower_dist" />
+    </spatial>
+  </tendon>
+
+  <actuator>
+    <plugin name="pip_flexor_command" tendon="pip_flexor_seed"
+            instance="pip_flexor_cable" gear="0" ctrlrange="0 0.003" />
+    <plugin name="pip_extensor_command" tendon="pip_extensor_seed"
+            instance="pip_extensor_cable" gear="0" ctrlrange="0 0.003" />
+  </actuator>
+
+  <sensor>
+    <plugin name="pip_flexor_state" instance="pip_flexor_cable" />
+    <plugin name="pip_extensor_state" instance="pip_extensor_cable" />
+    <plugin name="ligament_right_upper_state" instance="pip_ligament_right_upper" />
+    <plugin name="ligament_right_lower_state" instance="pip_ligament_right_lower" />
+    <framepos name="tip_position" objtype="site" objname="distal_tip" />
+    <framelinvel name="tip_velocity" objtype="site" objname="distal_tip" />
+    <framequat name="distal_orientation" objtype="body" objname="faive_index_mp" />
+    <framelinvel name="distal_linear_velocity" objtype="body" objname="faive_index_mp" />
+    <frameangvel name="distal_angular_velocity" objtype="body" objname="faive_index_mp" />
+  </sensor>
+</mujoco>
