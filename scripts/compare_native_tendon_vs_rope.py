@@ -18,7 +18,7 @@ import numpy as np
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_PLUGIN = ROOT / "build/cable_surface/plugin/libcable_unilateral.dylib"
+DEFAULT_PLUGIN = ROOT / "build/plugin/libcable_unilateral.dylib"
 DEFAULT_PLUGIN_MODEL = ROOT / "cable_plugin_demos" / "17_cpp_plugin_three_strut_nine_cable.xml"
 DEFAULT_NATIVE_MODEL = ROOT / "cable_plugin_demos" / "18_native_tendon_three_strut_nine_cable.xml"
 DEFAULT_OUT = ROOT / "outputs" / "native_vs_plugin_tendon_report"

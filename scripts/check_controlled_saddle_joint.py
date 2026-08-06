@@ -15,7 +15,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MODEL = ROOT / "cable_plugin_demos" / "20_cpp_plugin_controlled_saddle_joint.xml"
-DEFAULT_PLUGIN = ROOT / "build/cable_surface/plugin/libcable_unilateral.dylib"
+DEFAULT_PLUGIN = ROOT / "build/plugin/libcable_unilateral.dylib"
 DEFAULT_OUTPUT = ROOT / "outputs" / "demo20_controlled_saddle_joint"
 
 SENSOR_FIELDS = (

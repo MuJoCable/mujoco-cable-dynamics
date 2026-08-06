@@ -17,7 +17,7 @@ except ModuleNotFoundError:
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MODEL = ROOT / "cable_plugin_demos/20_cpp_plugin_controlled_saddle_joint.xml"
-DEFAULT_PLUGIN = ROOT / "build/cable_surface/plugin/libcable_unilateral.dylib"
+DEFAULT_PLUGIN = ROOT / "build/plugin/libcable_unilateral.dylib"
 WRAP_GEOMS = ("proximal_saddle_visual", "distal_saddle_visual")
 PENETRATION_CLEARANCE_M = 1e-7
 

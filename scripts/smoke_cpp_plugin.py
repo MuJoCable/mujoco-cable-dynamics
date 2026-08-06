@@ -43,7 +43,8 @@ def main() -> int:
     initial_sensor = np.array(data.sensordata, copy=True)
     tensions = [float(data.sensordata[5])] if model.nsensordata >= 6 else []
 
-    data.ctrl[0] = args.ctrl
+    if model.nu:
+        data.ctrl[0] = args.ctrl
     for _ in range(args.steps):
         mujoco.mj_step(model, data)
         if model.nsensordata >= 6:

@@ -1,7 +1,9 @@
 # MuJoCo 绳索动力学插件
 
 [English README](README.md) | [学术项目主页](https://mujocable.github.io/) |
-[精选示例](docs/DEMO_CATALOG.md)
+[精选示例](docs/DEMO_CATALOG.md) |
+[穿绳设计指南](docs/CABLE_DESIGN_AND_THREADING_GUIDE_zh.md) |
+[全部命令](docs/RUN_ALL_DEMOS_zh.md)
 
 这是一个独立的 MuJoCo C++ engine plugin，用于模拟在圆柱和闭合 mesh 表面上包络的
 无质量单边受拉绳索。插件不把绳子离散成大量刚体，而是在运行时计算绳长、自由长度、
@@ -19,7 +21,8 @@
 - 有符号预绕储备和可选卷轴反力矩；
 - 解析圆柱包络与闭合凸/非凸 mesh 的同伦引导表面路线；
 - 多个运动表面之间的复合包络与公切线连接；
-- 可选 Euler-Eytelwein/Capstan 分段张力传播；
+- 可选 Euler-Eytelwein/Capstan 分段张力传播，并支持运动表面的速度定向正则化
+  滑动摩擦；
 - 被动韧带、主动绳索、实时传感器与标准 MuJoCo scene 可视化；
 - 用于减小切换抖动的路线、本构和显示迟滞。
 
@@ -55,7 +58,7 @@ python -m pip install "mujoco>=3.4,<3.5" numpy
 下载并解压对应平台的压缩包后：
 
 ```bash
-cd mujoco-cable-dynamics-v0.1.1-<platform>-<architecture>
+cd mujoco-cable-dynamics-v0.2.0-<platform>-<architecture>
 ./scripts/run_demo.sh 15 --show-route-debug --duration 120
 ```
 
@@ -116,10 +119,43 @@ mjpython scripts/view_cpp_plugin_demo.py \
 
 | 类别 | Demo | 内容 |
 |---|---|---|
-| 滑轮和卷轴 | 09、10、11、12、15、21 | 卷轴包络、双滑轮、预绕储备、摩擦与轮轴传动 |
+| 滑轮、卷轴和孔口 | 09、10、11、12、15、21、29、31、32 | 卷轴包络、双滑轮、预绕储备、摩擦、轮轴传动、自由惯性滑轮、rigid-flex 真孔与解析孔口摩擦 |
 | 滚动/柔顺关节 | 13、14、16、20 | 圆柱、凸 mesh、被动和受控马鞍关节 |
 | 张拉整体 | 17、18、19 | 插件/原生基线以及混合刚度与松弛 |
 | Faive PIP | 24、25 | 双虚拟铰链基线和自由刚体表面绳索模型 |
+| 参数化机械手 | 26、27、28 | 全手、仅食指调试及真实 mesh 穿绳/被动韧带模型 |
+| 物理边界基准 | 30 | 2018 年 CPhO 有质量绳连续体问题 |
+| 穿绳柔顺机器人 | 33 | 双余量拮抗穿绳、模块自碰撞和五组孔口摩擦版本 |
+
+Demo 26–28 的模型结构、打开命令、穿孔边界和绳路调整方法见
+[100_fingers 人体参数化机械手说明](docs/100_FINGERS_HUMAN_HAND_zh.md)。
+Demo 29 的张力、速度、转矩与能量验证见
+[自由转动惯性滑轮](docs/DEMO_29_FREE_ROTATING_PULLEY.md)。
+Demo 30 复现第35届全国中学生物理竞赛决赛理论第3题的两种最大速度分支，
+并明确说明绳质量和材料输运为何仍超出当前插件本构范围：
+[2018 CPhO 有质量绳基准](docs/DEMO_30_CPHO_2018_MASSIVE_ROPE.md)。
+路线几何复用、材料运输状态、摩擦模型和未来验收顺序已归档在
+[有质量绳索后续扩展记录](docs/MASSIVE_CABLE_FUTURE_EXTENSION.md)；该方向暂缓实现，
+不修改当前插件 API。
+Demo 31-32 对比真实非凸孔碰撞和不依赖 STL 的 role-3 解析孔口模型，详见
+[rigid flex 真孔与解析孔口摩擦](docs/DEMO_31_32_EYELET_FRICTION.md)。
+Demo 33 把对数螺旋形态与绳索传动分层，验证两侧同步收余量、差动收放、释放侧松弛、
+模块自碰撞和孔口摩擦敏感性。
+
+```bash
+./scripts/run_demo.sh 30 --case sliding --duration 120
+./scripts/run_demo.sh 30 --case stick --duration 120
+```
+
+MuJoCo 与插件的技术分界、回调接口、路径算法和完整实验结果见
+[中文 Markdown](docs/plugin_method_strategy_report.md)、
+[中文 PDF](docs/plugin_method_strategy_report_zh.pdf)、
+[英文 Markdown](docs/plugin_method_strategy_report_en.md)和
+[英文 PDF](docs/plugin_method_strategy_report_en.pdf)。
+
+如何选择 endpoint、hint、guide、圆柱/mesh 包络、孔口、被动韧带、拮抗余量和卷轴，
+见[建模与穿绳指南](docs/CABLE_DESIGN_AND_THREADING_GUIDE_zh.md)；所有保留 Demo 的
+统一启动方式见[全部本地命令](docs/RUN_ALL_DEMOS_zh.md)。
 
 准确模型名见[示例目录](docs/DEMO_CATALOG.md)。
 
@@ -194,10 +230,12 @@ python -m unittest discover tests
 python scripts/smoke_cpp_plugin.py \
   --plugin "$CABLE_PLUGIN_LIBRARY" \
   --model cable_plugin_demos/15_cpp_plugin_surface_single_pulley.xml
+python scripts/analyze_free_rotating_pulley.py \
+  --plugin "$CABLE_PLUGIN_LIBRARY" --strict
 ```
 
 测试覆盖单边本构、圆柱几何、多表面路线、凸/非凸 mesh、滑轮、马鞍关节、张拉整体、
-Faive PIP 对照以及仓库相对路径检查。
+Faive PIP 对照、100_fingers 人体机械手以及仓库相对路径检查。
 
 ## 打包 Release
 
@@ -205,7 +243,7 @@ Faive PIP 对照以及仓库相对路径检查。
 ./scripts/package_release.sh build/plugin/libcable_unilateral.dylib dist
 ```
 
-推送 `v0.1.1` 一类 tag 后，GitHub Actions 会构建各平台压缩包、生成 SHA-256 文件并
+推送 `v0.2.0` 一类 tag 后，GitHub Actions 会构建各平台压缩包、生成 SHA-256 文件并
 上传到 GitHub Release。
 
 ## 当前限制
@@ -213,7 +251,8 @@ Faive PIP 对照以及仓库相对路径检查。
 - 无绳质量、下垂、弯扭、波传播和绳索自接触；
 - mesh 路线保持初始化选择的同伦类/走廊，运行时不会自动全局换侧；
 - 非凸包络要求障碍 mesh 闭合、法向一致且无自交；
-- 滚动关节示例尚未实现完整的绳面无滑移速度约束；
+- 速度定向 Capstan 摩擦仍是正则化滑动模型，尚不保存静摩擦历史，也不施加严格
+  的绳面无滑移速度约束；
 - 当前 Faive PIP 回归中，离散双表面桥接路线保持无穿透，但界面切向角最坏约为
   `21.2 deg`。Demo 25 应视为研究对照模型，而不是经过实物验证的数字孪生；
 - 二进制 Release 必须匹配操作系统、CPU 架构和 MuJoCo ABI。

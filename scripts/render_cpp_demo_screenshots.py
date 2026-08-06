@@ -13,8 +13,8 @@ from PIL import Image, ImageDraw, ImageFont
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_PLUGIN = ROOT / "build/cable_surface/plugin/libcable_unilateral.dylib"
-PLUGIN_COMMAND_PATH = Path("build/cable_surface/plugin/libcable_unilateral.dylib")
+DEFAULT_PLUGIN = ROOT / "build/plugin/libcable_unilateral.dylib"
+PLUGIN_COMMAND_PATH = Path("build/plugin/libcable_unilateral.dylib")
 DEFAULT_OUT = ROOT / "cable_plugin_demos/screenshots"
 TIMES_NEW_ROMAN = Path("/System/Library/Fonts/Supplemental/Times New Roman.ttf")
 
@@ -547,7 +547,7 @@ def write_readme(out_dir: Path, summaries: list[dict[str, str | float | int]]) -
         "",
         "```bash",
         "conda run -n rope_plugin python scripts/render_cpp_demo_screenshots.py \\",
-        "  --plugin build/cable_surface/plugin/libcable_unilateral.dylib \\",
+        "  --plugin build/plugin/libcable_unilateral.dylib \\",
         "  --out cable_plugin_demos/screenshots",
         "```",
         "",

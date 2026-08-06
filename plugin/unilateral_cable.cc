@@ -50,7 +50,9 @@ constexpr char kAttrSpoolReserveLength[] = "spool_reserve_length";
 constexpr char kAttrSpoolReserveDirection[] = "spool_reserve_direction";
 constexpr char kAttrSpoolReactionTorque[] = "spool_reaction_torque";
 constexpr char kAttrCapstanMu[] = "capstan_mu";
+constexpr char kAttrGuideFrictionMu[] = "guide_friction_mu";
 constexpr char kAttrCapstanDirection[] = "capstan_direction";
+constexpr char kAttrCapstanVelocityScale[] = "capstan_velocity_scale";
 constexpr char kAttrRouteMode[] = "route_mode";
 constexpr char kAttrMeshRouteMode[] = "mesh_route_mode";
 constexpr char kAttrMeshGuideAxis[] = "mesh_guide_axis";
@@ -228,6 +230,39 @@ void ApplyForceAtPoint(const mjModel *m, mjData *d, int body,
   mj_applyFT(m, d, force, torque, point, body, d->qfrc_passive);
 }
 
+void BodyPointVelocity(const mjModel *m, const mjData *d, int body,
+                       const mjtNum *point, mjtNum *velocity) {
+  mju_zero3(velocity);
+  if (body <= 0) {
+    return;
+  }
+  mjtNum spatial_velocity[6];
+  mj_objectVelocity(m, d, mjOBJ_BODY, body, spatial_velocity, 0);
+  mjtNum offset[3];
+  mjtNum rotational_velocity[3];
+  mju_sub3(offset, point, d->xpos + 3 * body);
+  mju_cross(rotational_velocity, spatial_velocity, offset);
+  mju_add3(velocity, spatial_velocity + 3, rotational_velocity);
+}
+
+mjtNum EstimateSurfaceRouteMaterialSpeed(
+    const mjModel *m, const mjData *d,
+    const std::vector<SurfaceEnvelopeRoute::Point> &points,
+    const std::vector<std::array<mjtNum, 3>> &directions) {
+  if (points.size() < 2 || directions.size() + 1 != points.size()) {
+    return 0;
+  }
+  mjtNum start_velocity[3];
+  mjtNum end_velocity[3];
+  BodyPointVelocity(m, d, points.front().body_id,
+                    points.front().pos.data(), start_velocity);
+  BodyPointVelocity(m, d, points.back().body_id,
+                    points.back().pos.data(), end_velocity);
+  return 0.5 *
+         (mju_dot3(start_velocity, directions.front().data()) +
+          mju_dot3(end_velocity, directions.back().data()));
+}
+
 } // namespace
 
 UnilateralCable *UnilateralCable::Create(const mjModel *m, int instance) {
@@ -244,6 +279,7 @@ UnilateralCable *UnilateralCable::Create(const mjModel *m, int instance) {
                                                        kAttrSpoolRadius,
                                                        kAttrSpoolReserveLength,
                                                        kAttrCapstanMu,
+                                                       kAttrCapstanVelocityScale,
                                                        kAttrSiteRoleUserIndex,
                                                        kAttrVisualWidth,
                                                        kAttrRouteHysteresis,
@@ -266,6 +302,8 @@ UnilateralCable *UnilateralCable::Create(const mjModel *m, int instance) {
       kAttrControlTimeconstant, kAttrMaxContractionRate, kAttrTautTransition,
       kAttrTautHysteresis, kAttrRouteHysteresis,
       kAttrCompositeMergeDistance,
+      kAttrGuideFrictionMu,
+      kAttrCapstanVelocityScale,
       kAttrVisualSmoothingTimeconstant};
   for (const char *attr : kNonnegativeAttributes) {
     if (ReadNumberOr(m, instance, attr, 0) < 0) {
@@ -295,7 +333,8 @@ UnilateralCable *UnilateralCable::Create(const mjModel *m, int instance) {
       ConfigToken(m, instance, kAttrIntegrationMode);
   if ((integration_mode == "local_implicit" ||
        integration_mode == "implicit_compliant") &&
-      ReadNumberOr(m, instance, kAttrCapstanMu, 0) > 0) {
+      (ReadNumberOr(m, instance, kAttrCapstanMu, 0) > 0 ||
+       ReadNumberOr(m, instance, kAttrGuideFrictionMu, 0) > 0)) {
     mju_warning("implicit cable integration does not yet support Capstan "
                 "friction");
     return nullptr;
@@ -343,7 +382,8 @@ UnilateralCable *UnilateralCable::Create(const mjModel *m, int instance) {
     mju_warning("spool_reaction_torque must be true or false");
     return nullptr;
   }
-  static constexpr const char *kCapstanDirections[] = {"forward", "reverse"};
+  static constexpr const char *kCapstanDirections[] = {"forward", "reverse",
+                                                       "velocity"};
   if (!CheckOptionalEnum(m, instance, kAttrCapstanDirection, kCapstanDirections,
                          sizeof(kCapstanDirections) /
                              sizeof(kCapstanDirections[0]))) {
@@ -362,6 +402,17 @@ UnilateralCable *UnilateralCable::Create(const mjModel *m, int instance) {
   if (route_mode.empty()) {
     route_mode = "native";
   }
+  if (ConfigToken(m, instance, kAttrCapstanDirection) == "velocity") {
+    if (route_mode != "surface") {
+      mju_warning("capstan_direction=velocity requires route_mode=surface");
+      return nullptr;
+    }
+    if (ReadNumberOr(m, instance, kAttrCapstanVelocityScale, 0.01) <= 0) {
+      mju_warning("capstan_velocity_scale must be positive for velocity "
+                  "Capstan friction");
+      return nullptr;
+    }
+  }
   if (route_mode == "surface") {
     static constexpr const char *kMeshRouteModes[] = {
         "convex_surface", "taut_obstacle", "guided_surface"};
@@ -379,10 +430,6 @@ UnilateralCable *UnilateralCable::Create(const mjModel *m, int instance) {
     }
     std::vector<std::string> wrap_names =
         SplitNames(ConfigString(m, instance, kAttrWrapGeoms));
-    if (wrap_names.empty()) {
-      mju_warning("surface route_mode requires at least one wrap_geom");
-      return nullptr;
-    }
     for (const std::string &name : wrap_names) {
       if (mj_name2id(m, mjOBJ_GEOM, name.c_str()) < 0) {
         mju_warning("surface route wrap_geoms contains unknown geom: %s",
@@ -435,6 +482,13 @@ UnilateralCable *UnilateralCable::Create(const mjModel *m, int instance) {
     delete cable;
     return nullptr;
   }
+  if (ConfigToken(m, instance, kAttrCapstanDirection) == "velocity" &&
+      !cable->actuators_.empty()) {
+    mju_warning("capstan_direction=velocity currently requires a passive "
+                "surface cable without a plugin actuator");
+    delete cable;
+    return nullptr;
+  }
   return cable;
 }
 
@@ -457,6 +511,10 @@ UnilateralCable::UnilateralCable(const mjModel *m, int instance)
       spool_reaction_torque_(
           ConfigToken(m, instance, kAttrSpoolReactionTorque) == "true"),
       capstan_mu_(ReadNumberOr(m, instance, kAttrCapstanMu, 0)),
+      guide_friction_mu_(
+          ReadNumberOr(m, instance, kAttrGuideFrictionMu, 0)),
+      capstan_velocity_scale_(
+          ReadNumberOr(m, instance, kAttrCapstanVelocityScale, 0.01)),
       ctrl_mode_(ConfigString(m, instance, kAttrCtrlMode)),
       integration_mode_(ConfigToken(m, instance, kAttrIntegrationMode)),
       spool_joint_(ConfigToken(m, instance, kAttrSpoolJoint)),
@@ -501,6 +559,7 @@ UnilateralCable::UnilateralCable(const mjModel *m, int instance)
     }
   }
   capstan_mu_ = mju_max(0, capstan_mu_);
+  guide_friction_mu_ = mju_max(0, guide_friction_mu_);
   for (int i = 0; i < m->nu; ++i) {
     if (m->actuator_plugin[i] == instance) {
       if (m->actuator_trntype[i] != mjTRN_TENDON) {
@@ -785,7 +844,9 @@ void UnilateralCable::RegisterPlugin() {
                                      kAttrSpoolReserveDirection,
                                      kAttrSpoolReactionTorque,
                                      kAttrCapstanMu,
+                                     kAttrGuideFrictionMu,
                                      kAttrCapstanDirection,
+                                     kAttrCapstanVelocityScale,
                                      kAttrRouteMode,
                                      kAttrMeshRouteMode,
                                      kAttrMeshGuideAxis,
@@ -1184,22 +1245,59 @@ void UnilateralCable::ApplySurfaceForces(const mjModel *m, mjData *d,
   std::vector<mjtNum> segment_tensions(points.size() - 1, result.tension);
   mjtNum current_tension = result.tension;
   bool reverse = capstan_direction_ == "reverse";
+  bool velocity_direction = capstan_direction_ == "velocity";
+  mjtNum material_speed = velocity_direction
+                              ? EstimateSurfaceRouteMaterialSpeed(
+                                    m, d, points, directions)
+                              : 0;
   for (int segment = 0; segment + 1 < static_cast<int>(points.size());
        ++segment) {
     segment_tensions[segment] = current_tension;
     int node = segment + 1;
-    if (capstan_mu_ <= 0 || node + 1 >= static_cast<int>(points.size()) ||
-        points[node].wrap_index < 0 ||
-        points[node - 1].wrap_index != points[node].wrap_index ||
-        points[node + 1].wrap_index != points[node].wrap_index) {
+    if (node + 1 >= static_cast<int>(points.size())) {
+      continue;
+    }
+    mjtNum friction_mu = 0;
+    bool surface_contact =
+        capstan_mu_ > 0 && points[node].wrap_index >= 0 &&
+        points[node - 1].wrap_index == points[node].wrap_index &&
+        points[node + 1].wrap_index == points[node].wrap_index;
+    if (surface_contact) {
+      friction_mu = capstan_mu_;
+    } else if (guide_friction_mu_ > 0 && points[node].site_id >= 0 &&
+               site_role_user_index_ >= 0 &&
+               site_role_user_index_ < m->nuser_site) {
+      int role = static_cast<int>(std::llround(
+          m->site_user[points[node].site_id * m->nuser_site +
+                       site_role_user_index_]));
+      if (role == 3) {
+        friction_mu = guide_friction_mu_;
+      }
+    }
+    if (friction_mu <= 0) {
       continue;
     }
     mjtNum turn = std::acos(mju_clip(
         mju_dot3(directions[segment].data(), directions[segment + 1].data()),
         -1, 1));
-    mjtNum ratio = std::exp(mju_min(capstan_mu_ * turn, mjtNum(20)));
-    current_tension =
-        reverse ? current_tension * ratio : current_tension / ratio;
+    mjtNum exponent = friction_mu * turn;
+    if (velocity_direction) {
+      mjtNum tangent[3];
+      mju_add3(tangent, directions[segment].data(),
+               directions[segment + 1].data());
+      if (mju_normalize3(tangent) <= mjMINVAL) {
+        continue;
+      }
+      mjtNum surface_velocity[3];
+      BodyPointVelocity(m, d, points[node].body_id,
+                        points[node].pos.data(), surface_velocity);
+      mjtNum slip_speed =
+          material_speed - mju_dot3(surface_velocity, tangent);
+      exponent *= std::tanh(slip_speed / capstan_velocity_scale_);
+    } else if (!reverse) {
+      exponent = -exponent;
+    }
+    current_tension *= std::exp(mju_clip(exponent, mjtNum(-20), mjtNum(20)));
   }
 
   for (int node = 0; node < static_cast<int>(points.size()); ++node) {

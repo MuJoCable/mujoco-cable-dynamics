@@ -24,14 +24,38 @@ case "$DEMO" in
   21) MODEL="$ROOT/cable_plugin_demos/21_cpp_plugin_wheel_axle_force_amplifier.xml" ;;
   24) MODEL="$ROOT/cable_plugin_demos/24_faive_index_pip_virtual_hinge_baseline.xml" ;;
   25) MODEL="$ROOT/cable_plugin_demos/25_faive_index_pip_surface_cable.xml" ;;
+  26) MODEL="$ROOT/cable_plugin_demos/26_cpp_plugin_100_fingers_human_hand.xml" ;;
+  27) MODEL="$ROOT/cable_plugin_demos/27_cpp_plugin_100_fingers_index_cable_debug.xml" ;;
+  28) MODEL="$ROOT/cable_plugin_demos/28_cpp_plugin_100_fingers_index_mesh_threading.xml" ;;
+  29) MODEL="$ROOT/cable_plugin_demos/29_cpp_plugin_free_rotating_pulley.xml" ;;
+  30) MODEL="$ROOT/cable_plugin_demos/30_cpho_2018_problem3_massive_rope.xml" ;;
+  31) MODEL="$ROOT/cable_plugin_demos/31_rigid_flex_through_hole.xml" ;;
+  32) MODEL="$ROOT/cable_plugin_demos/32_cpp_plugin_eyelet_friction.xml" ;;
+  33) MODEL="$ROOT/cable_plugin_demos/33_cpp_plugin_log_spiral_dual_reserve.xml" ;;
   *) MODEL="" ;;
 esac
 
 if [[ -z "$MODEL" && -f "$DEMO" ]]; then
   MODEL="$(cd "$(dirname "$DEMO")" && pwd)/$(basename "$DEMO")"
 elif [[ -z "$MODEL" ]]; then
-  echo "Unknown demo '$DEMO'. Available: 09 10 11 12 13 14 15 16 17 18 19 20 21 24 25" >&2
+  echo "Unknown demo '$DEMO'. Available: 09 10 11 12 13 14 15 16 17 18 19 20 21 24 25 26 27 28 29 30 31 32 33" >&2
   exit 2
+fi
+
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  RUNNER="${MUJOCO_PYTHON:-mjpython}"
+else
+  RUNNER="${MUJOCO_PYTHON:-python3}"
+fi
+
+if [[ "$(basename "$MODEL")" == "30_cpho_2018_problem3_massive_rope.xml" ]]; then
+  exec "$RUNNER" "$ROOT/scripts/view_cpho_2018_problem3.py" \
+    --model "$MODEL" "$@"
+fi
+
+if [[ "$(basename "$MODEL")" == "31_rigid_flex_through_hole.xml" ]]; then
+  exec "$RUNNER" "$ROOT/scripts/view_eyelet_demos.py" \
+    --demo flex "$@"
 fi
 
 PLUGIN="${MUJOCABLE_PLUGIN:-}"
@@ -53,10 +77,14 @@ if [[ -z "$PLUGIN" || ! -f "$PLUGIN" ]]; then
   exit 2
 fi
 
-if [[ "$(uname -s)" == "Darwin" ]]; then
-  RUNNER="${MUJOCO_PYTHON:-mjpython}"
-else
-  RUNNER="${MUJOCO_PYTHON:-python3}"
+if [[ "$(basename "$MODEL")" == "32_cpp_plugin_eyelet_friction.xml" ]]; then
+  exec "$RUNNER" "$ROOT/scripts/view_eyelet_demos.py" \
+    --demo friction --plugin "$PLUGIN" "$@"
+fi
+
+if [[ "$(basename "$MODEL")" == "33_cpp_plugin_log_spiral_dual_reserve.xml" ]]; then
+  exec "$RUNNER" "$ROOT/scripts/view_log_spiral_dual_reserve.py" \
+    --plugin "$PLUGIN" --model "$MODEL" "$@"
 fi
 
 exec "$RUNNER" "$ROOT/scripts/view_cpp_plugin_demo.py" \

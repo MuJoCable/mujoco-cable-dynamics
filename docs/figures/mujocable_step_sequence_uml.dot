@@ -1,0 +1,44 @@
+digraph MuJoCableStepSequenceUML {
+  graph [
+    rankdir=TB,
+    bgcolor="white",
+    pad="0.18",
+    nodesep="0.22",
+    ranksep="0.28",
+    fontname="Times New Roman",
+    fontsize=12,
+    labelloc="t",
+    label="One Simulation Step: MuJoCo-Plugin Interface Sequence"
+  ];
+  node [
+    shape=box,
+    style="filled",
+    color="#333333",
+    penwidth=1.0,
+    fontname="Times New Roman",
+    fontsize=10.5,
+    margin="0.12,0.06"
+  ];
+  edge [
+    color="#333333",
+    penwidth=1.0,
+    arrowsize=0.70,
+    fontname="Times New Roman",
+    fontsize=9.5
+  ];
+
+  ctrl [label="1. Application writes ctrl", fillcolor="#F3F3F3"];
+  kine [label="2. MuJoCo computes position and velocity-stage data", fillcolor="#DCECF4"];
+  passive [label="3. plugin.compute(PASSIVE) inside mj_fwdVelocity", fillcolor="#F7E3D8"];
+  route [label="4. Update route once\nSolve surface contacts, eyelet turns, L, Ldot, and residuals", fillcolor="#F7E3D8"];
+  law [label="5. Evaluate reserve, unilateral law, and segment friction\nApply mj_applyFT node forces to qfrc_passive", fillcolor="#F7E3D8"];
+  sensor [label="6. plugin.compute(SENSOR) at mjSTAGE_VEL\nReport the same cached route in sensordata", fillcolor="#F7E3D8"];
+  actuator [label="7. plugin.compute(ACTUATOR) in mj_fwdActuation\nReport cached -T in actuator_force", fillcolor="#F7E3D8"];
+  dynamics [label="8. MuJoCo solves acceleration, contacts, and constraints\nThen advances the selected integrator", fillcolor="#DCECF4"];
+  advance [label="9. MuJoCo calls plugin.advance\nIntegrate/filter contraction state for the next step", fillcolor="#F7E3D8"];
+  visual [label="10. On rendering, plugin.visualize\nAppends cached route segments to mjvScene", fillcolor="#F7E3D8"];
+
+  ctrl -> kine -> passive -> route -> law -> sensor -> actuator -> dynamics -> advance -> visual;
+  route -> sensor [style=dashed, color="#A14B2C", label="single source of truth", constraint=false];
+  route -> visual [style=dashed, color="#A14B2C", label="same path", constraint=false];
+}

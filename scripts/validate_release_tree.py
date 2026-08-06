@@ -23,6 +23,14 @@ EXPECTED_DEMOS = {
     "21_cpp_plugin_wheel_axle_force_amplifier.xml",
     "24_faive_index_pip_virtual_hinge_baseline.xml",
     "25_faive_index_pip_surface_cable.xml",
+    "26_cpp_plugin_100_fingers_human_hand.xml",
+    "27_cpp_plugin_100_fingers_index_cable_debug.xml",
+    "28_cpp_plugin_100_fingers_index_mesh_threading.xml",
+    "29_cpp_plugin_free_rotating_pulley.xml",
+    "30_cpho_2018_problem3_massive_rope.xml",
+    "31_rigid_flex_through_hole.xml",
+    "32_cpp_plugin_eyelet_friction.xml",
+    "33_cpp_plugin_log_spiral_dual_reserve.xml",
 }
 FORBIDDEN_DIRECTORIES = {
     ".DS_Store",
@@ -36,6 +44,11 @@ FORBIDDEN_DIRECTORIES = {
     "." + "codex",
     "__pycache__",
     "node_modules",
+}
+IGNORED_BUILD_DIRECTORIES = {
+    "build",
+    "dist",
+    "outputs",
 }
 FORBIDDEN_TEXT = (
     "/" + "Users/",
@@ -71,6 +84,8 @@ def main() -> int:
     for path in ROOT.rglob("*"):
         relative = path.relative_to(ROOT)
         if ".git" in relative.parts:
+            continue
+        if any(part in IGNORED_BUILD_DIRECTORIES for part in relative.parts):
             continue
         for part in relative.parts:
             if part in FORBIDDEN_DIRECTORIES or part.startswith("._"):

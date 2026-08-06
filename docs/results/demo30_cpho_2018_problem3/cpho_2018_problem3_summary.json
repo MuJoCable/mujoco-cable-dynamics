@@ -1,0 +1,89 @@
+{
+  "pass": true,
+  "model": "cable_plugin_demos/30_cpho_2018_problem3_massive_rope.xml",
+  "source_problem": "35th CPhO (2018) final theory problem 3",
+  "implementation_boundary": "official massive-rope ODE applied to a MuJoCo transport DOF; not the current massless MuJoCable constitutive law",
+  "timestep_s": 0.0002,
+  "parameters": {
+    "linear_density_kg_m": 0.25,
+    "pulley_radius_m": 0.08,
+    "axis_height_m": 0.45,
+    "kinetic_friction": 0.25,
+    "gravity_m_s2": 9.81,
+    "exp_mu_pi": 2.1932800507380152,
+    "official_sliding_limit_m_s": 1.7144867391107976,
+    "official_time_scale_s": 0.4836852555883131
+  },
+  "cases": [
+    {
+      "case": "sliding_limited",
+      "omega_rad_s": 28.0,
+      "rim_speed_m_s": 2.24,
+      "predicted_branch": "sliding_limited",
+      "predicted_sliding_limit_m_s": 1.7144867391107976,
+      "predicted_maximum_speed_m_s": 1.7144867391107976,
+      "simulated_peak_speed_m_s": 1.7144727476397528,
+      "simulated_final_speed_m_s": 1.7144727476397528,
+      "analytic_final_speed_m_s": 1.7144726837146838,
+      "maximum_absolute_speed_error_m_s": 0.00013041686789949658,
+      "predicted_stick_transition_s": null,
+      "detected_stick_transition_s": null,
+      "stick_transition_error_s": 0.0,
+      "maximum_equation_11_residual_m2_s2": 4.440892098500626e-16,
+      "maximum_kinetic_wrap_residual_N": 1.1102230246251565e-15,
+      "checks": {
+        "speed_matches_closed_form": true,
+        "official_equation_11_closes": true,
+        "distributed_wrap_relation_closes": true,
+        "maximum_speed_branch_matches": true,
+        "stick_transition_time_matches": true,
+        "static_tension_ratio_is_feasible": true,
+        "tensions_remain_nonnegative": true
+      },
+      "pass": true
+    },
+    {
+      "case": "stick_limited",
+      "omega_rad_s": 14.0,
+      "rim_speed_m_s": 1.12,
+      "predicted_branch": "stick_limited",
+      "predicted_sliding_limit_m_s": 1.7144867391107976,
+      "predicted_maximum_speed_m_s": 1.12,
+      "simulated_peak_speed_m_s": 1.12,
+      "simulated_final_speed_m_s": 1.12,
+      "analytic_final_speed_m_s": 1.12,
+      "maximum_absolute_speed_error_m_s": 0.00011264915608966142,
+      "predicted_stick_transition_s": 0.37773829195484737,
+      "detected_stick_transition_s": 0.37779999999999103,
+      "stick_transition_error_s": 6.170804514366024e-05,
+      "maximum_equation_11_residual_m2_s2": 4.440892098500626e-16,
+      "maximum_kinetic_wrap_residual_N": 6.106226635438361e-16,
+      "checks": {
+        "speed_matches_closed_form": true,
+        "official_equation_11_closes": true,
+        "distributed_wrap_relation_closes": true,
+        "maximum_speed_branch_matches": true,
+        "stick_transition_time_matches": true,
+        "static_tension_ratio_is_feasible": true,
+        "tensions_remain_nonnegative": true
+      },
+      "pass": true
+    }
+  ],
+  "checks": {
+    "sliding_limited_speed_matches_closed_form": true,
+    "sliding_limited_official_equation_11_closes": true,
+    "sliding_limited_distributed_wrap_relation_closes": true,
+    "sliding_limited_maximum_speed_branch_matches": true,
+    "sliding_limited_stick_transition_time_matches": true,
+    "sliding_limited_static_tension_ratio_is_feasible": true,
+    "sliding_limited_tensions_remain_nonnegative": true,
+    "stick_limited_speed_matches_closed_form": true,
+    "stick_limited_official_equation_11_closes": true,
+    "stick_limited_distributed_wrap_relation_closes": true,
+    "stick_limited_maximum_speed_branch_matches": true,
+    "stick_limited_stick_transition_time_matches": true,
+    "stick_limited_static_tension_ratio_is_feasible": true,
+    "stick_limited_tensions_remain_nonnegative": true
+  }
+}

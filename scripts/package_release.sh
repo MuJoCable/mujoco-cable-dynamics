@@ -17,10 +17,11 @@ NAME="mujoco-cable-dynamics-v${VERSION}-${SYSTEM}-${ARCH}"
 STAGE="$(mktemp -d)"
 trap 'rm -rf "$STAGE"' EXIT
 
-mkdir -p "$STAGE/$NAME/lib" "$STAGE/$NAME/scripts"
+mkdir -p "$STAGE/$NAME/lib" "$STAGE/$NAME/scripts" "$STAGE/$NAME/docs"
 cp "$PLUGIN" "$STAGE/$NAME/lib/"
 cp "$ROOT"/{README.md,README_zh.md,LICENSE,THIRD_PARTY_NOTICES.md,VERSION} "$STAGE/$NAME/"
-cp "$ROOT/scripts"/{run_demo.sh,view_cpp_plugin_demo.py,smoke_cpp_plugin.py} "$STAGE/$NAME/scripts/"
+cp "$ROOT/scripts"/{run_demo.sh,view_cpp_plugin_demo.py,smoke_cpp_plugin.py,view_cpho_2018_problem3.py,view_eyelet_demos.py,view_log_spiral_dual_reserve.py,analyze_cpho_2018_problem3.py,analyze_eyelet_friction.py} "$STAGE/$NAME/scripts/"
+cp "$ROOT/docs"/{DEMO_CATALOG.md,RUN_ALL_DEMOS.md,RUN_ALL_DEMOS_zh.md,CABLE_DESIGN_AND_THREADING_GUIDE.md,CABLE_DESIGN_AND_THREADING_GUIDE_zh.md} "$STAGE/$NAME/docs/"
 cp -R "$ROOT/cable_plugin_demos" "$STAGE/$NAME/"
 
 mkdir -p "$OUTPUT"

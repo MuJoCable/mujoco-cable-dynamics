@@ -1,0 +1,120 @@
+<mujoco model="cable_demo_free_rotating_inertial_pulley">
+  <compiler autolimits="true" angle="radian" />
+  <size nuser_site="1" />
+  <option timestep="0.0002" gravity="0 0 -9.81" integrator="RK4">
+    <flag energy="enable" />
+  </option>
+
+  <extension>
+    <plugin plugin="mujoco.cable.unilateral">
+      <instance name="free_pulley_cable">
+        <config key="stiffness" value="15000" />
+        <config key="damping" value="0" />
+        <config key="slack" value="0" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.00015" />
+        <config key="max_tension" value="100" />
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="free_pulley_seed" />
+        <config key="wrap_geoms" value="free_pulley_wrap" />
+        <config key="site_role_user_index" value="0" />
+        <config key="capstan_mu" value="0.12" />
+        <config key="capstan_direction" value="velocity" />
+        <config key="capstan_velocity_scale" value="0.020" />
+        <config key="visual_width" value="2" />
+      </instance>
+    </plugin>
+  </extension>
+
+  <asset>
+    <material name="frame" rgba="0.52 0.58 0.62 1" />
+    <material name="pulley" rgba="0.76 0.78 0.80 1" />
+    <material name="light_mass" rgba="0.12 0.52 0.88 1" />
+    <material name="heavy_mass" rgba="0.92 0.35 0.10 1" />
+  </asset>
+
+  <default>
+    <site size="0.004" />
+    <default class="route_hint">
+      <site size="0.0001" rgba="1 0.8 0 0" user="2" />
+    </default>
+  </default>
+
+  <worldbody>
+    <light name="key" pos="-0.25 -0.8 0.75" dir="0.2 0.8 -0.7" />
+    <camera name="overview" pos="0 -0.72 0.25" xyaxes="1 0 0 0 0 1" />
+
+    <geom name="floor" type="plane" pos="0 0 -0.03"
+          size="0.34 0.25 0.01" rgba="0.13 0.15 0.17 1" />
+    <geom name="support_post" type="capsule"
+          fromto="0 0.035 -0.01 0 0.035 0.43" size="0.007"
+          material="frame" contype="0" conaffinity="0" />
+    <geom name="support_beam" type="capsule"
+          fromto="-0.16 0.035 0.43 0.16 0.035 0.43" size="0.007"
+          material="frame" contype="0" conaffinity="0" />
+    <geom name="axle_support" type="cylinder" pos="0 0.025 0.34"
+          euler="1.57079632679 0 0" size="0.011 0.035"
+          material="frame" contype="0" conaffinity="0" />
+
+    <body name="free_pulley" pos="0 0 0.34">
+      <joint name="pulley_hinge" type="hinge" axis="0 1 0"
+             damping="0" frictionloss="0" />
+      <geom name="free_pulley_wrap" type="cylinder"
+            euler="1.57079632679 0 0" size="0.050 0.016"
+            mass="0.080" material="pulley" contype="0" conaffinity="0" />
+      <geom name="pulley_hub" type="cylinder"
+            euler="1.57079632679 0 0" size="0.010 0.021"
+            density="0" rgba="0.44 0.47 0.50 1"
+            contype="0" conaffinity="0" />
+      <geom name="pulley_spoke_a" type="capsule"
+            fromto="-0.038 0 0 0.038 0 0" size="0.0025"
+            density="0" rgba="0.25 0.28 0.30 1"
+            contype="0" conaffinity="0" />
+      <geom name="pulley_spoke_b" type="capsule"
+            fromto="0 0 -0.038 0 0 0.038" size="0.0025"
+            density="0" rgba="0.25 0.28 0.30 1"
+            contype="0" conaffinity="0" />
+    </body>
+
+    <site name="pulley_upper_hint" class="route_hint" pos="0 0 0.395" />
+
+    <!-- The endpoint x coordinates coincide with the vertical tangents of
+         the R=0.05 m pulley, so slide forces equal the segment tensions. -->
+    <body name="left_mass" pos="-0.050 0 0.145">
+      <joint name="left_slide" type="slide" axis="0 0 1"
+             range="-0.10 0.10" damping="0" frictionloss="0" />
+      <geom name="left_payload" type="box" size="0.025 0.025 0.025"
+            mass="0.180" material="light_mass" />
+      <site name="left_cable_end" pos="0 0 0.030" user="1"
+            size="0.005" rgba="0.12 0.75 1 1" />
+    </body>
+
+    <body name="right_mass" pos="0.050 0 0.145">
+      <joint name="right_slide" type="slide" axis="0 0 1"
+             range="-0.10 0.10" damping="0" frictionloss="0" />
+      <geom name="right_payload" type="box" size="0.025 0.025 0.025"
+            mass="0.240" material="heavy_mass" />
+      <site name="right_cable_end" pos="0 0 0.030" user="1"
+            size="0.005" rgba="1 0.35 0.08 1" />
+    </body>
+  </worldbody>
+
+  <tendon>
+    <spatial name="free_pulley_seed" limited="false" width="0.000000001"
+             rgba="1 0.78 0.08 1">
+      <site site="left_cable_end" />
+      <site site="pulley_upper_hint" />
+      <site site="right_cable_end" />
+    </spatial>
+  </tendon>
+
+  <sensor>
+    <plugin name="free_pulley_state" instance="free_pulley_cable" />
+    <jointpos name="pulley_angle" joint="pulley_hinge" />
+    <jointvel name="pulley_angular_velocity" joint="pulley_hinge" />
+    <jointpos name="left_displacement" joint="left_slide" />
+    <jointvel name="left_velocity" joint="left_slide" />
+    <jointpos name="right_displacement" joint="right_slide" />
+    <jointvel name="right_velocity" joint="right_slide" />
+  </sensor>
+</mujoco>

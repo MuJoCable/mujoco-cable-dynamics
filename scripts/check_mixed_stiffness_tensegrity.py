@@ -13,7 +13,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MODEL = ROOT / "cable_plugin_demos" / "19_cpp_plugin_mixed_stiffness_tensegrity.xml"
-DEFAULT_PLUGIN = ROOT / "build/cable_surface/plugin/libcable_unilateral.dylib"
+DEFAULT_PLUGIN = ROOT / "build/plugin/libcable_unilateral.dylib"
 CABLE_NAMES = (
     "bottom_01", "bottom_12", "bottom_20",
     "top_01", "top_12", "top_20",

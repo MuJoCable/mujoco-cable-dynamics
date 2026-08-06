@@ -1,0 +1,15 @@
+{
+  "pass": true,
+  "model": "open_spirob_mujocable_dual_reserve.xml",
+  "initial_contacts": 4,
+  "initial_minimum_contact_distance_m": -4.204685808842314e-09,
+  "maximum_contacts": 4,
+  "minimum_contact_distance_m": -4.204685845582173e-09,
+  "final_positive_control_m": 0.05,
+  "final_negative_control_m": 0.0,
+  "final_positive_tension_N": 0.061164960578058654,
+  "final_negative_tension_N": 0.0,
+  "final_net_bend_deg": 176.82823821581843,
+  "maximum_joint_angle_deg": 23.41923668360941,
+  "finite_state": true
+}
