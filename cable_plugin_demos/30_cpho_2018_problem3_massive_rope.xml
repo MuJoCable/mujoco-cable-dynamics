@@ -1,0 +1,102 @@
+<mujoco model="cpho_2018_problem3_massive_rope">
+  <compiler autolimits="true" angle="radian" />
+  <option timestep="0.0002" gravity="0 0 0" integrator="Euler" />
+  <statistic center="0 0 0.27" extent="0.62" />
+
+  <!-- Symbolic problem parameters instantiated for the numerical benchmark. -->
+  <custom>
+    <numeric name="rope_linear_density" data="0.25" />
+    <numeric name="pulley_radius" data="0.08" />
+    <numeric name="axis_height" data="0.45" />
+    <numeric name="kinetic_friction" data="0.25" />
+    <numeric name="gravity_acceleration" data="9.81" />
+    <numeric name="sliding_case_omega" data="28" />
+    <numeric name="sticking_case_omega" data="14" />
+  </custom>
+
+  <visual>
+    <global offwidth="1280" offheight="720" />
+    <quality shadowsize="4096" />
+    <map znear="0.01" />
+    <rgba haze="0.12 0.14 0.16 1" />
+  </visual>
+
+  <asset>
+    <material name="frame" rgba="0.55 0.60 0.64 1" />
+    <material name="pulley" rgba="0.76 0.78 0.80 1" />
+    <material name="rope" rgba="0.95 0.36 0.08 1" />
+    <material name="pile" rgba="0.30 0.34 0.38 1" />
+  </asset>
+
+  <worldbody>
+    <light name="key" pos="-0.35 -0.8 0.9" dir="0.25 0.75 -0.7" />
+    <camera name="overview" pos="0 -1.05 0.30" xyaxes="1 0 0 0 0 1" />
+
+    <geom name="ground" type="plane" pos="0 0 -0.012"
+          size="0.32 0.24 0.01" rgba="0.12 0.14 0.16 1" />
+    <geom name="support_post" type="capsule"
+          fromto="0 0.045 0 0 0.045 0.58" size="0.009"
+          material="frame" contype="0" conaffinity="0" />
+    <geom name="support_beam" type="capsule"
+          fromto="-0.20 0.045 0.58 0.20 0.045 0.58" size="0.009"
+          material="frame" contype="0" conaffinity="0" />
+    <geom name="left_rope_pile" type="cylinder" pos="-0.08 0 0"
+          size="0.035 0.009" material="pile" contype="0" conaffinity="0" />
+    <geom name="right_rope_pile" type="cylinder" pos="0.08 0 0"
+          size="0.035 0.009" material="pile" contype="0" conaffinity="0" />
+
+    <site name="left_ground_tangent" pos="-0.08 0 0.012"
+          size="0.004" rgba="0.95 0.36 0.08 1" />
+    <site name="right_ground_tangent" pos="0.08 0 0.012"
+          size="0.004" rgba="0.95 0.36 0.08 1" />
+    <site name="upper_wrap_side" pos="0 0 0.55"
+          size="0.0001" rgba="1 0.85 0.10 0" />
+
+    <body name="prescribed_pulley" pos="0 0 0.45">
+      <joint name="pulley_hinge" type="hinge" axis="0 1 0"
+             damping="0" frictionloss="0" />
+      <geom name="drive_pulley" type="cylinder"
+            euler="1.57079632679 0 0" size="0.08 0.018"
+            mass="0.20" material="pulley" contype="0" conaffinity="0" />
+      <geom name="pulley_hub" type="cylinder"
+            euler="1.57079632679 0 0" size="0.014 0.024"
+            density="0" rgba="0.40 0.43 0.46 1"
+            contype="0" conaffinity="0" />
+      <geom name="pulley_spoke_a" type="capsule"
+            fromto="-0.064 0 0 0.064 0 0" size="0.0035"
+            density="0" rgba="0.22 0.24 0.26 1"
+            contype="0" conaffinity="0" />
+      <geom name="pulley_spoke_b" type="capsule"
+            fromto="0 0 -0.064 0 0 0.064" size="0.0035"
+            density="0" rgba="0.22 0.24 0.26 1"
+            contype="0" conaffinity="0" />
+    </body>
+
+    <!-- Unit generalized mass. The analysis applies the official continuum
+         acceleration to this transport coordinate through qfrc_applied. -->
+    <body name="rope_transport_state" pos="0 0 -0.10">
+      <joint name="rope_transport" type="slide" axis="1 0 0"
+             damping="0" frictionloss="0" />
+      <inertial pos="0 0 0" mass="1"
+                diaginertia="0.001 0.001 0.001" />
+    </body>
+  </worldbody>
+
+  <!-- Visual-only native route. Physics is supplied by the official massive-
+       rope continuum equation in scripts/analyze_cpho_2018_problem3.py. -->
+  <tendon>
+    <spatial name="massive_rope_visual" limited="false" width="0.004"
+             rgba="0.95 0.36 0.08 1">
+      <site site="left_ground_tangent" />
+      <geom geom="drive_pulley" sidesite="upper_wrap_side" />
+      <site site="right_ground_tangent" />
+    </spatial>
+  </tendon>
+
+  <sensor>
+    <jointpos name="rope_transport_distance" joint="rope_transport" />
+    <jointvel name="rope_speed" joint="rope_transport" />
+    <jointpos name="pulley_angle" joint="pulley_hinge" />
+    <jointvel name="pulley_angular_velocity" joint="pulley_hinge" />
+  </sensor>
+</mujoco>

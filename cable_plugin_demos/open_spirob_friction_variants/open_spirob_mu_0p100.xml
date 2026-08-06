@@ -1,0 +1,265 @@
+<mujoco model="open_spirob_mujocable_mu_0p100">
+  <compiler angle="radian" autolimits="true" meshdir="../assets/open_spirob" />
+  <size nuser_site="1" />
+  <option timestep="0.0002" gravity="0 0 0" integrator="implicitfast" />
+  <statistic center="0 0 0.075" extent="0.14" />
+  <extension>
+    <plugin plugin="mujoco.cable.unilateral">
+      <instance name="positive_cable">
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="positive_seed" />
+        <config key="site_role_user_index" value="0" />
+        <config key="home_length" value="auto_initial" />
+        <config key="stiffness" value="180" />
+        <config key="damping" value="0.08" />
+        <config key="slack" value="0.0001" />
+        <config key="pretension_offset" value="-0.025" />
+        <config key="max_tension" value="7" />
+        <config key="ctrl_mode" value="target_contraction" />
+        <config key="control_timeconstant" value="0.04" />
+        <config key="max_contraction_rate" value="0.040" />
+        <config key="taut_transition" value="0.00015" />
+        <config key="taut_hysteresis" value="0.00005" />
+        <config key="guide_friction_mu" value="0.1" />
+        <config key="capstan_direction" value="forward" />
+        <config key="visual_width" value="2.2" />
+        <config key="visual_smoothing_timeconstant" value="0.02" />
+      </instance>
+      <instance name="negative_cable">
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="negative_seed" />
+        <config key="site_role_user_index" value="0" />
+        <config key="home_length" value="auto_initial" />
+        <config key="stiffness" value="180" />
+        <config key="damping" value="0.08" />
+        <config key="slack" value="0.0001" />
+        <config key="pretension_offset" value="-0.025" />
+        <config key="max_tension" value="7" />
+        <config key="ctrl_mode" value="target_contraction" />
+        <config key="control_timeconstant" value="0.04" />
+        <config key="max_contraction_rate" value="0.040" />
+        <config key="taut_transition" value="0.00015" />
+        <config key="taut_hysteresis" value="0.00005" />
+        <config key="guide_friction_mu" value="0.1" />
+        <config key="capstan_direction" value="forward" />
+        <config key="visual_width" value="2.2" />
+        <config key="visual_smoothing_timeconstant" value="0.02" />
+      </instance>
+    </plugin>
+  </extension>
+  <asset>
+    <mesh name="unit_1" file="spirob_unit_with_holes.stl" scale="0.001000000 0.001000000 0.001000000" />
+    <mesh name="unit_2" file="spirob_unit_with_holes.stl" scale="0.000911774 0.000911774 0.000911774" />
+    <mesh name="unit_3" file="spirob_unit_with_holes.stl" scale="0.000831332 0.000831332 0.000831332" />
+    <mesh name="unit_4" file="spirob_unit_with_holes.stl" scale="0.000757987 0.000757987 0.000757987" />
+    <mesh name="unit_5" file="spirob_unit_with_holes.stl" scale="0.000691113 0.000691113 0.000691113" />
+    <mesh name="unit_6" file="spirob_unit_with_holes.stl" scale="0.000630139 0.000630139 0.000630139" />
+    <mesh name="unit_7" file="spirob_unit_with_holes.stl" scale="0.000574545 0.000574545 0.000574545" />
+    <mesh name="unit_8" file="spirob_unit_with_holes.stl" scale="0.000523855 0.000523855 0.000523855" />
+    <mesh name="unit_9" file="spirob_unit_with_holes.stl" scale="0.000477638 0.000477638 0.000477638" />
+    <mesh name="unit_10" file="spirob_unit_with_holes.stl" scale="0.000435498 0.000435498 0.000435498" />
+    <mesh name="unit_11" file="spirob_unit_with_holes.stl" scale="0.000397076 0.000397076 0.000397076" />
+    <mesh name="unit_12" file="spirob_unit_with_holes.stl" scale="0.000362043 0.000362043 0.000362043" />
+    <material name="body_material" rgba="0.62 0.66 0.70 1" />
+    <texture name="grid" type="2d" builtin="checker" rgb1=".16 .18 .20" rgb2=".08 .09 .10" width="512" height="512" />
+    <material name="floor_material" texture="grid" texrepeat="4 4" />
+  </asset>
+  <visual>
+    <headlight ambient="0.25 0.25 0.25" diffuse="0.8 0.8 0.8" />
+    <global offwidth="1280" offheight="720" />
+  </visual>
+  <default>
+    <joint type="hinge" axis="1 0 0" limited="true" range="-0.70 0.70" damping="0.0015" stiffness="0.0015" />
+    <geom type="mesh" material="body_material" density="350" contype="0" conaffinity="0" />
+    <site size="0.0012" />
+  </default>
+  <worldbody>
+    <light pos="-0.25 -0.35 0.45" dir="0.3 0.4 -1" />
+    <camera name="overview" pos="0.15 -0.21 0.155" xyaxes="0.81 0.58 0 -0.23 0.32 0.92" />
+    <geom name="floor" type="plane" pos="0 0 -0.025" size="0.14 0.14 0.01" material="floor_material" />
+    <site name="positive_base_anchor" user="1" pos="0 0.011957987 0.002" rgba="0.05 0.78 0.88 1" />
+    <site name="negative_base_anchor" user="1" pos="0 -0.011957987 0.002" rgba="0.96 0.24 0.16 1" />
+    <body name="unit_1_body" pos="0 0 0.004">
+      <geom mesh="unit_1" name="unit_1_geom" contype="1" conaffinity="1" friction="0.8 0.02 0.005" solref="0.006 1" solimp="0.95 0.995 0.001" />
+      <site name="positive_1_1" user="3" pos="0 0.011957987 0.005518307" rgba="0.05 0.78 0.88 0.55" />
+      <site name="positive_1_2" user="3" pos="0 0.011214213 0.014142487" rgba="0.05 0.78 0.88 0.55" />
+      <site name="negative_1_1" user="3" pos="0 -0.011957987 0.005518307" rgba="0.96 0.24 0.16 0.55" />
+      <site name="negative_1_2" user="3" pos="0 -0.011214213 0.014142487" rgba="0.96 0.24 0.16 0.55" />
+      <body name="unit_2_body" pos="0 0 0.015168563">
+        <joint name="joint_1" />
+        <geom mesh="unit_2" name="unit_2_geom" contype="1" conaffinity="1" friction="0.8 0.02 0.005" solref="0.006 1" solimp="0.95 0.995 0.001" />
+        <site name="positive_2_1" user="3" pos="0 0.010902985 0.005031450" rgba="0.05 0.78 0.88 0.55" />
+        <site name="positive_2_2" user="3" pos="0 0.010224831 0.012894756" rgba="0.05 0.78 0.88 0.55" />
+        <site name="negative_2_1" user="3" pos="0 -0.010902985 0.005031450" rgba="0.96 0.24 0.16 0.55" />
+        <site name="negative_2_2" user="3" pos="0 -0.010224831 0.012894756" rgba="0.96 0.24 0.16 0.55" />
+        <body name="unit_3_body" pos="0 0 0.013830305">
+          <joint name="joint_2" />
+          <geom mesh="unit_3" name="unit_3_geom" contype="1" conaffinity="1" friction="0.8 0.02 0.005" solref="0.006 1" solimp="0.95 0.995 0.001" />
+          <site name="positive_3_1" user="3" pos="0 0.009941061 0.004587547" rgba="0.05 0.78 0.88 0.55" />
+          <site name="positive_3_2" user="3" pos="0 0.009322738 0.011757107" rgba="0.05 0.78 0.88 0.55" />
+          <site name="negative_3_1" user="3" pos="0 -0.009941061 0.004587547" rgba="0.96 0.24 0.16 0.55" />
+          <site name="negative_3_2" user="3" pos="0 -0.009322738 0.011757107" rgba="0.96 0.24 0.16 0.55" />
+          <body name="unit_4_body" pos="0 0 0.012610117">
+            <joint name="joint_3" />
+            <geom mesh="unit_4" name="unit_4_geom" contype="1" conaffinity="1" friction="0.8 0.02 0.005" solref="0.006 1" solimp="0.95 0.995 0.001" />
+            <site name="positive_4_1" user="3" pos="0 0.009064004 0.004182807" rgba="0.05 0.78 0.88 0.55" />
+            <site name="positive_4_2" user="3" pos="0 0.008500233 0.010719828" rgba="0.05 0.78 0.88 0.55" />
+            <site name="negative_4_1" user="3" pos="0 -0.009064004 0.004182807" rgba="0.96 0.24 0.16 0.55" />
+            <site name="negative_4_2" user="3" pos="0 -0.008500233 0.010719828" rgba="0.96 0.24 0.16 0.55" />
+            <body name="unit_5_body" pos="0 0 0.011497580">
+              <joint name="joint_4" />
+              <geom mesh="unit_5" name="unit_5_geom" contype="1" conaffinity="1" friction="0.8 0.02 0.005" solref="0.006 1" solimp="0.95 0.995 0.001" />
+              <site name="positive_5_1" user="3" pos="0 0.008264325 0.003813776" rgba="0.05 0.78 0.88 0.55" />
+              <site name="positive_5_2" user="3" pos="0 0.007750294 0.009774063" rgba="0.05 0.78 0.88 0.55" />
+              <site name="negative_5_1" user="3" pos="0 -0.008264325 0.003813776" rgba="0.96 0.24 0.16 0.55" />
+              <site name="negative_5_2" user="3" pos="0 -0.007750294 0.009774063" rgba="0.96 0.24 0.16 0.55" />
+              <body name="unit_6_body" pos="0 0 0.010483198">
+                <joint name="joint_5" />
+                <geom mesh="unit_6" name="unit_6_geom" contype="1" conaffinity="1" friction="0.8 0.02 0.005" solref="0.006 1" solimp="0.95 0.995 0.001" />
+                <site name="positive_6_1" user="3" pos="0 0.007535199 0.003477303" rgba="0.05 0.78 0.88 0.55" />
+                <site name="positive_6_2" user="3" pos="0 0.007066518 0.008911739" rgba="0.05 0.78 0.88 0.55" />
+                <site name="negative_6_1" user="3" pos="0 -0.007535199 0.003477303" rgba="0.96 0.24 0.16 0.55" />
+                <site name="negative_6_2" user="3" pos="0 -0.007066518 0.008911739" rgba="0.96 0.24 0.16 0.55" />
+                <body name="unit_7_body" pos="0 0 0.009558310">
+                  <joint name="joint_6" />
+                  <geom mesh="unit_7" name="unit_7_geom" contype="1" conaffinity="1" friction="0.8 0.02 0.005" solref="0.006 1" solimp="0.95 0.995 0.001" />
+                  <site name="positive_7_1" user="3" pos="0 0.006870401 0.003170515" rgba="0.05 0.78 0.88 0.55" />
+                  <site name="positive_7_2" user="3" pos="0 0.006443070 0.008125495" rgba="0.05 0.78 0.88 0.55" />
+                  <site name="negative_7_1" user="3" pos="0 -0.006870401 0.003170515" rgba="0.96 0.24 0.16 0.55" />
+                  <site name="negative_7_2" user="3" pos="0 -0.006443070 0.008125495" rgba="0.96 0.24 0.16 0.55" />
+                  <body name="unit_8_body" pos="0 0 0.008715021">
+                    <joint name="joint_7" />
+                    <geom mesh="unit_8" name="unit_8_geom" contype="1" conaffinity="1" friction="0.8 0.02 0.005" solref="0.006 1" solimp="0.95 0.995 0.001" />
+                    <site name="positive_8_1" user="3" pos="0 0.006264255 0.002890794" rgba="0.05 0.78 0.88 0.55" />
+                    <site name="positive_8_2" user="3" pos="0 0.005874625 0.007408617" rgba="0.05 0.78 0.88 0.55" />
+                    <site name="negative_8_1" user="3" pos="0 -0.006264255 0.002890794" rgba="0.96 0.24 0.16 0.55" />
+                    <site name="negative_8_2" user="3" pos="0 -0.005874625 0.007408617" rgba="0.96 0.24 0.16 0.55" />
+                    <body name="unit_9_body" pos="0 0 0.007946132">
+                      <joint name="joint_8" />
+                      <geom mesh="unit_9" name="unit_9_geom" contype="1" conaffinity="1" friction="0.8 0.02 0.005" solref="0.006 1" solimp="0.95 0.995 0.001" />
+                      <site name="positive_9_1" user="3" pos="0 0.005711586 0.002635752" rgba="0.05 0.78 0.88 0.55" />
+                      <site name="positive_9_2" user="3" pos="0 0.005356332 0.006754986" rgba="0.05 0.78 0.88 0.55" />
+                      <site name="negative_9_1" user="3" pos="0 -0.005711586 0.002635752" rgba="0.96 0.24 0.16 0.55" />
+                      <site name="negative_9_2" user="3" pos="0 -0.005356332 0.006754986" rgba="0.96 0.24 0.16 0.55" />
+                      <body name="unit_10_body" pos="0 0 0.007245079">
+                        <joint name="joint_9" />
+                        <geom mesh="unit_10" name="unit_10_geom" contype="1" conaffinity="1" friction="0.8 0.02 0.005" solref="0.006 1" solimp="0.95 0.995 0.001" />
+                        <site name="positive_10_1" user="3" pos="0 0.005207678 0.002403211" rgba="0.05 0.78 0.88 0.55" />
+                        <site name="positive_10_2" user="3" pos="0 0.004883766 0.006159023" rgba="0.05 0.78 0.88 0.55" />
+                        <site name="negative_10_1" user="3" pos="0 -0.005207678 0.002403211" rgba="0.96 0.24 0.16 0.55" />
+                        <site name="negative_10_2" user="3" pos="0 -0.004883766 0.006159023" rgba="0.96 0.24 0.16 0.55" />
+                        <body name="unit_11_body" pos="0 0 0.006605876">
+                          <joint name="joint_10" />
+                          <geom mesh="unit_11" name="unit_11_geom" contype="1" conaffinity="1" friction="0.8 0.02 0.005" solref="0.006 1" solimp="0.95 0.995 0.001" />
+                          <site name="positive_11_1" user="3" pos="0 0.004748226 0.002191186" rgba="0.05 0.78 0.88 0.55" />
+                          <site name="positive_11_2" user="3" pos="0 0.004452892 0.005615639" rgba="0.05 0.78 0.88 0.55" />
+                          <site name="negative_11_1" user="3" pos="0 -0.004748226 0.002191186" rgba="0.96 0.24 0.16 0.55" />
+                          <site name="negative_11_2" user="3" pos="0 -0.004452892 0.005615639" rgba="0.96 0.24 0.16 0.55" />
+                          <body name="unit_12_body" pos="0 0 0.006023068">
+                            <joint name="joint_11" />
+                            <geom mesh="unit_12" name="unit_12_geom" contype="1" conaffinity="1" friction="0.8 0.02 0.005" solref="0.006 1" solimp="0.95 0.995 0.001" />
+                            <site name="positive_12_1" user="3" pos="0 0.004329311 0.001997867" rgba="0.05 0.78 0.88 0.55" />
+                            <site name="positive_12_2" user="3" pos="0 0.004060032 0.005120195" rgba="0.05 0.78 0.88 0.55" />
+                            <site name="negative_12_1" user="3" pos="0 -0.004329311 0.001997867" rgba="0.96 0.24 0.16 0.55" />
+                            <site name="negative_12_2" user="3" pos="0 -0.004060032 0.005120195" rgba="0.96 0.24 0.16 0.55" />
+                            <site name="positive_tip" user="1" pos="0 0.004060032 0.005491679" rgba="0.05 0.78 0.88 1" />
+                            <site name="negative_tip" user="1" pos="0 -0.004060032 0.005491679" rgba="0.96 0.24 0.16 1" />
+                            <site name="tip_marker" pos="0 0 0.005491679" size="0.0025" rgba="1 0.82 0.08 1" />
+                          </body>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <contact>
+    <pair geom1="unit_1_geom" geom2="unit_2_geom" condim="3" friction="0.8 0.02 0.005 0.0001 0.0001" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="unit_2_geom" geom2="unit_3_geom" condim="3" friction="0.8 0.02 0.005 0.0001 0.0001" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="unit_3_geom" geom2="unit_4_geom" condim="3" friction="0.8 0.02 0.005 0.0001 0.0001" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="unit_4_geom" geom2="unit_5_geom" condim="3" friction="0.8 0.02 0.005 0.0001 0.0001" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="unit_5_geom" geom2="unit_6_geom" condim="3" friction="0.8 0.02 0.005 0.0001 0.0001" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="unit_6_geom" geom2="unit_7_geom" condim="3" friction="0.8 0.02 0.005 0.0001 0.0001" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="unit_7_geom" geom2="unit_8_geom" condim="3" friction="0.8 0.02 0.005 0.0001 0.0001" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="unit_8_geom" geom2="unit_9_geom" condim="3" friction="0.8 0.02 0.005 0.0001 0.0001" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="unit_9_geom" geom2="unit_10_geom" condim="3" friction="0.8 0.02 0.005 0.0001 0.0001" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="unit_10_geom" geom2="unit_11_geom" condim="3" friction="0.8 0.02 0.005 0.0001 0.0001" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="unit_11_geom" geom2="unit_12_geom" condim="3" friction="0.8 0.02 0.005 0.0001 0.0001" solref="0.006 1" solimp="0.95 0.995 0.001" />
+  </contact>
+  <tendon>
+    <spatial name="positive_seed" width="0.000000001" rgba="0.05 0.78 0.88 1">
+      <site site="positive_base_anchor" />
+      <site site="positive_1_1" />
+      <site site="positive_1_2" />
+      <site site="positive_2_1" />
+      <site site="positive_2_2" />
+      <site site="positive_3_1" />
+      <site site="positive_3_2" />
+      <site site="positive_4_1" />
+      <site site="positive_4_2" />
+      <site site="positive_5_1" />
+      <site site="positive_5_2" />
+      <site site="positive_6_1" />
+      <site site="positive_6_2" />
+      <site site="positive_7_1" />
+      <site site="positive_7_2" />
+      <site site="positive_8_1" />
+      <site site="positive_8_2" />
+      <site site="positive_9_1" />
+      <site site="positive_9_2" />
+      <site site="positive_10_1" />
+      <site site="positive_10_2" />
+      <site site="positive_11_1" />
+      <site site="positive_11_2" />
+      <site site="positive_12_1" />
+      <site site="positive_12_2" />
+      <site site="positive_tip" />
+    </spatial>
+    <spatial name="negative_seed" width="0.000000001" rgba="0.96 0.24 0.16 1">
+      <site site="negative_base_anchor" />
+      <site site="negative_1_1" />
+      <site site="negative_1_2" />
+      <site site="negative_2_1" />
+      <site site="negative_2_2" />
+      <site site="negative_3_1" />
+      <site site="negative_3_2" />
+      <site site="negative_4_1" />
+      <site site="negative_4_2" />
+      <site site="negative_5_1" />
+      <site site="negative_5_2" />
+      <site site="negative_6_1" />
+      <site site="negative_6_2" />
+      <site site="negative_7_1" />
+      <site site="negative_7_2" />
+      <site site="negative_8_1" />
+      <site site="negative_8_2" />
+      <site site="negative_9_1" />
+      <site site="negative_9_2" />
+      <site site="negative_10_1" />
+      <site site="negative_10_2" />
+      <site site="negative_11_1" />
+      <site site="negative_11_2" />
+      <site site="negative_12_1" />
+      <site site="negative_12_2" />
+      <site site="negative_tip" />
+    </spatial>
+  </tendon>
+  <actuator>
+    <plugin name="positive_command" tendon="positive_seed" gear="0" instance="positive_cable" ctrllimited="true" ctrlrange="0 0.05" />
+    <plugin name="negative_command" tendon="negative_seed" gear="0" instance="negative_cable" ctrllimited="true" ctrlrange="0 0.05" />
+  </actuator>
+  <sensor>
+    <plugin name="positive_state" instance="positive_cable" />
+    <plugin name="negative_state" instance="negative_cable" />
+    <framepos name="tip_position" objtype="site" objname="tip_marker" />
+    <framequat name="tip_orientation" objtype="site" objname="tip_marker" />
+  </sensor>
+  <keyframe>
+    <key name="home" ctrl="0 0" />
+  </keyframe>
+</mujoco>

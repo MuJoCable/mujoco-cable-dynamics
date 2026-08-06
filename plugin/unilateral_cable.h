@@ -100,6 +100,8 @@ private:
   int spool_qposadr_ = -1;
   mjtNum spool_qpos0_ = 0;
   mjtNum capstan_mu_ = 0;
+  mjtNum guide_friction_mu_ = 0;
+  mjtNum capstan_velocity_scale_ = 0.01;
   std::string ctrl_mode_;
   std::string integration_mode_;
   std::string spool_joint_;

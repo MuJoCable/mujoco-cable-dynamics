@@ -1,0 +1,133 @@
+<mujoco model="analytic_eyelet_friction_comparison">
+  <compiler autolimits="true" angle="radian" meshdir="assets/eyelet" />
+  <size nuser_site="1" />
+  <option timestep="0.0005" gravity="0 0 -9.81" integrator="RK4">
+    <flag energy="enable" />
+  </option>
+  <statistic center="0 0 0.20" extent="0.46" />
+
+  <extension>
+    <plugin plugin="mujoco.cable.unilateral">
+      <instance name="smooth_eyelet_cable">
+        <config key="stiffness" value="50" />
+        <config key="damping" value="0.6" />
+        <config key="slack" value="0" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.040" />
+        <config key="max_tension" value="5" />
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="smooth_eyelet_seed" />
+        <config key="site_role_user_index" value="0" />
+        <config key="visual_width" value="4" />
+      </instance>
+      <instance name="rough_eyelet_cable">
+        <config key="stiffness" value="50" />
+        <config key="damping" value="0.6" />
+        <config key="slack" value="0" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.040" />
+        <config key="max_tension" value="5" />
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="rough_eyelet_seed" />
+        <config key="site_role_user_index" value="0" />
+        <config key="guide_friction_mu" value="0.45" />
+        <config key="capstan_direction" value="forward" />
+        <config key="visual_width" value="4" />
+      </instance>
+    </plugin>
+  </extension>
+
+  <visual>
+    <global offwidth="1280" offheight="720" />
+    <quality shadowsize="4096" />
+    <map znear="0.01" />
+  </visual>
+
+  <asset>
+    <mesh name="eyelet_visual_mesh" file="washer.obj" />
+    <material name="smooth_eyelet" rgba="0.72 0.75 0.78 1" />
+    <material name="rough_eyelet" rgba="0.52 0.56 0.60 1" />
+    <material name="smooth_load" rgba="0.10 0.62 0.88 1" />
+    <material name="rough_load" rgba="0.92 0.28 0.12 1" />
+  </asset>
+
+  <default>
+    <site size="0.004" />
+    <default class="endpoint">
+      <site user="1" size="0.005" />
+    </default>
+    <default class="eyelet_guide">
+      <site user="3" size="0.006" rgba="1 0.82 0.12 1" />
+    </default>
+  </default>
+
+  <worldbody>
+    <light name="key" pos="-0.25 -0.6 0.8" dir="0.25 0.7 -0.7" />
+    <camera name="overview" pos="0 -0.78 0.50"
+            xyaxes="1 0 0 0 0.342 0.94" />
+    <geom name="floor" type="plane" pos="0 0 -0.025"
+          size="0.38 0.24 0.01" rgba="0.12 0.14 0.16 1" />
+
+    <body name="smooth_eyelet" pos="-0.14 0 0.31">
+      <geom type="mesh" mesh="eyelet_visual_mesh"
+            euler="1.57079632679 0 0" material="smooth_eyelet"
+            contype="0" conaffinity="0" />
+      <site name="smooth_guide" class="eyelet_guide" />
+    </body>
+    <site name="smooth_anchor" class="endpoint"
+          pos="-0.24 0 0.31" rgba="0.10 0.78 1 1" />
+    <body name="smooth_payload" pos="-0.14 0 0.12">
+      <joint name="smooth_payload_slide" type="slide" axis="0 0 1"
+             range="-0.07 0.07" damping="0.20" />
+      <geom type="box" size="0.030 0.025 0.025" mass="0.12"
+            material="smooth_load" contype="0" conaffinity="0" />
+      <site name="smooth_load_end" class="endpoint" pos="0 0 0.030"
+            rgba="0.10 0.78 1 1" />
+    </body>
+
+    <body name="rough_eyelet" pos="0.14 0 0.31">
+      <geom type="mesh" mesh="eyelet_visual_mesh"
+            euler="1.57079632679 0 0" material="rough_eyelet"
+            contype="0" conaffinity="0" />
+      <site name="rough_guide" class="eyelet_guide" />
+    </body>
+    <site name="rough_anchor" class="endpoint"
+          pos="0.04 0 0.31" rgba="1 0.40 0.12 1" />
+    <body name="rough_payload" pos="0.14 0 0.12">
+      <joint name="rough_payload_slide" type="slide" axis="0 0 1"
+             range="-0.07 0.07" damping="0.20" />
+      <geom type="box" size="0.030 0.025 0.025" mass="0.12"
+            material="rough_load" contype="0" conaffinity="0" />
+      <site name="rough_load_end" class="endpoint" pos="0 0 0.030"
+            rgba="1 0.40 0.12 1" />
+    </body>
+  </worldbody>
+
+  <tendon>
+    <spatial name="smooth_eyelet_seed" limited="false"
+             width="0.000000001" rgba="0.10 0.78 1 1">
+      <site site="smooth_anchor" />
+      <site site="smooth_guide" />
+      <site site="smooth_load_end" />
+    </spatial>
+    <spatial name="rough_eyelet_seed" limited="false"
+             width="0.000000001" rgba="1 0.40 0.12 1">
+      <site site="rough_anchor" />
+      <site site="rough_guide" />
+      <site site="rough_load_end" />
+    </spatial>
+  </tendon>
+
+  <sensor>
+    <plugin name="smooth_eyelet_state" instance="smooth_eyelet_cable" />
+    <plugin name="rough_eyelet_state" instance="rough_eyelet_cable" />
+    <jointpos name="smooth_payload_displacement"
+              joint="smooth_payload_slide" />
+    <jointvel name="smooth_payload_velocity"
+              joint="smooth_payload_slide" />
+    <jointpos name="rough_payload_displacement"
+              joint="rough_payload_slide" />
+    <jointvel name="rough_payload_velocity"
+              joint="rough_payload_slide" />
+  </sensor>
+</mujoco>

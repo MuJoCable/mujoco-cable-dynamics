@@ -14,7 +14,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MODEL = ROOT / "cable_plugin_demos" / "13_cpp_plugin_rolling_joint_figure_eight.xml"
-DEFAULT_PLUGIN = ROOT / "build/cable_surface/plugin/libcable_unilateral.dylib"
+DEFAULT_PLUGIN = ROOT / "build/plugin/libcable_unilateral.dylib"
 
 
 REQUIRED_WRAP_GEOMS: dict[str, tuple[str, ...]] = {

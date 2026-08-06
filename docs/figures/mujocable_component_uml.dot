@@ -1,0 +1,59 @@
+digraph MuJoCableComponentUML {
+  graph [
+    rankdir=TB,
+    bgcolor="white",
+    pad="0.20",
+    nodesep="0.45",
+    ranksep="0.85",
+    splines=polyline,
+    fontname="Times New Roman",
+    fontsize=12,
+    labelloc="t",
+    label="MuJoCable and MuJoCo Technical Boundary"
+  ];
+  node [
+    shape=record,
+    style="filled,rounded",
+    color="#333333",
+    penwidth=1.2,
+    fontname="Times New Roman",
+    fontsize=11,
+    margin="0.12,0.09"
+  ];
+  edge [
+    color="#333333",
+    penwidth=1.1,
+    arrowsize=0.75,
+    fontname="Times New Roman",
+    fontsize=10
+  ];
+
+  app [
+    label="{Application / MJCF Layer|MJCF model and controller|endpoint / hint / eyelet sites|wrap geoms, seed tendons, reserve control|experiment logging}",
+    fillcolor="#F3F3F3"
+  ];
+
+  mujoco [
+    label="{MuJoCo Core (upstream-owned)|MJCF compiler and mjModel|rigid-body kinematics, ground, and self-collision|constraints and time integration|plugin dispatcher and mjvScene}",
+    fillcolor="#DCECF4",
+    color="#356A8A",
+    penwidth=1.6
+  ];
+
+  plugin [
+    label="{MuJoCable Plugin (project-owned)|UnilateralCable and configuration validation|NativeTendonRoute / SurfaceEnvelopeRoute|cylinder, mesh, compound, and role-3 eyelet routes|unilateral law, spool reserve, Capstan, node forces|state, diagnostics, and route visualization}",
+    fillcolor="#F7E3D8",
+    color="#A14B2C",
+    penwidth=1.6
+  ];
+
+  app -> mujoco [
+    dir=both,
+    label="down: MJCF, ctrl, external load\nup: integrated state, sensors, rendered scene"
+  ];
+  mujoco -> plugin [
+    dir=both,
+    label="down: mjpPlugin callbacks, config, poses, velocities, dt\nup: qfrc_passive, actuator_force, sensors, state, scene lines",
+    color="#6D4C41"
+  ];
+}

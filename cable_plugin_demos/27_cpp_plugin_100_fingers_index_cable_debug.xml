@@ -1,0 +1,324 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mujoco model="100_fingers_index_cable_debug">
+  <compiler angle="radian" autolimits="true" meshdir="assets/100_fingers_human" />
+  <size nuser_site="1" />
+  <option timestep="0.0005" gravity="0 0 0" integrator="implicitfast" />
+  <extension>
+    <plugin plugin="mujoco.cable.unilateral">
+      <instance name="index_extensor_cable">
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="index_extensor_seed" />
+        <config key="wrap_geoms" value="index_mcp_wrap index_pip_wrap index_dip_wrap" />
+        <config key="home_length" value="auto_initial" />
+        <config key="stiffness" value="500.0" />
+        <config key="damping" value="1.2" />
+        <config key="slack" value="5e-05" />
+        <config key="pretension_offset" value="0.0001" />
+        <config key="max_tension" value="5.0" />
+        <config key="ctrl_mode" value="target_contraction" />
+        <config key="control_timeconstant" value="0.04" />
+        <config key="max_contraction_rate" value="0.04" />
+        <config key="taut_transition" value="8e-05" />
+        <config key="taut_hysteresis" value="2e-05" />
+        <config key="route_hysteresis" value="1e-05" />
+        <config key="visual_width" value="1.6" />
+        <config key="visual_smoothing_timeconstant" value="0.02" />
+      </instance>
+      <instance name="index_abductor_cable">
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="index_abductor_seed" />
+        <config key="wrap_geoms" value="index_mcp_lateral_wrap" />
+        <config key="home_length" value="auto_initial" />
+        <config key="stiffness" value="350.0" />
+        <config key="damping" value="1.2" />
+        <config key="slack" value="5e-05" />
+        <config key="pretension_offset" value="0.0001" />
+        <config key="max_tension" value="5.0" />
+        <config key="ctrl_mode" value="target_contraction" />
+        <config key="control_timeconstant" value="0.04" />
+        <config key="max_contraction_rate" value="0.04" />
+        <config key="taut_transition" value="8e-05" />
+        <config key="taut_hysteresis" value="2e-05" />
+        <config key="route_hysteresis" value="1e-05" />
+        <config key="visual_width" value="1.6" />
+        <config key="visual_smoothing_timeconstant" value="0.02" />
+      </instance>
+      <instance name="index_adductor_cable">
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="index_adductor_seed" />
+        <config key="wrap_geoms" value="index_mcp_lateral_wrap" />
+        <config key="home_length" value="auto_initial" />
+        <config key="stiffness" value="350.0" />
+        <config key="damping" value="1.2" />
+        <config key="slack" value="5e-05" />
+        <config key="pretension_offset" value="0.0001" />
+        <config key="max_tension" value="5.0" />
+        <config key="ctrl_mode" value="target_contraction" />
+        <config key="control_timeconstant" value="0.04" />
+        <config key="max_contraction_rate" value="0.04" />
+        <config key="taut_transition" value="8e-05" />
+        <config key="taut_hysteresis" value="2e-05" />
+        <config key="route_hysteresis" value="1e-05" />
+        <config key="visual_width" value="1.6" />
+        <config key="visual_smoothing_timeconstant" value="0.02" />
+      </instance>
+      <instance name="index_flexor_intermediate_cable">
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="index_flexor_intermediate_seed" />
+        <config key="wrap_geoms" value="index_mcp_wrap index_pip_wrap" />
+        <config key="home_length" value="auto_initial" />
+        <config key="stiffness" value="700.0" />
+        <config key="damping" value="1.2" />
+        <config key="slack" value="5e-05" />
+        <config key="pretension_offset" value="0.0001" />
+        <config key="max_tension" value="5.0" />
+        <config key="ctrl_mode" value="target_contraction" />
+        <config key="control_timeconstant" value="0.04" />
+        <config key="max_contraction_rate" value="0.04" />
+        <config key="taut_transition" value="8e-05" />
+        <config key="taut_hysteresis" value="2e-05" />
+        <config key="route_hysteresis" value="1e-05" />
+        <config key="visual_width" value="1.6" />
+        <config key="visual_smoothing_timeconstant" value="0.02" />
+      </instance>
+      <instance name="index_flexor_distal_cable">
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="index_flexor_distal_seed" />
+        <config key="wrap_geoms" value="index_mcp_wrap index_pip_wrap index_dip_wrap" />
+        <config key="home_length" value="auto_initial" />
+        <config key="stiffness" value="700.0" />
+        <config key="damping" value="1.2" />
+        <config key="slack" value="5e-05" />
+        <config key="pretension_offset" value="0.0001" />
+        <config key="max_tension" value="5.0" />
+        <config key="ctrl_mode" value="target_contraction" />
+        <config key="control_timeconstant" value="0.04" />
+        <config key="max_contraction_rate" value="0.04" />
+        <config key="taut_transition" value="8e-05" />
+        <config key="taut_hysteresis" value="2e-05" />
+        <config key="route_hysteresis" value="1e-05" />
+        <config key="visual_width" value="1.6" />
+        <config key="visual_smoothing_timeconstant" value="0.02" />
+      </instance>
+    </plugin>
+  </extension>
+  <asset>
+    <texture name="grid" type="2d" builtin="checker" rgb1="0.17 0.18 0.19" rgb2="0.24 0.25 0.26" width="512" height="512" />
+    <material name="floor_material" texture="grid" texrepeat="8 8" reflectance="0.08" />
+    <material name="bone_material" rgba="0.82 0.73 0.42 1" specular="0.25" shininess="0.3" />
+    <material name="palm_material" rgba="0.68 0.58 0.28 1" specular="0.20" shininess="0.25" />
+    <mesh name="human_palm_mesh" file="human_palm.stl" scale="0.001 0.001 0.001" />
+    <mesh name="index_proximal_mesh" file="human_index_proximal.stl" scale="0.001 0.001 0.001" />
+    <mesh name="index_intermediate_mesh" file="human_index_intermediate.stl" scale="0.001 0.001 0.001" />
+    <mesh name="index_distal_mesh" file="human_index_distal.stl" scale="0.001 0.001 0.001" />
+    <mesh name="middle_proximal_mesh" file="human_middle_proximal.stl" scale="0.001 0.001 0.001" />
+    <mesh name="middle_intermediate_mesh" file="human_middle_intermediate.stl" scale="0.001 0.001 0.001" />
+    <mesh name="middle_distal_mesh" file="human_middle_distal.stl" scale="0.001 0.001 0.001" />
+    <mesh name="ring_proximal_mesh" file="human_ring_proximal.stl" scale="0.001 0.001 0.001" />
+    <mesh name="ring_intermediate_mesh" file="human_ring_intermediate.stl" scale="0.001 0.001 0.001" />
+    <mesh name="ring_distal_mesh" file="human_ring_distal.stl" scale="0.001 0.001 0.001" />
+    <mesh name="little_proximal_mesh" file="human_little_proximal.stl" scale="0.001 0.001 0.001" />
+    <mesh name="little_intermediate_mesh" file="human_little_intermediate.stl" scale="0.001 0.001 0.001" />
+    <mesh name="little_distal_mesh" file="human_little_distal.stl" scale="0.001 0.001 0.001" />
+    <mesh name="thumb_proximal_mesh" file="human_thumb_proximal.stl" scale="0.001 0.001 0.001" />
+    <mesh name="thumb_intermediate_mesh" file="human_thumb_intermediate.stl" scale="0.001 0.001 0.001" />
+    <mesh name="thumb_distal_mesh" file="human_thumb_distal.stl" scale="0.001 0.001 0.001" />
+  </asset>
+  <visual>
+    <headlight diffuse="0.75 0.75 0.75" ambient="0.25 0.25 0.25" />
+    <global azimuth="-90" elevation="-52" />
+  </visual>
+  <default>
+    <geom friction="0.9 0.01 0.001" solref="0.008 1" solimp="0.92 0.99 0.002" />
+    <joint armature="0.00002" frictionloss="0.001" solreflimit="0.003 1" solimplimit="0.95 0.999 0.001" />
+  </default>
+  <worldbody>
+    <light name="key" pos="0 -0.25 0.55" dir="0 0.25 -1" />
+    <geom name="floor" type="plane" pos="0 0 0" size="0.40 0.40 0.01" material="floor_material" />
+    <camera name="overview" pos="0.02 -0.34 0.34" xyaxes="1 0 0 0 0.447213595 0.894427191" />
+    <camera name="dorsal" pos="0.02 0 0.48" xyaxes="1 0 0 0 1 0" />
+    <body name="hand_frame" pos="-0.055 0 0.205" euler="1.57079632679 0 0">
+      <geom name="human_palm_visual" type="mesh" mesh="human_palm_mesh" material="palm_material" density="0" contype="0" conaffinity="0" />
+      <body name="index_mount" pos="0.0691641006 -0.00797923207 -0.0137002456" quat="0.998700812 0.000570927685 0.049643146 0.0114856932">
+        <site name="index_extensor_start" pos="-0.012 -0.0079925 0" user="1" size="0.00065" rgba="0.10 0.35 0.95 1" />
+        <site name="index_abductor_start" pos="-0.012 0 0.0079925" user="1" size="0.00065" rgba="0.00 0.68 0.72 1" />
+        <site name="index_adductor_start" pos="-0.012 0 -0.0079925" user="1" size="0.00065" rgba="0.82 0.18 0.66 1" />
+        <site name="index_flexor_intermediate_start" pos="-0.012 0.0072975 -0.0008" user="1" size="0.00065" rgba="1.00 0.55 0.05 1" />
+        <site name="index_flexor_distal_start" pos="-0.012 0.00834 0.0008" user="1" size="0.00065" rgba="0.92 0.10 0.08 1" />
+        <body name="index_proximal" pos="0 0 0">
+          <inertial pos="0.0165290416 0.000941112353 0.00240157078" mass="0.01" diaginertia="1.2e-06 1.2e-06 1.2e-06" />
+          <joint name="index_mcp_abduction" type="hinge" axis="0 1 0" range="-0.45 0.45" damping="0.02" />
+          <joint name="index_mcp_flexion" type="hinge" axis="0 0 1" range="-0.15 1.30" damping="0.02" />
+          <geom name="index_proximal_visual" type="mesh" mesh="index_proximal_mesh" material="bone_material" density="0" contype="0" conaffinity="0" />
+          <geom name="index_mcp_wrap" type="cylinder" size="0.00695 0.0075" density="0" contype="0" conaffinity="0" rgba="0 0 0 0" />
+          <geom name="index_mcp_lateral_wrap" type="cylinder" size="0.00695 0.0075" quat="0.707106781 -0.707106781 0 0" density="0" contype="0" conaffinity="0" rgba="0 0 0 0" />
+          <site name="index_mcp_flexor_intermediate_hint" pos="0 0.0072975 -0.0008" user="2" size="0.00015" rgba="0 0 0 0" />
+          <site name="index_mcp_flexor_distal_hint" pos="0 0.00834 0.0008" user="2" size="0.00015" rgba="0 0 0 0" />
+          <site name="index_mcp_extensor_hint" pos="0 -0.0079925 0" user="2" size="0.00015" rgba="0 0 0 0" />
+          <site name="index_mcp_abductor_hint" pos="0 0 0.0079925" user="2" size="0.00015" rgba="0 0 0 0" />
+          <site name="index_mcp_adductor_hint" pos="0 0 -0.0079925" user="2" size="0.00015" rgba="0 0 0 0" />
+          <site name="index_abductor_end" pos="0.0177795557 0 0.004865" user="1" size="0.00065" rgba="0.00 0.68 0.72 1" />
+          <site name="index_adductor_end" pos="0.0177795557 0 -0.004865" user="1" size="0.00065" rgba="0.82 0.18 0.66 1" />
+          <site name="index_proximal_flexor_guide" pos="0.0168097618 0.0094809532 0" user="3" size="0.00045" rgba="1 0.72 0.08 0.75" />
+          <site name="index_proximal_extensor_guide" pos="0.0168097618 -0.00928579543 0" user="3" size="0.00045" rgba="0.10 0.35 0.95 1" />
+          <body name="index_intermediate" pos="0.0323407908 1.78342423e-05 0.00119848233">
+            <inertial pos="0.00877692332 -0.000401131915 -0.000145114203" mass="0.006" diaginertia="7e-07 7e-07 7e-07" />
+            <joint name="index_pip_flexion" type="hinge" axis="0 0 1" range="0 1.75" damping="0.018" />
+            <geom name="index_intermediate_visual" type="mesh" mesh="index_intermediate_mesh" material="bone_material" density="0" contype="0" conaffinity="0" />
+            <geom name="index_pip_wrap" type="cylinder" size="0.00445 0.006" density="0" contype="0" conaffinity="0" rgba="0 0 0 0" />
+            <site name="index_pip_flexor_intermediate_hint" pos="0 0.0046725 -0.0008" user="2" size="0.00015" rgba="0 0 0 0" />
+            <site name="index_pip_flexor_distal_hint" pos="0 0.00534 0.0008" user="2" size="0.00015" rgba="0 0 0 0" />
+            <site name="index_pip_extensor_hint" pos="0 -0.0051175 0" user="2" size="0.00015" rgba="0 0 0 0" />
+            <site name="index_intermediate_flexor_guide" pos="0.0103734241 0.00816390052 0" user="3" size="0.00045" rgba="1 0.72 0.08 0.75" />
+            <site name="index_intermediate_extensor_guide" pos="0.0103734241 -0.00925003271 0" user="3" size="0.00045" rgba="0.10 0.35 0.95 1" />
+            <site name="index_flexor_intermediate_end" pos="0.0179488925 0.00798696037 -0.0008" user="1" size="0.00065" rgba="1.00 0.55 0.05 1" />
+            <body name="index_distal" pos="0.0199612157 -1.78342423e-05 -0.00119848233">
+              <inertial pos="0.00779740518 0.000138634689 -0.000264567579" mass="0.004" diaginertia="5e-07 5e-07 5e-07" />
+              <joint name="index_dip_flexion" type="hinge" axis="0 0 1" range="0 1.45" damping="0.018" />
+              <geom name="index_distal_visual" type="mesh" mesh="index_distal_mesh" material="bone_material" density="0" contype="0" conaffinity="0" />
+              <geom name="index_dip_wrap" type="cylinder" size="0.003825 0.00525" density="0" contype="0" conaffinity="0" rgba="0 0 0 0" />
+              <site name="index_dip_flexor_distal_hint" pos="0 0.00459 0.0008" user="2" size="0.00015" rgba="0 0 0 0" />
+              <site name="index_dip_extensor_hint" pos="0 -0.00439875 0" user="2" size="0.00015" rgba="0 0 0 0" />
+              <site name="index_flexor_distal_end" pos="0.0187697291 0.00773395368 0.0008" user="1" size="0.00065" rgba="0.92 0.10 0.08 1" />
+              <site name="index_extensor_end" pos="0.0187697291 -0.00527720884 0" user="1" size="0.00065" rgba="0.10 0.35 0.95 1" />
+              <site name="index_tip" pos="0.0187697291 0 0" size="0.0012" rgba="0.95 0.75 0.12 1" />
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="middle_mount" pos="0.0743175316 -0.00584696209 0.0045850364" quat="0.99967989 -0.000259258806 -0.0225335141 0.011501793">
+        <body name="middle_proximal" pos="0 0 0">
+          <inertial pos="0.0174886819 0.00112390797 0.00272663141" mass="0.01" diaginertia="1.2e-06 1.2e-06 1.2e-06" />
+          <joint name="middle_mcp_abduction" type="hinge" axis="0 1 0" range="-0.45 0.45" damping="0.02" />
+          <joint name="middle_mcp_flexion" type="hinge" axis="0 0 1" range="-0.15 1.30" damping="0.02" />
+          <geom name="middle_proximal_visual" type="mesh" mesh="middle_proximal_mesh" material="bone_material" density="0" contype="0" conaffinity="0" />
+          <body name="middle_intermediate" pos="0.034107321 -3.15985695e-05 0.00153409842">
+            <inertial pos="0.00943089969 -5.92547337e-06 -0.000619799024" mass="0.006" diaginertia="7e-07 7e-07 7e-07" />
+            <joint name="middle_pip_flexion" type="hinge" axis="0 0 1" range="0 1.75" damping="0.018" />
+            <geom name="middle_intermediate_visual" type="mesh" mesh="middle_intermediate_mesh" material="bone_material" density="0" contype="0" conaffinity="0" />
+            <body name="middle_distal" pos="0.0213307528 3.15985695e-05 -0.00153409842">
+              <inertial pos="0.00787731135 0.000742184633 -0.000528686378" mass="0.004" diaginertia="5e-07 5e-07 5e-07" />
+              <joint name="middle_dip_flexion" type="hinge" axis="0 0 1" range="0 1.45" damping="0.018" />
+              <geom name="middle_distal_visual" type="mesh" mesh="middle_distal_mesh" material="bone_material" density="0" contype="0" conaffinity="0" />
+              <site name="middle_tip" pos="0.020613162 0 0" size="0.0012" rgba="0.95 0.75 0.12 1" />
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="ring_mount" pos="0.0712914505 -0.00669905484 0.0311684575" quat="0.999892993 -0.000102429229 -0.00871981461 0.011745464">
+        <body name="ring_proximal" pos="0 0 0">
+          <inertial pos="0.0161460168 0.000966987612 -0.00225843536" mass="0.01" diaginertia="1.2e-06 1.2e-06 1.2e-06" />
+          <joint name="ring_mcp_abduction" type="hinge" axis="0 1 0" range="-0.45 0.45" damping="0.02" />
+          <joint name="ring_mcp_flexion" type="hinge" axis="0 0 1" range="-0.15 1.30" damping="0.02" />
+          <geom name="ring_proximal_visual" type="mesh" mesh="ring_proximal_mesh" material="bone_material" density="0" contype="0" conaffinity="0" />
+          <body name="ring_intermediate" pos="0.0317267548 -4.7823839e-05 -0.00121365981">
+            <inertial pos="0.00904079374 -6.66719937e-05 0.000387222347" mass="0.006" diaginertia="7e-07 7e-07 7e-07" />
+            <joint name="ring_pip_flexion" type="hinge" axis="0 0 1" range="0 1.75" damping="0.018" />
+            <geom name="ring_intermediate_visual" type="mesh" mesh="ring_intermediate_mesh" material="bone_material" density="0" contype="0" conaffinity="0" />
+            <body name="ring_distal" pos="0.0205560087 4.7823839e-05 0.00121365981">
+              <inertial pos="0.00792798071 0.000563846871 0.000371284873" mass="0.004" diaginertia="5e-07 5e-07 5e-07" />
+              <joint name="ring_dip_flexion" type="hinge" axis="0 0 1" range="0 1.45" damping="0.018" />
+              <geom name="ring_distal_visual" type="mesh" mesh="ring_distal_mesh" material="bone_material" density="0" contype="0" conaffinity="0" />
+              <site name="ring_tip" pos="0.0200536733 0 0" size="0.0012" rgba="0.95 0.75 0.12 1" />
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="little_mount" pos="0.0594162178 -0.0090879457 0.0413373909" quat="0.991384289 -0.000456937502 -0.13093897 0.00345963208">
+        <body name="little_proximal" pos="0 0 0">
+          <inertial pos="0.0146596637 0.000580461882 0.0018994543" mass="0.01" diaginertia="1.2e-06 1.2e-06 1.2e-06" />
+          <joint name="little_mcp_abduction" type="hinge" axis="0 1 0" range="-0.45 0.45" damping="0.02" />
+          <joint name="little_mcp_flexion" type="hinge" axis="0 0 1" range="-0.15 1.30" damping="0.02" />
+          <geom name="little_proximal_visual" type="mesh" mesh="little_proximal_mesh" material="bone_material" density="0" contype="0" conaffinity="0" />
+          <body name="little_intermediate" pos="0.0285753028 -0.000194759338 0.00123445991">
+            <inertial pos="0.00801605874 -0.000227590866 -0.000928502185" mass="0.006" diaginertia="7e-07 7e-07 7e-07" />
+            <joint name="little_pip_flexion" type="hinge" axis="0 0 1" range="0 1.75" damping="0.018" />
+            <geom name="little_intermediate_visual" type="mesh" mesh="little_intermediate_mesh" material="bone_material" density="0" contype="0" conaffinity="0" />
+            <body name="little_distal" pos="0.018541709 0.000194759338 -0.00123445991">
+              <inertial pos="0.00638638377 0.000439387552 -0.000589624222" mass="0.004" diaginertia="5e-07 5e-07 5e-07" />
+              <joint name="little_dip_flexion" type="hinge" axis="0 0 1" range="0 1.45" damping="0.018" />
+              <geom name="little_distal_visual" type="mesh" mesh="little_distal_mesh" material="bone_material" density="0" contype="0" conaffinity="0" />
+              <site name="little_tip" pos="0.0160171928 0 0" size="0.0012" rgba="0.95 0.75 0.12 1" />
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="thumb_mount" pos="0.00730069697 -0.0191560717 -0.0203346233" quat="0.863417788 -0.105460324 0.449921134 -0.202382846">
+        <body name="thumb_proximal" pos="0 0 0">
+          <inertial pos="0.0201983694 0.00275823402 0.00142041813" mass="0.01" diaginertia="1.2e-06 1.2e-06 1.2e-06" />
+          <joint name="thumb_mcp_abduction" type="hinge" axis="0 1 0" range="-0.45 0.45" damping="0.02" />
+          <joint name="thumb_mcp_flexion" type="hinge" axis="0 0 1" range="-0.15 1.30" damping="0.02" />
+          <geom name="thumb_proximal_visual" type="mesh" mesh="thumb_proximal_mesh" material="bone_material" density="0" contype="0" conaffinity="0" />
+          <body name="thumb_intermediate" pos="0.0386129609 0.00146640829 0.000183108589">
+            <inertial pos="0.0132394981 -0.00146243131 0.00105054212" mass="0.006" diaginertia="7e-07 7e-07 7e-07" />
+            <joint name="thumb_pip_flexion" type="hinge" axis="0 0 1" range="0 1.75" damping="0.018" />
+            <geom name="thumb_intermediate_visual" type="mesh" mesh="thumb_intermediate_mesh" material="bone_material" density="0" contype="0" conaffinity="0" />
+            <body name="thumb_distal" pos="0.0277043294 -0.00146640829 -0.000183108589">
+              <inertial pos="0.00962865987 -0.000791135378 0.000409138211" mass="0.004" diaginertia="5e-07 5e-07 5e-07" />
+              <joint name="thumb_dip_flexion" type="hinge" axis="0 0 1" range="0 1.45" damping="0.018" />
+              <geom name="thumb_distal_visual" type="mesh" mesh="thumb_distal_mesh" material="bone_material" density="0" contype="0" conaffinity="0" />
+              <site name="thumb_tip" pos="0.0223360225 0 0" size="0.0012" rgba="0.95 0.75 0.12 1" />
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+    <camera name="index_route_debug" pos="0.050 -0.220 0.197" xyaxes="1 0 0 0 0 1" />
+  </worldbody>
+  <tendon>
+    <spatial name="index_extensor_seed" width="0.000000001" rgba="0.10 0.35 0.95 1" limited="false">
+      <site site="index_extensor_start" />
+      <site site="index_mcp_extensor_hint" />
+      <site site="index_proximal_extensor_guide" />
+      <site site="index_pip_extensor_hint" />
+      <site site="index_intermediate_extensor_guide" />
+      <site site="index_dip_extensor_hint" />
+      <site site="index_extensor_end" />
+    </spatial>
+    <spatial name="index_abductor_seed" width="0.000000001" rgba="0.00 0.68 0.72 1" limited="false">
+      <site site="index_abductor_start" />
+      <site site="index_mcp_abductor_hint" />
+      <site site="index_abductor_end" />
+    </spatial>
+    <spatial name="index_adductor_seed" width="0.000000001" rgba="0.82 0.18 0.66 1" limited="false">
+      <site site="index_adductor_start" />
+      <site site="index_mcp_adductor_hint" />
+      <site site="index_adductor_end" />
+    </spatial>
+    <spatial name="index_flexor_intermediate_seed" width="0.000000001" rgba="1.00 0.55 0.05 1" limited="false">
+      <site site="index_flexor_intermediate_start" />
+      <site site="index_mcp_flexor_intermediate_hint" />
+      <site site="index_proximal_flexor_guide" />
+      <site site="index_pip_flexor_intermediate_hint" />
+      <site site="index_flexor_intermediate_end" />
+    </spatial>
+    <spatial name="index_flexor_distal_seed" width="0.000000001" rgba="0.92 0.10 0.08 1" limited="false">
+      <site site="index_flexor_distal_start" />
+      <site site="index_mcp_flexor_distal_hint" />
+      <site site="index_proximal_flexor_guide" />
+      <site site="index_pip_flexor_distal_hint" />
+      <site site="index_intermediate_flexor_guide" />
+      <site site="index_dip_flexor_distal_hint" />
+      <site site="index_flexor_distal_end" />
+    </spatial>
+  </tendon>
+  <actuator>
+    <plugin name="index_extensor_command" tendon="index_extensor_seed" gear="0" instance="index_extensor_cable" ctrllimited="true" ctrlrange="0 0.018" />
+    <plugin name="index_abductor_command" tendon="index_abductor_seed" gear="0" instance="index_abductor_cable" ctrllimited="true" ctrlrange="0 0.018" />
+    <plugin name="index_adductor_command" tendon="index_adductor_seed" gear="0" instance="index_adductor_cable" ctrllimited="true" ctrlrange="0 0.018" />
+    <plugin name="index_flexor_intermediate_command" tendon="index_flexor_intermediate_seed" gear="0" instance="index_flexor_intermediate_cable" ctrllimited="true" ctrlrange="0 0.018" />
+    <plugin name="index_flexor_distal_command" tendon="index_flexor_distal_seed" gear="0" instance="index_flexor_distal_cable" ctrllimited="true" ctrlrange="0 0.018" />
+  </actuator>
+  <sensor>
+    <plugin name="index_extensor_state" instance="index_extensor_cable" />
+    <plugin name="index_abductor_state" instance="index_abductor_cable" />
+    <plugin name="index_adductor_state" instance="index_adductor_cable" />
+    <plugin name="index_flexor_intermediate_state" instance="index_flexor_intermediate_cable" />
+    <plugin name="index_flexor_distal_state" instance="index_flexor_distal_cable" />
+    <framepos name="index_tip_position" objtype="site" objname="index_tip" />
+    <framepos name="middle_tip_position" objtype="site" objname="middle_tip" />
+    <framepos name="ring_tip_position" objtype="site" objname="ring_tip" />
+    <framepos name="little_tip_position" objtype="site" objname="little_tip" />
+    <framepos name="thumb_tip_position" objtype="site" objname="thumb_tip" />
+  </sensor>
+</mujoco>

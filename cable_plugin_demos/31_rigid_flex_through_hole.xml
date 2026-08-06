@@ -1,0 +1,69 @@
+<mujoco model="rigid_flex_through_hole_comparison">
+  <compiler angle="radian" meshdir="assets/eyelet" />
+  <option timestep="0.0005" gravity="0 0 -9.81" integrator="implicitfast">
+    <flag energy="enable" />
+  </option>
+  <statistic center="0 0 0.16" extent="0.42" />
+
+  <visual>
+    <global offwidth="1280" offheight="720" />
+    <quality shadowsize="4096" />
+    <map znear="0.01" />
+  </visual>
+
+  <asset>
+    <mesh name="washer_mesh" file="washer.obj" />
+    <material name="eyelet" rgba="0.72 0.75 0.78 1" />
+    <material name="blocked_ball" rgba="0.92 0.25 0.12 1" />
+    <material name="passing_ball" rgba="0.10 0.62 0.88 1" />
+  </asset>
+
+  <worldbody>
+    <light name="key" pos="-0.25 -0.55 0.75" dir="0.3 0.7 -0.7" />
+    <camera name="overview" pos="0 -0.72 0.43"
+            xyaxes="1 0 0 0 0.342 0.94" />
+    <geom name="floor" type="plane" pos="0 0 -0.02"
+          size="0.32 0.22 0.01" rgba="0.12 0.14 0.16 1"
+          friction="0.8 0.01 0.001" />
+
+    <!-- The rendered mesh has a hole, but native geom collision uses its
+         convex hull and therefore closes the aperture. -->
+    <body name="convexified_eyelet" pos="-0.13 0 0.17">
+      <geom name="convexified_washer" type="mesh" mesh="washer_mesh"
+            material="eyelet" />
+    </body>
+
+    <!-- All flex vertices belong to this fixed parent body. The flex
+         collision triangles retain the annular non-convex aperture. -->
+    <body name="rigid_flex_eyelet" pos="0.13 0 0.17">
+      <flexcomp name="true_hole" type="mesh" file="washer.obj"
+                rigid="true" radius="0.0008" material="eyelet"
+                flatskin="true">
+        <contact contype="1" conaffinity="1" condim="3"
+                 friction="0.5 0.01 0.001"
+                 solref="0.004 1" solimp="0.95 0.99 0.001" />
+      </flexcomp>
+    </body>
+
+    <body name="convex_hull_ball" pos="-0.13 0 0.31">
+      <joint name="convex_hull_ball_slide" type="slide" axis="0 0 1"
+             range="-0.34 0.03" damping="0.002" />
+      <geom type="sphere" size="0.014" mass="0.03"
+            material="blocked_ball" />
+    </body>
+
+    <body name="rigid_flex_ball" pos="0.13 0 0.31">
+      <joint name="rigid_flex_ball_slide" type="slide" axis="0 0 1"
+             range="-0.34 0.03" damping="0.002" />
+      <geom type="sphere" size="0.014" mass="0.03"
+            material="passing_ball" />
+    </body>
+  </worldbody>
+
+  <sensor>
+    <jointpos name="convex_hull_ball_z" joint="convex_hull_ball_slide" />
+    <jointvel name="convex_hull_ball_vz" joint="convex_hull_ball_slide" />
+    <jointpos name="rigid_flex_ball_z" joint="rigid_flex_ball_slide" />
+    <jointvel name="rigid_flex_ball_vz" joint="rigid_flex_ball_slide" />
+  </sensor>
+</mujoco>

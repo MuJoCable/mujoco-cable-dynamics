@@ -1,0 +1,108 @@
+{
+  "assets": {
+    "human_index_distal.stl": {
+      "output": "human_index_distal_route.obj",
+      "positive_volume": true,
+      "route_bounds_m": [
+        [
+          -0.00025,
+          -0.00608333,
+          -0.00774112
+        ],
+        [
+          0.02058333,
+          0.00758333,
+          0.00574112
+        ]
+      ],
+      "route_faces": 2860,
+      "route_vertices": 1432,
+      "source_bounds_mm": [
+        [
+          -0.026935087516903877,
+          -5.778539180755615,
+          -7.743721008300781
+        ],
+        [
+          20.269729614257812,
+          7.388803482055664,
+          5.6108622550964355
+        ]
+      ],
+      "source_faces": 352,
+      "watertight": true,
+      "winding_consistent": true
+    },
+    "human_index_intermediate.stl": {
+      "output": "human_index_intermediate_route.obj",
+      "positive_volume": true,
+      "route_bounds_m": [
+        [
+          -0.00025,
+          -0.00870492,
+          -0.00774112
+        ],
+        [
+          0.02024112,
+          0.0076875,
+          0.00775
+        ]
+      ],
+      "route_faces": 3588,
+      "route_vertices": 1788,
+      "source_bounds_mm": [
+        [
+          -0.01682482473552227,
+          -8.450032234191895,
+          -7.5542778968811035
+        ],
+        [
+          19.94889259338379,
+          7.363900661468506,
+          7.639334678649902
+        ]
+      ],
+      "source_faces": 2036,
+      "watertight": true,
+      "winding_consistent": true
+    },
+    "human_index_proximal.stl": {
+      "output": "human_index_proximal_route.obj",
+      "positive_volume": true,
+      "route_bounds_m": [
+        [
+          0.00020414,
+          -0.00875,
+          -0.00575
+        ],
+        [
+          0.0326875,
+          0.00875786,
+          0.01108333
+        ]
+      ],
+      "route_faces": 5078,
+      "route_vertices": 2527,
+      "source_bounds_mm": [
+        [
+          0.3163556158542633,
+          -8.485795021057129,
+          -5.680953502655029
+        ],
+        [
+          32.32646560668945,
+          8.680953025817871,
+          10.750401496887207
+        ]
+      ],
+      "source_faces": 2970,
+      "watertight": true,
+      "winding_consistent": true
+    }
+  },
+  "generator": "scripts/prepare_100_fingers_index_route_meshes.py",
+  "method": "surface voxelization, parity solid fill, marching-cubes extraction, and closed-volume-preserving quadric decimation",
+  "output_units": "m",
+  "source_units": "mm",
+  "voxel_pitch_mm": 0.5
+}

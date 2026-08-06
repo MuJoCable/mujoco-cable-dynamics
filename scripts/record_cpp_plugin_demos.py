@@ -35,7 +35,7 @@ except ModuleNotFoundError:
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_PLUGIN = ROOT / "build/cable_surface/plugin/libcable_unilateral.dylib"
+DEFAULT_PLUGIN = ROOT / "build/plugin/libcable_unilateral.dylib"
 DEFAULT_OUTPUT = ROOT / "website/public/media/videos"
 TIMES_NEW_ROMAN = Path(
     "/System/Library/Fonts/Supplemental/Times New Roman.ttf"

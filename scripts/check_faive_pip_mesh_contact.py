@@ -32,7 +32,7 @@ except ModuleNotFoundError:
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_PLUGIN = ROOT / "build/cable_surface/plugin/libcable_unilateral.dylib"
+DEFAULT_PLUGIN = ROOT / "build/plugin/libcable_unilateral.dylib"
 DEFAULT_MODEL = ROOT / "cable_plugin_demos/25_faive_index_pip_surface_cable.xml"
 ROUTE_GEOMS = ("proximal_route_surface", "distal_route_surface")
 VISUAL_GEOMS = ("proximal_visual_mesh", "distal_visual_mesh")

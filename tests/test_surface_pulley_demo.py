@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PLUGIN = Path(
     os.environ.get(
         "CABLE_PLUGIN_LIBRARY",
-        str(ROOT / "build/cable_surface/plugin/libcable_unilateral.dylib"),
+        str(ROOT / "build/plugin/libcable_unilateral.dylib"),
     )
 )
 

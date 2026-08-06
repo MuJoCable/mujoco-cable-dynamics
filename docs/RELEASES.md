@@ -5,8 +5,8 @@ with the operating system, CPU architecture, and MuJoCo ABI against which it
 was built. Release bundles therefore use names such as:
 
 ```text
-mujoco-cable-dynamics-v0.1.1-darwin-arm64.tar.gz
-mujoco-cable-dynamics-v0.1.1-linux-x86_64.tar.gz
+mujoco-cable-dynamics-v0.2.0-darwin-arm64.tar.gz
+mujoco-cable-dynamics-v0.2.0-linux-x86_64.tar.gz
 ```
 
 Each bundle contains:
@@ -16,7 +16,9 @@ lib/                         compiled plugin
 cable_plugin_demos/          selected MJCF models and assets
 scripts/run_demo.sh          relative-path launcher
 scripts/view_cpp_plugin_demo.py
+scripts/view_log_spiral_dual_reserve.py
 README.md and README_zh.md
+portable demo and threading guides
 LICENSE and third-party notices
 ```
 

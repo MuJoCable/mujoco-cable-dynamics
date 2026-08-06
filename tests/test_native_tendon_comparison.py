@@ -16,7 +16,7 @@ NATIVE_MODEL = ROOT / "cable_plugin_demos" / "18_native_tendon_three_strut_nine_
 DEFAULT_PLUGIN = Path(
     os.environ.get(
         "CABLE_PLUGIN_LIBRARY",
-        str(ROOT / "build/cable_surface/plugin/libcable_unilateral.dylib"),
+        str(ROOT / "build/plugin/libcable_unilateral.dylib"),
     )
 )
 

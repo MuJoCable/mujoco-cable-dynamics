@@ -14,7 +14,7 @@ ASSET_DIR = ROOT / "cable_plugin_demos" / "assets" / "passive_saddle_joint"
 DEFAULT_PLUGIN = Path(
     os.environ.get(
         "CABLE_PLUGIN_LIBRARY",
-        str(ROOT / "build/cable_surface/plugin/libcable_unilateral.dylib"),
+        str(ROOT / "build/plugin/libcable_unilateral.dylib"),
     )
 )
 INSTANCE_NAMES = {

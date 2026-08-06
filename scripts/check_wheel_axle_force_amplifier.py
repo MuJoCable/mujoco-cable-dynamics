@@ -17,7 +17,7 @@ DEFAULT_MODEL = (
     / "cable_plugin_demos"
     / "21_cpp_plugin_wheel_axle_force_amplifier.xml"
 )
-DEFAULT_PLUGIN = ROOT / "build/cable_surface/plugin/libcable_unilateral.dylib"
+DEFAULT_PLUGIN = ROOT / "build/plugin/libcable_unilateral.dylib"
 SENSOR_FIELDS = (
     "length_m",
     "velocity_mps",

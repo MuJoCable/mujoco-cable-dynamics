@@ -1,0 +1,29 @@
+{
+  "analytic_eyelet_friction": {
+    "duration_s": 2.0004999999998354,
+    "expected_tension_ratio": 2.0276111912507666,
+    "guide_friction_mu": 0.45,
+    "measured_rough_tension_ratio": 2.0276111912507666,
+    "pass": true,
+    "payload_weight_N": 1.1772,
+    "rough_displacement_m": -0.007863277542277938,
+    "rough_downstream_tension_N": 1.1802323792810392,
+    "rough_force_balance_error_N": 0.003032379281039166,
+    "rough_upstream_tension_N": 2.3930523805067545,
+    "smooth_displacement_m": 0.016471962325867683,
+    "smooth_downstream_tension_N": 1.1762653777062737,
+    "smooth_force_balance_error_N": 0.0009346222937263171,
+    "smooth_upstream_tension_N": 1.1762653777062737,
+    "turn_angle_deg": 90.0,
+    "turn_angle_rad": 1.5707963267948966
+  },
+  "pass": true,
+  "rigid_flex_aperture": {
+    "convex_hull_ball_displacement_m": -0.11836718146248042,
+    "convex_hull_blocks_aperture": true,
+    "duration_s": 1.5004999999998903,
+    "pass": true,
+    "rigid_flex_ball_displacement_m": -0.31636718184245943,
+    "rigid_flex_preserves_aperture": true
+  }
+}

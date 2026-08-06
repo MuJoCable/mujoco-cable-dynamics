@@ -13,7 +13,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MODEL = ROOT / "cable_plugin_demos" / "17_cpp_plugin_three_strut_nine_cable.xml"
-DEFAULT_PLUGIN = ROOT / "build/cable_surface/plugin/libcable_unilateral.dylib"
+DEFAULT_PLUGIN = ROOT / "build/plugin/libcable_unilateral.dylib"
 STRUT_NAMES = ("strut_0", "strut_1", "strut_2")
 NODE_PAIRS = (("node_b0", "node_t1"), ("node_b1", "node_t2"), ("node_b2", "node_t0"))
 

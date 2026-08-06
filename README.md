@@ -1,7 +1,9 @@
 # MuJoCo Cable Dynamics
 
 [中文说明](README_zh.md) | [Project page](https://mujocable.github.io/) |
-[Selected demos](docs/DEMO_CATALOG.md)
+[Selected demos](docs/DEMO_CATALOG.md) |
+[Threading guide](docs/CABLE_DESIGN_AND_THREADING_GUIDE.md) |
+[All commands](docs/RUN_ALL_DEMOS.md)
 
 A standalone C++ MuJoCo engine plugin for massless, unilateral cables routed
 over cylinders and closed mesh surfaces. The plugin computes runtime cable
@@ -23,7 +25,8 @@ tensegrity (upper right), and runtime surface-envelope pulley (lower right).*
 - analytic cylinder envelopes and homotopy-guided routes on closed convex or
   nonconvex mesh obstacles;
 - compound routing over moving surfaces with a common-tangent interface;
-- optional Euler-Eytelwein/Capstan segment-tension propagation;
+- optional Euler-Eytelwein/Capstan segment-tension propagation, including a
+  velocity-directed regularized sliding mode for rotating surfaces;
 - passive ligaments, active cables, live sensors, and standard MuJoCo scene
   visualization;
 - route, constitutive, and rendering hysteresis for reduced switching jitter.
@@ -64,7 +67,7 @@ python -m pip install "mujoco>=3.4,<3.5" numpy
 Download and extract the archive for your operating system and CPU, then run:
 
 ```bash
-cd mujoco-cable-dynamics-v0.1.1-<platform>-<architecture>
+cd mujoco-cable-dynamics-v0.2.0-<platform>-<architecture>
 ./scripts/run_demo.sh 15 --show-route-debug --duration 120
 ```
 
@@ -127,10 +130,50 @@ Only demos shown on the academic project page are included here.
 
 | Group | Demos | Contents |
 |---|---|---|
-| Pulleys | 09, 10, 11, 12, 15, 21 | drum wrapping, dual pulleys, reserve, friction, wheel-and-axle |
+| Pulleys and eyelets | 09, 10, 11, 12, 15, 21, 29, 31, 32 | drum wrapping, dual pulleys, reserve, friction, wheel-and-axle, inertial pulley, rigid-flex aperture and analytic eyelet friction |
 | Rolling/compliant joints | 13, 14, 16, 20 | cylinder, convex mesh, passive and controlled saddle joints |
 | Tensegrity | 17, 18, 19 | plugin/native baseline and mixed stiffness/slack |
 | Faive PIP | 24, 25 | virtual-hinge baseline and free-body surface cable |
+| Parametric hand | 26, 27, 28 | full hand, index-only debug, and actual-mesh threading with passive cable ligaments |
+| Physics boundary | 30 | CPhO 2018 massive-rope continuum benchmark |
+| Routed compliant robot | 33 | dual-reserve antagonistic threading, module self-collision, and five eyelet-friction variants |
+
+Demo 26-28 setup, route semantics, and through-hole limitations are documented in
+[100_fingers Human Hand in MuJoCo](docs/100_FINGERS_HUMAN_HAND.md).
+Demo 29 and its force, speed, torque, and energy checks are documented in
+[Free Rotating Inertial Pulley](docs/DEMO_29_FREE_ROTATING_PULLEY.md).
+Demo 30 reproduces the two maximum-speed branches of CPhO 2018 final theory
+problem 3 and documents why rope mass and material transport remain outside the
+current plugin law:
+[CPhO 2018 Massive Rope Benchmark](docs/DEMO_30_CPHO_2018_MASSIVE_ROPE.md).
+The reusable route/dynamics split, proposed transport state, friction model,
+and future acceptance sequence are preserved in
+[Massive Cable Future Extension](docs/MASSIVE_CABLE_FUTURE_EXTENSION.md); this
+work is explicitly deferred and does not change the current plugin API.
+Demos 31-32 and the distinction between true nonconvex aperture collision and
+the STL-free role-3 eyelet model are documented in
+[Rigid-Flex Aperture and Eyelet Friction](docs/DEMO_31_32_EYELET_FRICTION.md).
+Demo 33 separates log-spiral morphology from cable transmission and verifies
+common reserve take-up, differential payout, release-side slack, module
+self-collision, and eyelet-friction sensitivity.
+
+```bash
+./scripts/run_demo.sh 30 --case sliding --duration 120
+./scripts/run_demo.sh 30 --case stick --duration 120
+```
+
+The complete architecture and method description, including UML diagrams of
+the MuJoCo/plugin boundary, is available as
+[English Markdown](docs/plugin_method_strategy_report_en.md),
+[English PDF](docs/plugin_method_strategy_report_en.pdf),
+[Chinese Markdown](docs/plugin_method_strategy_report.md), and
+[Chinese PDF](docs/plugin_method_strategy_report_zh.pdf).
+
+Use the [modeling and threading guide](docs/CABLE_DESIGN_AND_THREADING_GUIDE.md)
+to choose endpoint, hint, guide, cylinder, mesh, eyelet, passive-ligament,
+antagonistic-reserve, and spool configurations. The
+[all-demo command sheet](docs/RUN_ALL_DEMOS.md) runs every retained model with
+the current plugin build.
 
 See [the demo catalog](docs/DEMO_CATALOG.md) for exact model names.
 
@@ -207,11 +250,13 @@ python -m unittest discover tests
 python scripts/smoke_cpp_plugin.py \
   --plugin "$CABLE_PLUGIN_LIBRARY" \
   --model cable_plugin_demos/15_cpp_plugin_surface_single_pulley.xml
+python scripts/analyze_free_rotating_pulley.py \
+  --plugin "$CABLE_PLUGIN_LIBRARY" --strict
 ```
 
 The tests cover the unilateral law, cylinder geometry, compound routes,
 convex/nonconvex mesh routing, pulleys, saddle joints, tensegrity, the Faive PIP
-comparison, and repository path portability.
+comparison, the 100_fingers human hand, and repository path portability.
 
 ## Creating a Release Bundle
 
@@ -219,7 +264,7 @@ comparison, and repository path portability.
 ./scripts/package_release.sh build/plugin/libcable_unilateral.dylib dist
 ```
 
-Pushing a tag such as `v0.1.1` runs the GitHub Actions release workflow, builds
+Pushing a tag such as `v0.2.0` runs the GitHub Actions release workflow, builds
 platform bundles, generates SHA-256 files, and attaches them to a GitHub
 Release.
 
@@ -231,7 +276,8 @@ Release.
   switch sides during simulation.
 - Nonconvex routing requires closed, consistently oriented, non-self-
   intersecting obstacle meshes.
-- Rolling-joint demos do not yet impose a complete rope/surface no-slip velocity
+- Velocity-directed Capstan friction is a regularized sliding law. It does not
+  yet provide static-friction history or impose an exact rope/surface no-slip
   constraint.
 - In the current Faive PIP regression, the faceted two-surface bridge remains
   collision-free but reaches a worst-case interface tangent mismatch of about
