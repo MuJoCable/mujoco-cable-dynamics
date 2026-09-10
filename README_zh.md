@@ -261,3 +261,21 @@ Faive PIP 对照、100_fingers 人体机械手以及仓库相对路径检查。
 
 代码采用 Apache License 2.0。资产归属见 [LICENSE](LICENSE) 与
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
+
+## 引用
+
+如果 MuJoCable 对您的研究有所帮助，请引用对应论文：
+[MuJoCable: Reduced-Order Surface-Routed Cable Transmission for Tendon-Driven
+Robots](https://arxiv.org/abs/2609.09612)。
+
+```bibtex
+@misc{zhang2026mujocablereducedordersurfaceroutedcable,
+  title={MuJoCable: Reduced-Order Surface-Routed Cable Transmission for Tendon-Driven Robots},
+  author={Yi Zhang and Qi Shao and Yicong Lin and Muyuan Ma and Tao Sun and Yue Xie},
+  year={2026},
+  eprint={2609.09612},
+  archivePrefix={arXiv},
+  primaryClass={cs.RO},
+  url={https://arxiv.org/abs/2609.09612}
+}
+```

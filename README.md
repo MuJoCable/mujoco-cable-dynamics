@@ -290,3 +290,21 @@ Release.
 
 Code is distributed under Apache License 2.0. See [LICENSE](LICENSE) and
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for asset attribution.
+
+## Citation
+
+If MuJoCable contributes to your research, please cite the accompanying paper:
+[MuJoCable: Reduced-Order Surface-Routed Cable Transmission for Tendon-Driven
+Robots](https://arxiv.org/abs/2609.09612).
+
+```bibtex
+@misc{zhang2026mujocablereducedordersurfaceroutedcable,
+  title={MuJoCable: Reduced-Order Surface-Routed Cable Transmission for Tendon-Driven Robots},
+  author={Yi Zhang and Qi Shao and Yicong Lin and Muyuan Ma and Tao Sun and Yue Xie},
+  year={2026},
+  eprint={2609.09612},
+  archivePrefix={arXiv},
+  primaryClass={cs.RO},
+  url={https://arxiv.org/abs/2609.09612}
+}
+```
