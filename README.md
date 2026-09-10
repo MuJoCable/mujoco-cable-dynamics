@@ -1,5 +1,20 @@
 # MuJoCo Cable Dynamics
 
+<p align="center">
+  <a href="https://arxiv.org/abs/2609.09612"><img alt="arXiv 2609.09612" src="https://img.shields.io/badge/arXiv-2609.09612-b31b1b?logo=arxiv&logoColor=white"></a>
+  <a href="https://mujocable.github.io/"><img alt="Project homepage" src="https://img.shields.io/badge/Project-Homepage-4c8c64"></a>
+  <a href="https://github.com/MuJoCable/mujoco-cable-dynamics/actions/workflows/ci.yml"><img alt="Continuous integration" src="https://github.com/MuJoCable/mujoco-cable-dynamics/actions/workflows/ci.yml/badge.svg?branch=main"></a>
+  <a href="https://github.com/MuJoCable/mujoco-cable-dynamics/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/MuJoCable/mujoco-cable-dynamics?display_name=tag&sort=semver"></a>
+  <a href="LICENSE"><img alt="Apache-2.0 license" src="https://img.shields.io/github/license/MuJoCable/mujoco-cable-dynamics"></a>
+  <a href="https://github.com/MuJoCable/mujoco-cable-dynamics/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/MuJoCable/mujoco-cable-dynamics?style=flat&logo=github&label=Stars"></a>
+</p>
+
+<p align="center">
+  <img alt="MuJoCo 3.4.x" src="https://img.shields.io/badge/MuJoCo-3.4.x-5b8c2a">
+  <img alt="C++ 17" src="https://img.shields.io/badge/C%2B%2B-17-00599C?logo=cplusplus&logoColor=white">
+  <img alt="Python 3.12" src="https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white">
+</p>
+
 [中文说明](README_zh.md) | [Project page](https://mujocable.github.io/) |
 [Selected demos](docs/DEMO_CATALOG.md) |
 [Threading guide](docs/CABLE_DESIGN_AND_THREADING_GUIDE.md) |
