@@ -1,0 +1,429 @@
+<mujoco model="result_2_2_spirobot_mujocable_mu_0p15">
+  <compiler angle="radian" autolimits="true" meshdir="../../assets/solidworks_spirobot" />
+  <size nuser_site="1" memory="64M" />
+  <option timestep="0.0005" gravity="0 0 0" integrator="implicitfast" />
+  <statistic center="0 0.105 0.12" extent="0.38" />
+  <custom>
+    <numeric name="solidworks_flexure_root_stiffness" data="0.004" />
+    <numeric name="solidworks_flexure_root_damping" data="0.004" />
+    <numeric name="solidworks_flexure_scale_exponent" data="0.5" />
+    <numeric name="tpu95hf_youngs_modulus_mpa" data="9.8" />
+    <numeric name="tpu95hf_flexure_width_fraction" data="0.05" />
+    <numeric name="tpu95hf_series_stiffness_Nm_per_rad" data="0.000141917697225" />
+    <numeric name="tpu95hf_damping_time_constant_s" data="1" />
+  </custom>
+  <extension>
+    <plugin plugin="mujoco.cable.unilateral">
+      <instance name="solidworks_positive_cable">
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="positive_seed" />
+        <config key="site_role_user_index" value="0" />
+        <config key="home_length" value="auto_initial" />
+        <config key="stiffness" value="500" />
+        <config key="damping" value="0.18" />
+        <config key="slack" value="0.00015" />
+        <config key="pretension_offset" value="-0.09" />
+        <config key="max_tension" value="20" />
+        <config key="ctrl_mode" value="target_contraction" />
+        <config key="control_timeconstant" value="0.06" />
+        <config key="max_contraction_rate" value="0.050" />
+        <config key="taut_transition" value="0.00020" />
+        <config key="taut_hysteresis" value="0.00008" />
+        <config key="guide_friction_mu" value="0.15" />
+        <config key="capstan_direction" value="forward" />
+        <config key="visual_width" value="2.8" />
+        <config key="visual_smoothing_timeconstant" value="0.02" />
+      </instance>
+      <instance name="solidworks_negative_cable">
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="negative_seed" />
+        <config key="site_role_user_index" value="0" />
+        <config key="home_length" value="auto_initial" />
+        <config key="stiffness" value="500" />
+        <config key="damping" value="0.18" />
+        <config key="slack" value="0.00015" />
+        <config key="pretension_offset" value="-0.09" />
+        <config key="max_tension" value="20" />
+        <config key="ctrl_mode" value="target_contraction" />
+        <config key="control_timeconstant" value="0.06" />
+        <config key="max_contraction_rate" value="0.050" />
+        <config key="taut_transition" value="0.00020" />
+        <config key="taut_hysteresis" value="0.00008" />
+        <config key="guide_friction_mu" value="0.15" />
+        <config key="capstan_direction" value="forward" />
+        <config key="visual_width" value="2.8" />
+        <config key="visual_smoothing_timeconstant" value="0.02" />
+      </instance>
+    </plugin>
+  </extension>
+  <asset>
+    <mesh name="solidworks_part_00_mesh" file="solidworks_part_00.obj" />
+    <mesh name="solidworks_part_01_mesh" file="solidworks_part_01.obj" />
+    <mesh name="solidworks_part_02_mesh" file="solidworks_part_02.obj" />
+    <mesh name="solidworks_part_03_mesh" file="solidworks_part_03.obj" />
+    <mesh name="solidworks_part_04_mesh" file="solidworks_part_04.obj" />
+    <mesh name="solidworks_part_05_mesh" file="solidworks_part_05.obj" />
+    <mesh name="solidworks_part_06_mesh" file="solidworks_part_06.obj" />
+    <mesh name="solidworks_part_07_mesh" file="solidworks_part_07.obj" />
+    <mesh name="solidworks_part_08_mesh" file="solidworks_part_08.obj" />
+    <mesh name="solidworks_part_09_mesh" file="solidworks_part_09.obj" />
+    <mesh name="solidworks_part_10_mesh" file="solidworks_part_10.obj" />
+    <mesh name="solidworks_part_11_mesh" file="solidworks_part_11.obj" />
+    <mesh name="solidworks_part_12_mesh" file="solidworks_part_12.obj" />
+    <mesh name="solidworks_part_13_mesh" file="solidworks_part_13.obj" />
+    <mesh name="solidworks_part_14_mesh" file="solidworks_part_14.obj" />
+    <mesh name="solidworks_part_15_mesh" file="solidworks_part_15.obj" />
+    <mesh name="solidworks_part_16_mesh" file="solidworks_part_16.obj" />
+    <mesh name="solidworks_part_17_mesh" file="solidworks_part_17.obj" />
+    <mesh name="solidworks_part_18_mesh" file="solidworks_part_18.obj" />
+    <material name="body_material" rgba="0.82 0.84 0.86 0.55" />
+    <material name="base_material" rgba="0.38 0.42 0.47 0.75" />
+  </asset>
+  <visual>
+    <headlight ambient="0.3 0.3 0.3" diffuse="0.8 0.8 0.8" />
+    <global offwidth="1280" offheight="720" />
+  </visual>
+  <default>
+    <geom friction="0.7 0.01 0.001" />
+    <site size="0.0010" />
+  </default>
+  <worldbody>
+    <light pos="0.25 -0.10 0.40" dir="-0.2 0.2 -1" />
+    <camera name="bending_plane" pos="0 0.105 0.48" xyaxes="1 0 0 0 1 0" fovy="50" />
+    <camera name="overview" pos="0.32 -0.19 0.28" xyaxes="0.75 0.66 0 -0.27 0.31 0.91" fovy="48" />
+    <geom name="solidworks_base_visual" type="mesh" mesh="solidworks_part_00_mesh" material="base_material" pos="0 -0.0279684 0.12" density="0" contype="0" conaffinity="0" />
+    <geom name="solidworks_base_collision" type="mesh" mesh="solidworks_part_00_mesh" pos="0 -0.0279684 0.12" density="0" rgba="0 0 0 0" />
+    <site name="positive_base_anchor" user="1" pos="0.0211568756 -0.005 0.12" rgba="0.00 0.62 0.45 1" />
+    <site name="negative_base_anchor" user="1" pos="-0.0211568756 -0.005 0.12" rgba="0.80 0.20 0.50 1" />
+    <body name="solidworks_unit_01_body" pos="0 0 0.12">
+      <joint name="solidworks_joint_01" type="hinge" axis="0 0 1" range="-0.523598776 0.523598776" stiffness="0.026053123321" damping="0.026053123321" armature="0.0000005" />
+      <inertial pos="0 0.01275 0" mass="0.0221286066" diaginertia="2.57445334e-06 5.30187874e-06 5.12561314e-06" />
+      <geom name="solidworks_unit_01_visual" type="mesh" mesh="solidworks_part_01_mesh" material="body_material" density="0" contype="0" conaffinity="0" />
+      <geom name="solidworks_unit_01_collision" type="mesh" mesh="solidworks_part_01_mesh" density="0" rgba="0 0 0 0" />
+      <site name="positive_01_entry" user="3" pos="0.019932167 0.0106224941 0" rgba="0.00 0.62 0.45 0.65" />
+      <site name="positive_01_exit" user="3" pos="0.0189326445 0.0233724941 0" rgba="0.00 0.62 0.45 0.65" />
+      <geom name="positive_01_bore_axis" type="capsule" fromto="0.019932167 0.0106224941 0 0.0189326445 0.0233724941 0" size="0.00055" rgba="0.00 0.62 0.45 0.65" density="0" contype="0" conaffinity="0" />
+      <site name="negative_01_entry" user="3" pos="-0.019932167 0.0106224941 0" rgba="0.80 0.20 0.50 0.65" />
+      <site name="negative_01_exit" user="3" pos="-0.0189326445 0.0233724941 0" rgba="0.80 0.20 0.50 0.65" />
+      <geom name="negative_01_bore_axis" type="capsule" fromto="-0.019932167 0.0106224941 0 -0.0189326445 0.0233724941 0" size="0.00055" rgba="0.80 0.20 0.50 0.65" density="0" contype="0" conaffinity="0" />
+      <body name="solidworks_unit_02_body" pos="0 0.0255 0">
+        <joint name="solidworks_joint_02" type="hinge" axis="0 0 1" range="-0.523598776 0.523598776" stiffness="0.0242044611263" damping="0.0242044611263" armature="0.0000005" />
+        <inertial pos="0 0.01162545 0" mass="0.0167746254" diaginertia="1.62249349e-06 3.34139432e-06 3.23030674e-06" />
+        <geom name="solidworks_unit_02_visual" type="mesh" mesh="solidworks_part_02_mesh" material="body_material" density="0" contype="0" conaffinity="0" />
+        <geom name="solidworks_unit_02_collision" type="mesh" mesh="solidworks_part_02_mesh" density="0" rgba="0 0 0 0" />
+        <site name="positive_02_entry" user="3" pos="0.0180065695 0.00968559014 0" rgba="0.00 0.62 0.45 0.65" />
+        <site name="positive_02_exit" user="3" pos="0.0170952049 0.0213110401 0" rgba="0.00 0.62 0.45 0.65" />
+        <geom name="positive_02_bore_axis" type="capsule" fromto="0.0180065695 0.00968559014 0 0.0170952049 0.0213110401 0" size="0.00055" rgba="0.00 0.62 0.45 0.65" density="0" contype="0" conaffinity="0" />
+        <site name="negative_02_entry" user="3" pos="-0.0180065695 0.00968559014 0" rgba="0.80 0.20 0.50 0.65" />
+        <site name="negative_02_exit" user="3" pos="-0.0170952049 0.0213110401 0" rgba="0.80 0.20 0.50 0.65" />
+        <geom name="negative_02_bore_axis" type="capsule" fromto="-0.0180065695 0.00968559014 0 -0.0170952049 0.0213110401 0" size="0.00055" rgba="0.80 0.20 0.50 0.65" density="0" contype="0" conaffinity="0" />
+        <body name="solidworks_unit_03_body" pos="0 0.0232509 0">
+          <joint name="solidworks_joint_03" type="hinge" axis="0 0 1" range="-0.523598776 0.523598776" stiffness="0.0188574640176" damping="0.0188574640176" armature="0.0000005" />
+          <inertial pos="0 0.0106000853 0" mass="0.0127160315" diaginertia="1.02254141e-06 2.10584145e-06 2.03583091e-06" />
+          <geom name="solidworks_unit_03_visual" type="mesh" mesh="solidworks_part_03_mesh" material="body_material" density="0" contype="0" conaffinity="0" />
+          <geom name="solidworks_unit_03_collision" type="mesh" mesh="solidworks_part_03_mesh" density="0" rgba="0 0 0 0" />
+          <site name="positive_03_entry" user="3" pos="0.0162508097 0.00883132109 0" rgba="0.00 0.62 0.45 0.65" />
+          <site name="positive_03_exit" user="3" pos="0.0154198274 0.0194314064 0" rgba="0.00 0.62 0.45 0.65" />
+          <geom name="positive_03_bore_axis" type="capsule" fromto="0.0162508097 0.00883132109 0 0.0154198274 0.0194314064 0" size="0.00055" rgba="0.00 0.62 0.45 0.65" density="0" contype="0" conaffinity="0" />
+          <site name="negative_03_entry" user="3" pos="-0.0162508097 0.00883132109 0" rgba="0.80 0.20 0.50 0.65" />
+          <site name="negative_03_exit" user="3" pos="-0.0154198274 0.0194314064 0" rgba="0.80 0.20 0.50 0.65" />
+          <geom name="negative_03_bore_axis" type="capsule" fromto="-0.0162508097 0.00883132109 0 -0.0154198274 0.0194314064 0" size="0.00055" rgba="0.80 0.20 0.50 0.65" density="0" contype="0" conaffinity="0" />
+          <body name="solidworks_unit_04_body" pos="0 0.0212001706 0">
+            <joint name="solidworks_joint_04" type="hinge" axis="0 0 1" range="-0.523598776 0.523598776" stiffness="0.0147292950267" damping="0.0147292950267" armature="0.0000005" />
+            <inertial pos="0 0.00966515779 0" mass="0.00963940791" diaginertia="6.4443459e-07 1.32716099e-06 1.28303836e-06" />
+            <geom name="solidworks_unit_04_visual" type="mesh" mesh="solidworks_part_04_mesh" material="body_material" density="0" contype="0" conaffinity="0" />
+            <geom name="solidworks_unit_04_collision" type="mesh" mesh="solidworks_part_04_mesh" density="0" rgba="0 0 0 0" />
+            <site name="positive_04_entry" user="3" pos="0.0146499079 0.00805239857 0" rgba="0.00 0.62 0.45 0.65" />
+            <site name="positive_04_exit" user="3" pos="0.0138922183 0.0177175564 0" rgba="0.00 0.62 0.45 0.65" />
+            <geom name="positive_04_bore_axis" type="capsule" fromto="0.0146499079 0.00805239857 0 0.0138922183 0.0177175564 0" size="0.00055" rgba="0.00 0.62 0.45 0.65" density="0" contype="0" conaffinity="0" />
+            <site name="negative_04_entry" user="3" pos="-0.0146499079 0.00805239857 0" rgba="0.80 0.20 0.50 0.65" />
+            <site name="negative_04_exit" user="3" pos="-0.0138922183 0.0177175564 0" rgba="0.80 0.20 0.50 0.65" />
+            <geom name="negative_04_bore_axis" type="capsule" fromto="-0.0146499079 0.00805239857 0 -0.0138922183 0.0177175564 0" size="0.00055" rgba="0.80 0.20 0.50 0.65" density="0" contype="0" conaffinity="0" />
+            <body name="solidworks_unit_05_body" pos="0 0.0193303156 0">
+              <joint name="solidworks_joint_05" type="hinge" axis="0 0 1" range="-0.523598776 0.523598776" stiffness="0.0115376799127" damping="0.0115376799127" armature="0.0000005" />
+              <inertial pos="0 0.00881269087 0" mass="0.0073071685" diaginertia="4.06140952e-07 8.3641449e-07 8.08607158e-07" />
+              <geom name="solidworks_unit_05_visual" type="mesh" mesh="solidworks_part_05_mesh" material="body_material" density="0" contype="0" conaffinity="0" />
+              <geom name="solidworks_unit_05_collision" type="mesh" mesh="solidworks_part_05_mesh" density="0" rgba="0 0 0 0" />
+              <site name="positive_05_entry" user="3" pos="0.0131902057 0.00734217701 0" rgba="0.00 0.62 0.45 0.65" />
+              <site name="positive_05_exit" user="3" pos="0.0124993443 0.0161548679 0" rgba="0.00 0.62 0.45 0.65" />
+              <geom name="positive_05_bore_axis" type="capsule" fromto="0.0131902057 0.00734217701 0 0.0124993443 0.0161548679 0" size="0.00055" rgba="0.00 0.62 0.45 0.65" density="0" contype="0" conaffinity="0" />
+              <site name="negative_05_entry" user="3" pos="-0.0131902057 0.00734217701 0" rgba="0.80 0.20 0.50 0.65" />
+              <site name="negative_05_exit" user="3" pos="-0.0124993443 0.0161548679 0" rgba="0.80 0.20 0.50 0.65" />
+              <geom name="negative_05_bore_axis" type="capsule" fromto="-0.0131902057 0.00734217701 0 -0.0124993443 0.0161548679 0" size="0.00055" rgba="0.80 0.20 0.50 0.65" density="0" contype="0" conaffinity="0" />
+              <body name="solidworks_unit_06_body" pos="0 0.0176253817 0">
+                <joint name="solidworks_joint_06" type="hinge" axis="0 0 1" range="-0.523598776 0.523598776" stiffness="0.00906643197865" damping="0.00906643197865" armature="0.0000005" />
+                <inertial pos="0 0.00803541153 0" mass="0.00553921071" diaginertia="2.55961544e-07 5.27132129e-07 5.0960716e-07" />
+                <geom name="solidworks_unit_06_visual" type="mesh" mesh="solidworks_part_06_mesh" material="body_material" density="0" contype="0" conaffinity="0" />
+                <geom name="solidworks_unit_06_collision" type="mesh" mesh="solidworks_part_06_mesh" density="0" rgba="0 0 0 0" />
+                <site name="positive_06_entry" user="3" pos="0.0118592492 0.006694597 0" rgba="0.00 0.62 0.45 0.65" />
+                <site name="positive_06_exit" user="3" pos="0.0112293217 0.0147300085 0" rgba="0.00 0.62 0.45 0.65" />
+                <geom name="positive_06_bore_axis" type="capsule" fromto="0.0118592492 0.006694597 0 0.0112293217 0.0147300085 0" size="0.00055" rgba="0.00 0.62 0.45 0.65" density="0" contype="0" conaffinity="0" />
+                <site name="negative_06_entry" user="3" pos="-0.0118592492 0.006694597 0" rgba="0.80 0.20 0.50 0.65" />
+                <site name="negative_06_exit" user="3" pos="-0.0112293217 0.0147300085 0" rgba="0.80 0.20 0.50 0.65" />
+                <geom name="negative_06_bore_axis" type="capsule" fromto="-0.0118592492 0.006694597 0 -0.0112293217 0.0147300085 0" size="0.00055" rgba="0.80 0.20 0.50 0.65" density="0" contype="0" conaffinity="0" />
+                <body name="solidworks_unit_07_body" pos="0 0.0160708231 0">
+                  <joint name="solidworks_joint_07" type="hinge" axis="0 0 1" range="-0.523598776 0.523598776" stiffness="0.00714993426203" damping="0.00714993426203" armature="0.0000005" />
+                  <inertial pos="0 0.00732668824 0" mass="0.00419900749" diaginertia="1.61314223e-07 3.32213615e-07 3.21168882e-07" />
+                  <geom name="solidworks_unit_07_visual" type="mesh" mesh="solidworks_part_07_mesh" material="body_material" density="0" contype="0" conaffinity="0" />
+                  <geom name="solidworks_unit_07_collision" type="mesh" mesh="solidworks_part_07_mesh" density="0" rgba="0 0 0 0" />
+                  <site name="positive_07_entry" user="3" pos="0.010645683 0.00610413355 0" rgba="0.00 0.62 0.45 0.65" />
+                  <site name="positive_07_exit" user="3" pos="0.0100713152 0.0134308218 0" rgba="0.00 0.62 0.45 0.65" />
+                  <geom name="positive_07_bore_axis" type="capsule" fromto="0.010645683 0.00610413355 0 0.0100713152 0.0134308218 0" size="0.00055" rgba="0.00 0.62 0.45 0.65" density="0" contype="0" conaffinity="0" />
+                  <site name="negative_07_entry" user="3" pos="-0.010645683 0.00610413355 0" rgba="0.80 0.20 0.50 0.65" />
+                  <site name="negative_07_exit" user="3" pos="-0.0100713152 0.0134308218 0" rgba="0.80 0.20 0.50 0.65" />
+                  <geom name="negative_07_bore_axis" type="capsule" fromto="-0.010645683 0.00610413355 0 -0.0100713152 0.0134308218 0" size="0.00055" rgba="0.80 0.20 0.50 0.65" density="0" contype="0" conaffinity="0" />
+                  <body name="solidworks_unit_08_body" pos="0 0.0146533765 0">
+                    <joint name="solidworks_joint_08" type="hinge" axis="0 0 1" range="-0.523598776 0.523598776" stiffness="0.00566119966474" damping="0.00566119966474" armature="0.0000005" />
+                    <inertial pos="0 0.00668047433 0" mass="0.00318306431" diaginertia="1.01664798e-07 2.0937044e-07 2.02409737e-07" />
+                    <geom name="solidworks_unit_08_visual" type="mesh" mesh="solidworks_part_08_mesh" material="body_material" density="0" contype="0" conaffinity="0" />
+                    <geom name="solidworks_unit_08_collision" type="mesh" mesh="solidworks_part_08_mesh" density="0" rgba="0 0 0 0" />
+                    <site name="positive_08_entry" user="3" pos="0.00953915341 0.00556574897 0" rgba="0.00 0.62 0.45 0.65" />
+                    <site name="positive_08_exit" user="3" pos="0.00901544481 0.0122462233 0" rgba="0.00 0.62 0.45 0.65" />
+                    <geom name="positive_08_bore_axis" type="capsule" fromto="0.00953915341 0.00556574897 0 0.00901544481 0.0122462233 0" size="0.00055" rgba="0.00 0.62 0.45 0.65" density="0" contype="0" conaffinity="0" />
+                    <site name="negative_08_entry" user="3" pos="-0.00953915341 0.00556574897 0" rgba="0.80 0.20 0.50 0.65" />
+                    <site name="negative_08_exit" user="3" pos="-0.00901544481 0.0122462233 0" rgba="0.80 0.20 0.50 0.65" />
+                    <geom name="negative_08_bore_axis" type="capsule" fromto="-0.00953915341 0.00556574897 0 -0.00901544481 0.0122462233 0" size="0.00055" rgba="0.80 0.20 0.50 0.65" density="0" contype="0" conaffinity="0" />
+                    <body name="solidworks_unit_09_body" pos="0 0.0133609487 0">
+                      <joint name="solidworks_joint_09" type="hinge" axis="0 0 1" range="-0.523598776 0.523598776" stiffness="0.00450279479188" damping="0.00450279479188" armature="0.0000005" />
+                      <inertial pos="0 0.0060912565 0" mass="0.00241292696" diaginertia="6.40720382e-08 1.31951188e-07 1.27564355e-07" />
+                      <geom name="solidworks_unit_09_visual" type="mesh" mesh="solidworks_part_09_mesh" material="body_material" density="0" contype="0" conaffinity="0" />
+                      <geom name="solidworks_unit_09_collision" type="mesh" mesh="solidworks_part_09_mesh" density="0" rgba="0 0 0 0" />
+                      <site name="positive_09_entry" user="3" pos="0.00853021972 0.00507484991 0" rgba="0.00 0.62 0.45 0.65" />
+                      <site name="positive_09_exit" user="3" pos="0.00805270221 0.0111661064 0" rgba="0.00 0.62 0.45 0.65" />
+                      <geom name="positive_09_bore_axis" type="capsule" fromto="0.00853021972 0.00507484991 0 0.00805270221 0.0111661064 0" size="0.00055" rgba="0.00 0.62 0.45 0.65" density="0" contype="0" conaffinity="0" />
+                      <site name="negative_09_entry" user="3" pos="-0.00853021972 0.00507484991 0" rgba="0.80 0.20 0.50 0.65" />
+                      <site name="negative_09_exit" user="3" pos="-0.00805270221 0.0111661064 0" rgba="0.80 0.20 0.50 0.65" />
+                      <geom name="negative_09_bore_axis" type="capsule" fromto="-0.00853021972 0.00507484991 0 -0.00805270221 0.0111661064 0" size="0.00055" rgba="0.80 0.20 0.50 0.65" density="0" contype="0" conaffinity="0" />
+                      <body name="solidworks_unit_10_body" pos="0 0.012182513 0">
+                        <joint name="solidworks_joint_10" type="hinge" axis="0 0 1" range="-0.523598776 0.523598776" stiffness="0.00359991413701" damping="0.00359991413701" armature="0.0000005" />
+                        <inertial pos="0 0.00555400768 0" mass="0.00182912312" diaginertia="4.03800153e-08 8.31593804e-08 8.0394674e-08" />
+                        <geom name="solidworks_unit_10_visual" type="mesh" mesh="solidworks_part_10_mesh" material="body_material" density="0" contype="0" conaffinity="0" />
+                        <geom name="solidworks_unit_10_collision" type="mesh" mesh="solidworks_part_10_mesh" density="0" rgba="0 0 0 0" />
+                        <site name="positive_10_entry" user="3" pos="0.00761027397 0.00462724815 0" rgba="0.00 0.62 0.45 0.65" />
+                        <site name="positive_10_exit" user="3" pos="0.00717487351 0.0101812558 0" rgba="0.00 0.62 0.45 0.65" />
+                        <geom name="positive_10_bore_axis" type="capsule" fromto="0.00761027397 0.00462724815 0 0.00717487351 0.0101812558 0" size="0.00055" rgba="0.00 0.62 0.45 0.65" density="0" contype="0" conaffinity="0" />
+                        <site name="negative_10_entry" user="3" pos="-0.00761027397 0.00462724815 0" rgba="0.80 0.20 0.50 0.65" />
+                        <site name="negative_10_exit" user="3" pos="-0.00717487351 0.0101812558 0" rgba="0.80 0.20 0.50 0.65" />
+                        <geom name="negative_10_bore_axis" type="capsule" fromto="-0.00761027397 0.00462724815 0 -0.00717487351 0.0101812558 0" size="0.00055" rgba="0.80 0.20 0.50 0.65" density="0" contype="0" conaffinity="0" />
+                        <body name="solidworks_unit_11_body" pos="0 0.0111080154 0">
+                          <joint name="solidworks_joint_11" type="hinge" axis="0 0 1" range="-0.523598776 0.523598776" stiffness="0.00289509624983" damping="0.00289509624983" armature="0.0000005" />
+                          <inertial pos="0 0.0050641442 0" mass="0.00138656969" diaginertia="2.54486306e-08 5.24093995e-08 5.06670032e-08" />
+                          <geom name="solidworks_unit_11_visual" type="mesh" mesh="solidworks_part_11_mesh" material="body_material" density="0" contype="0" conaffinity="0" />
+                          <geom name="solidworks_unit_11_collision" type="mesh" mesh="solidworks_part_11_mesh" density="0" rgba="0 0 0 0" />
+                          <site name="positive_11_entry" user="3" pos="0.00677146744 0.00421912486 0" rgba="0.00 0.62 0.45 0.65" />
+                          <site name="positive_11_exit" user="3" pos="0.0063744693 0.00928326906 0" rgba="0.00 0.62 0.45 0.65" />
+                          <geom name="positive_11_bore_axis" type="capsule" fromto="0.00677146744 0.00421912486 0 0.0063744693 0.00928326906 0" size="0.00055" rgba="0.00 0.62 0.45 0.65" density="0" contype="0" conaffinity="0" />
+                          <site name="negative_11_entry" user="3" pos="-0.00677146744 0.00421912486 0" rgba="0.80 0.20 0.50 0.65" />
+                          <site name="negative_11_exit" user="3" pos="-0.0063744693 0.00928326906 0" rgba="0.80 0.20 0.50 0.65" />
+                          <geom name="negative_11_bore_axis" type="capsule" fromto="-0.00677146744 0.00421912486 0 -0.0063744693 0.00928326906 0" size="0.00055" rgba="0.80 0.20 0.50 0.65" density="0" contype="0" conaffinity="0" />
+                          <body name="solidworks_unit_12_body" pos="0 0.0101282884 0">
+                            <joint name="solidworks_joint_12" type="hinge" axis="0 0 1" range="-0.523598776 0.523598776" stiffness="0.00234417169322" damping="0.00234417169322" armature="0.0000005" />
+                            <inertial pos="0 0.00461748668 0" mass="0.00105109136" diaginertia="1.60384486e-08 3.30298897e-08 3.19317821e-08" />
+                            <geom name="solidworks_unit_12_visual" type="mesh" mesh="solidworks_part_12_mesh" material="body_material" density="0" contype="0" conaffinity="0" />
+                            <geom name="solidworks_unit_12_collision" type="mesh" mesh="solidworks_part_12_mesh" density="0" rgba="0 0 0 0" />
+                            <site name="positive_12_entry" user="3" pos="0.00600664364 0.00384699805 0" rgba="0.00 0.62 0.45 0.65" />
+                            <site name="positive_12_exit" user="3" pos="0.00564466074 0.00846448473 0" rgba="0.00 0.62 0.45 0.65" />
+                            <geom name="positive_12_bore_axis" type="capsule" fromto="0.00600664364 0.00384699805 0 0.00564466074 0.00846448473 0" size="0.00055" rgba="0.00 0.62 0.45 0.65" density="0" contype="0" conaffinity="0" />
+                            <site name="negative_12_entry" user="3" pos="-0.00600664364 0.00384699805 0" rgba="0.80 0.20 0.50 0.65" />
+                            <site name="negative_12_exit" user="3" pos="-0.00564466074 0.00846448473 0" rgba="0.80 0.20 0.50 0.65" />
+                            <geom name="negative_12_bore_axis" type="capsule" fromto="-0.00600664364 0.00384699805 0 -0.00564466074 0.00846448473 0" size="0.00055" rgba="0.80 0.20 0.50 0.65" density="0" contype="0" conaffinity="0" />
+                            <body name="solidworks_unit_13_body" pos="0 0.00923497336 0">
+                              <joint name="solidworks_joint_13" type="hinge" axis="0 0 1" range="-0.523598776 0.523598776" stiffness="0.00191324036729" damping="0.00191324036729" armature="0.0000005" />
+                              <inertial pos="0 0.00421022435 0" mass="0.00079678148" diaginertia="1.01078851e-08 2.08163731e-08 2.01243145e-08" />
+                              <geom name="solidworks_unit_13_visual" type="mesh" mesh="solidworks_part_13_mesh" material="body_material" density="0" contype="0" conaffinity="0" />
+                              <geom name="solidworks_unit_13_collision" type="mesh" mesh="solidworks_part_13_mesh" density="0" rgba="0 0 0 0" />
+                              <site name="positive_13_entry" user="3" pos="0.00530927731 0.00350769282 0" rgba="0.00 0.62 0.45 0.65" />
+                              <site name="positive_13_exit" user="3" pos="0.0049792213 0.00771791717 0" rgba="0.00 0.62 0.45 0.65" />
+                              <geom name="positive_13_bore_axis" type="capsule" fromto="0.00530927731 0.00350769282 0 0.0049792213 0.00771791717 0" size="0.00055" rgba="0.00 0.62 0.45 0.65" density="0" contype="0" conaffinity="0" />
+                              <site name="negative_13_entry" user="3" pos="-0.00530927731 0.00350769282 0" rgba="0.80 0.20 0.50 0.65" />
+                              <site name="negative_13_exit" user="3" pos="-0.0049792213 0.00771791717 0" rgba="0.80 0.20 0.50 0.65" />
+                              <geom name="negative_13_bore_axis" type="capsule" fromto="-0.00530927731 0.00350769282 0 -0.0049792213 0.00771791717 0" size="0.00055" rgba="0.80 0.20 0.50 0.65" density="0" contype="0" conaffinity="0" />
+                              <body name="solidworks_unit_14_body" pos="0 0.00842044871 0">
+                                <joint name="solidworks_joint_14" type="hinge" axis="0 0 1" range="-0.523598776 0.523598776" stiffness="0.00157626197703" damping="0.00157626197703" armature="0.0000005" />
+                                <inertial pos="0 0.00383888257 0" mass="0.000604001469" diaginertia="6.37027581e-09 1.31190686e-08 1.26829136e-08" />
+                                <geom name="solidworks_unit_14_visual" type="mesh" mesh="solidworks_part_14_mesh" material="body_material" density="0" contype="0" conaffinity="0" />
+                                <geom name="solidworks_unit_14_collision" type="mesh" mesh="solidworks_part_14_mesh" density="0" rgba="0 0 0 0" />
+                                <site name="positive_14_entry" user="3" pos="0.00467341868 0.00319831431 0" rgba="0.00 0.62 0.45 0.65" />
+                                <site name="positive_14_exit" user="3" pos="0.00437247361 0.00703719688 0" rgba="0.00 0.62 0.45 0.65" />
+                                <geom name="positive_14_bore_axis" type="capsule" fromto="0.00467341868 0.00319831431 0 0.00437247361 0.00703719688 0" size="0.00055" rgba="0.00 0.62 0.45 0.65" density="0" contype="0" conaffinity="0" />
+                                <site name="negative_14_entry" user="3" pos="-0.00467341868 0.00319831431 0" rgba="0.80 0.20 0.50 0.65" />
+                                <site name="negative_14_exit" user="3" pos="-0.00437247361 0.00703719688 0" rgba="0.80 0.20 0.50 0.65" />
+                                <geom name="negative_14_bore_axis" type="capsule" fromto="-0.00467341868 0.00319831431 0 -0.00437247361 0.00703719688 0" size="0.00055" rgba="0.80 0.20 0.50 0.65" density="0" contype="0" conaffinity="0" />
+                                <body name="solidworks_unit_15_body" pos="0 0.00767776513 0">
+                                  <joint name="solidworks_joint_15" type="hinge" axis="0 0 1" range="-0.523598776 0.523598776" stiffness="0.00131337140367" damping="0.00131337140367" armature="0.0000005" />
+                                  <inertial pos="0 0.00350029312 0" mass="0.000457864274" diaginertia="4.01472845e-09 8.26800901e-09 7.99313181e-09" />
+                                  <geom name="solidworks_unit_15_visual" type="mesh" mesh="solidworks_part_15_mesh" material="body_material" density="0" contype="0" conaffinity="0" />
+                                  <geom name="solidworks_unit_15_collision" type="mesh" mesh="solidworks_part_15_mesh" density="0" rgba="0 0 0 0" />
+                                  <site name="positive_15_entry" user="3" pos="0.00409364279 0.00291622299 0" rgba="0.00 0.62 0.45 0.65" />
+                                  <site name="positive_15_exit" user="3" pos="0.00381924107 0.00641651611 0" rgba="0.00 0.62 0.45 0.65" />
+                                  <geom name="positive_15_bore_axis" type="capsule" fromto="0.00409364279 0.00291622299 0 0.00381924107 0.00641651611 0" size="0.00055" rgba="0.00 0.62 0.45 0.65" density="0" contype="0" conaffinity="0" />
+                                  <site name="negative_15_entry" user="3" pos="-0.00409364279 0.00291622299 0" rgba="0.80 0.20 0.50 0.65" />
+                                  <site name="negative_15_exit" user="3" pos="-0.00381924107 0.00641651611 0" rgba="0.80 0.20 0.50 0.65" />
+                                  <geom name="negative_15_bore_axis" type="capsule" fromto="-0.00409364279 0.00291622299 0 -0.00381924107 0.00641651611 0" size="0.00055" rgba="0.80 0.20 0.50 0.65" density="0" contype="0" conaffinity="0" />
+                                  <body name="solidworks_unit_16_body" pos="0 0.00700058625 0">
+                                    <joint name="solidworks_joint_16" type="hinge" axis="0 0 1" range="-0.523598776 0.523598776" stiffness="0.0011095741481" damping="0.0011095741481" armature="0.0000005" />
+                                    <inertial pos="0 0.00319156727 0" mass="0.000347084742" diaginertia="2.53019571e-09 5.21073372e-09 5.03749832e-09" />
+                                    <geom name="solidworks_unit_16_visual" type="mesh" mesh="solidworks_part_16_mesh" material="body_material" density="0" contype="0" conaffinity="0" />
+                                    <geom name="solidworks_unit_16_collision" type="mesh" mesh="solidworks_part_16_mesh" density="0" rgba="0 0 0 0" />
+                                    <site name="positive_16_entry" user="3" pos="0.00356500313 0.00265901212 0" rgba="0.00 0.62 0.45 0.65" />
+                                    <site name="positive_16_exit" user="3" pos="0.00331480364 0.00585057939 0" rgba="0.00 0.62 0.45 0.65" />
+                                    <geom name="positive_16_bore_axis" type="capsule" fromto="0.00356500313 0.00265901212 0 0.00331480364 0.00585057939 0" size="0.00055" rgba="0.00 0.62 0.45 0.65" density="0" contype="0" conaffinity="0" />
+                                    <site name="negative_16_entry" user="3" pos="-0.00356500313 0.00265901212 0" rgba="0.80 0.20 0.50 0.65" />
+                                    <site name="negative_16_exit" user="3" pos="-0.00331480364 0.00585057939 0" rgba="0.80 0.20 0.50 0.65" />
+                                    <geom name="negative_16_bore_axis" type="capsule" fromto="-0.00356500313 0.00265901212 0 -0.00331480364 0.00585057939 0" size="0.00055" rgba="0.80 0.20 0.50 0.65" density="0" contype="0" conaffinity="0" />
+                                    <body name="solidworks_unit_17_body" pos="0 0.00638313454 0">
+                                      <joint name="solidworks_joint_17" type="hinge" axis="0 0 1" range="-0.523598776 0.523598776" stiffness="0.000953852341412" damping="0.000953852341412" armature="0.0000005" />
+                                      <inertial pos="0 0.00291007104 0" mass="0.000263108141" diaginertia="1.59460108e-09 3.28395215e-09 3.17477428e-09" />
+                                      <geom name="solidworks_unit_17_visual" type="mesh" mesh="solidworks_part_17_mesh" material="body_material" density="0" contype="0" conaffinity="0" />
+                                      <geom name="solidworks_unit_17_collision" type="mesh" mesh="solidworks_part_17_mesh" density="0" rgba="0 0 0 0" />
+                                      <site name="positive_17_entry" user="3" pos="0.00308298948 0.00242448725 0" rgba="0.00 0.62 0.45 0.65" />
+                                      <site name="positive_17_exit" user="3" pos="0.00285485759 0.00533455829 0" rgba="0.00 0.62 0.45 0.65" />
+                                      <geom name="positive_17_bore_axis" type="capsule" fromto="0.00308298948 0.00242448725 0 0.00285485759 0.00533455829 0" size="0.00055" rgba="0.00 0.62 0.45 0.65" density="0" contype="0" conaffinity="0" />
+                                      <site name="negative_17_entry" user="3" pos="-0.00308298948 0.00242448725 0" rgba="0.80 0.20 0.50 0.65" />
+                                      <site name="negative_17_exit" user="3" pos="-0.00285485759 0.00533455829 0" rgba="0.80 0.20 0.50 0.65" />
+                                      <geom name="negative_17_bore_axis" type="capsule" fromto="-0.00308298948 0.00242448725 0 -0.00285485759 0.00533455829 0" size="0.00055" rgba="0.80 0.20 0.50 0.65" density="0" contype="0" conaffinity="0" />
+                                      <body name="solidworks_unit_18_body" pos="0 0.00582014207 0">
+                                        <joint name="solidworks_joint_18" type="hinge" axis="0 0 1" range="-0.523598776 0.523598776" stiffness="0.000838740254964" damping="0.000838740254964" armature="0.0000005" />
+                                        <inertial pos="0 0.00265340277 0" mass="0.000199449545" diaginertia="1.00496282e-09 2.06963976e-09 2.00083278e-09" />
+                                        <geom name="solidworks_unit_18_visual" type="mesh" mesh="solidworks_part_18_mesh" material="body_material" density="0" contype="0" conaffinity="0" />
+                                        <geom name="solidworks_unit_18_collision" type="mesh" mesh="solidworks_part_18_mesh" density="0" rgba="0 0 0 0" />
+                                        <site name="positive_18_entry" user="3" pos="0.00264348944 0.00221064748 0" rgba="0.00 0.62 0.45 0.65" />
+                                        <site name="positive_18_exit" user="3" pos="0.00243547879 0.00486405025 0" rgba="0.00 0.62 0.45 0.65" />
+                                        <geom name="positive_18_bore_axis" type="capsule" fromto="0.00264348944 0.00221064748 0 0.00243547879 0.00486405025 0" size="0.00055" rgba="0.00 0.62 0.45 0.65" density="0" contype="0" conaffinity="0" />
+                                        <site name="negative_18_entry" user="3" pos="-0.00264348944 0.00221064748 0" rgba="0.80 0.20 0.50 0.65" />
+                                        <site name="negative_18_exit" user="3" pos="-0.00243547879 0.00486405025 0" rgba="0.80 0.20 0.50 0.65" />
+                                        <geom name="negative_18_bore_axis" type="capsule" fromto="-0.00264348944 0.00221064748 0 -0.00243547879 0.00486405025 0" size="0.00055" rgba="0.80 0.20 0.50 0.65" density="0" contype="0" conaffinity="0" />
+                                        <site name="positive_tip" user="1" pos="0.00240076946 0.00530680554 0" rgba="0.00 0.62 0.45 1" />
+                                        <site name="negative_tip" user="1" pos="-0.00240076946 0.00530680554 0" rgba="0.80 0.20 0.50 1" />
+                                        <site name="tip_marker" pos="0 0.00530680554 0" size="0.0025" rgba="1 0.82 0.08 1" />
+                                      </body>
+                                    </body>
+                                  </body>
+                                </body>
+                              </body>
+                            </body>
+                          </body>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <contact>
+    <pair geom1="solidworks_base_collision" geom2="solidworks_unit_01_collision" condim="1" margin="0.00002" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="solidworks_unit_01_collision" geom2="solidworks_unit_02_collision" condim="1" margin="0.00002" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="solidworks_unit_02_collision" geom2="solidworks_unit_03_collision" condim="1" margin="0.00002" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="solidworks_unit_03_collision" geom2="solidworks_unit_04_collision" condim="1" margin="0.00002" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="solidworks_unit_04_collision" geom2="solidworks_unit_05_collision" condim="1" margin="0.00002" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="solidworks_unit_05_collision" geom2="solidworks_unit_06_collision" condim="1" margin="0.00002" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="solidworks_unit_06_collision" geom2="solidworks_unit_07_collision" condim="1" margin="0.00002" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="solidworks_unit_07_collision" geom2="solidworks_unit_08_collision" condim="1" margin="0.00002" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="solidworks_unit_08_collision" geom2="solidworks_unit_09_collision" condim="1" margin="0.00002" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="solidworks_unit_09_collision" geom2="solidworks_unit_10_collision" condim="1" margin="0.00002" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="solidworks_unit_10_collision" geom2="solidworks_unit_11_collision" condim="1" margin="0.00002" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="solidworks_unit_11_collision" geom2="solidworks_unit_12_collision" condim="1" margin="0.00002" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="solidworks_unit_12_collision" geom2="solidworks_unit_13_collision" condim="1" margin="0.00002" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="solidworks_unit_13_collision" geom2="solidworks_unit_14_collision" condim="1" margin="0.00002" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="solidworks_unit_14_collision" geom2="solidworks_unit_15_collision" condim="1" margin="0.00002" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="solidworks_unit_15_collision" geom2="solidworks_unit_16_collision" condim="1" margin="0.00002" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="solidworks_unit_16_collision" geom2="solidworks_unit_17_collision" condim="1" margin="0.00002" solref="0.006 1" solimp="0.95 0.995 0.001" />
+    <pair geom1="solidworks_unit_17_collision" geom2="solidworks_unit_18_collision" condim="1" margin="0.00002" solref="0.006 1" solimp="0.95 0.995 0.001" />
+  </contact>
+  <tendon>
+    <spatial name="positive_seed" width="0.000000001" rgba="0.00 0.62 0.45 1">
+      <site site="positive_base_anchor" />
+      <site site="positive_01_entry" />
+      <site site="positive_01_exit" />
+      <site site="positive_02_entry" />
+      <site site="positive_02_exit" />
+      <site site="positive_03_entry" />
+      <site site="positive_03_exit" />
+      <site site="positive_04_entry" />
+      <site site="positive_04_exit" />
+      <site site="positive_05_entry" />
+      <site site="positive_05_exit" />
+      <site site="positive_06_entry" />
+      <site site="positive_06_exit" />
+      <site site="positive_07_entry" />
+      <site site="positive_07_exit" />
+      <site site="positive_08_entry" />
+      <site site="positive_08_exit" />
+      <site site="positive_09_entry" />
+      <site site="positive_09_exit" />
+      <site site="positive_10_entry" />
+      <site site="positive_10_exit" />
+      <site site="positive_11_entry" />
+      <site site="positive_11_exit" />
+      <site site="positive_12_entry" />
+      <site site="positive_12_exit" />
+      <site site="positive_13_entry" />
+      <site site="positive_13_exit" />
+      <site site="positive_14_entry" />
+      <site site="positive_14_exit" />
+      <site site="positive_15_entry" />
+      <site site="positive_15_exit" />
+      <site site="positive_16_entry" />
+      <site site="positive_16_exit" />
+      <site site="positive_17_entry" />
+      <site site="positive_17_exit" />
+      <site site="positive_18_entry" />
+      <site site="positive_18_exit" />
+      <site site="positive_tip" />
+    </spatial>
+    <spatial name="negative_seed" width="0.000000001" rgba="0.80 0.20 0.50 1">
+      <site site="negative_base_anchor" />
+      <site site="negative_01_entry" />
+      <site site="negative_01_exit" />
+      <site site="negative_02_entry" />
+      <site site="negative_02_exit" />
+      <site site="negative_03_entry" />
+      <site site="negative_03_exit" />
+      <site site="negative_04_entry" />
+      <site site="negative_04_exit" />
+      <site site="negative_05_entry" />
+      <site site="negative_05_exit" />
+      <site site="negative_06_entry" />
+      <site site="negative_06_exit" />
+      <site site="negative_07_entry" />
+      <site site="negative_07_exit" />
+      <site site="negative_08_entry" />
+      <site site="negative_08_exit" />
+      <site site="negative_09_entry" />
+      <site site="negative_09_exit" />
+      <site site="negative_10_entry" />
+      <site site="negative_10_exit" />
+      <site site="negative_11_entry" />
+      <site site="negative_11_exit" />
+      <site site="negative_12_entry" />
+      <site site="negative_12_exit" />
+      <site site="negative_13_entry" />
+      <site site="negative_13_exit" />
+      <site site="negative_14_entry" />
+      <site site="negative_14_exit" />
+      <site site="negative_15_entry" />
+      <site site="negative_15_exit" />
+      <site site="negative_16_entry" />
+      <site site="negative_16_exit" />
+      <site site="negative_17_entry" />
+      <site site="negative_17_exit" />
+      <site site="negative_18_entry" />
+      <site site="negative_18_exit" />
+      <site site="negative_tip" />
+    </spatial>
+  </tendon>
+  <actuator>
+    <plugin name="positive_command" tendon="positive_seed" instance="solidworks_positive_cable" gear="0" ctrllimited="true" ctrlrange="0 0.19" />
+    <plugin name="negative_command" tendon="negative_seed" instance="solidworks_negative_cable" gear="0" ctrllimited="true" ctrlrange="0 0.19" />
+  </actuator>
+  <sensor>
+    <plugin name="positive_state" instance="solidworks_positive_cable" />
+    <plugin name="negative_state" instance="solidworks_negative_cable" />
+    <framepos name="tip_position" objtype="site" objname="tip_marker" />
+  </sensor>
+</mujoco>

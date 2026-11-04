@@ -1,0 +1,33 @@
+{
+  "case": "result_1_2_moving_pulley",
+  "model": "result_1_2/models/result_1_2.xml",
+  "duration_s": 3.5,
+  "sample_count": 1751,
+  "equations": [
+    "c = 2 h",
+    "2 T = (m_p + m_l) g",
+    "|theta_fixed/theta_moving| = 2 only under ideal no-slip transport"
+  ],
+  "parameters": {
+    "pulley_radius_m": 0.04,
+    "moving_pulley_mass_kg": 0.08,
+    "payload_mass_kg": 0.2,
+    "total_suspended_mass_kg": 0.28,
+    "ideal_tension_N": 1.3734000000000002,
+    "capstan_mu": 0.12
+  },
+  "metrics": {
+    "moving_pulley_lift_rmse_mm": 0.14247162628752438,
+    "moving_load_lift_rmse_mm": 0.43536816254246913,
+    "tension_rmse_N": 0.12924383906399775,
+    "maximum_tether_drift_um": 4.170060379588003,
+    "ramp_end_fixed_to_moving_angle_ratio": 4.163503557145486,
+    "maximum_route_status": 0.0,
+    "final_moving_pulley_lift_mm": 10.17484812217473,
+    "final_load_lift_mm": 10.184683444731709,
+    "final_theory_lift_mm": 10.0,
+    "p95_step_time_ms": 0.5801190214697272,
+    "taut_fraction": 1.0,
+    "saturation_fraction": 0.0
+  }
+}

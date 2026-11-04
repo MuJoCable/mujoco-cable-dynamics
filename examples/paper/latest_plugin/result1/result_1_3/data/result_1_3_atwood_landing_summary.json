@@ -1,0 +1,33 @@
+{
+  "case": "result_1_3_atwood_landing",
+  "model": "result_1_3/models/result_1_3.xml",
+  "duration_s": 1.25,
+  "sample_count": 626,
+  "equations": [
+    "M_eff = m_L + m_R + I_eff/R^2",
+    "M_eff v_dot + (b/R^2) v = (m_R-m_L) g",
+    "T_L = m_L (g + v_dot), T_R = m_R (g - v_dot)",
+    "omega = v/R before landing under ideal no-slip transport"
+  ],
+  "parameters": {
+    "left_mass_kg": 0.1168032,
+    "right_mass_kg": 0.23413440000000002,
+    "pulley_radius_m": 0.05,
+    "effective_pulley_inertia_kgm2": 0.00030000000000000003,
+    "bearing_damping_Nms_per_rad": 0.005,
+    "effective_translational_mass_kg": 0.4709376,
+    "travel_to_floor_m": 0.111
+  },
+  "metrics": {
+    "theory_landing_time_s": 0.3818121382404204,
+    "measured_landing_time_s": 0.34599999999999453,
+    "prelanding_right_speed_rmse_mps": 0.06677625946557333,
+    "prelanding_pulley_omega_rmse_radps": 1.40583184303747,
+    "peak_postlanding_contact_force_N": 15.005731304759417,
+    "maximum_route_status": 0.0,
+    "landing_time_relative_error_percent": -9.379518002090224,
+    "p95_step_time_ms": 0.7421750575304028,
+    "taut_fraction": 0.5303514376996805,
+    "saturation_fraction": 0.0
+  }
+}

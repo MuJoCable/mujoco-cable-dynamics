@@ -1,0 +1,22 @@
+{
+  "mujocable_mu_0.15": {
+    "final_bend_deg": -524.6609023157047,
+    "hold_bend_deg": -522.9701148006329,
+    "tracking_rmse_deg": 25.069619393849127,
+    "maximum_active_tension_N": 2.538014324569474,
+    "maximum_active_cable_takeup_mm": 92.69365132246972,
+    "minimum_active_cable_takeup_mm": 0.0,
+    "maximum_route_status": 0,
+    "mean_hold_joint_angle_deg": -29.053895266701826
+  },
+  "native_tendon_muscle": {
+    "final_bend_deg": -523.375826246945,
+    "hold_bend_deg": -521.8326412247678,
+    "tracking_rmse_deg": 24.18440112131569,
+    "maximum_active_tension_N": 0.6435182692483185,
+    "maximum_active_cable_takeup_mm": 85.04119650565087,
+    "minimum_active_cable_takeup_mm": -7.237591082009942e-07,
+    "maximum_route_status": -1,
+    "mean_hold_joint_angle_deg": -28.99070229026488
+  }
+}

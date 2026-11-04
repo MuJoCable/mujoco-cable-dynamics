@@ -1,0 +1,59 @@
+{
+  "spool_radius_m": 0.01,
+  "reserve_m": 0.09,
+  "preload_extension_m": 0.001,
+  "drive_extension_m": null,
+  "guide_friction_mu": 0.015,
+  "model_full_bend_settings": {
+    "demo49_tpu95hf": {
+      "target_bend_deg": 530.0,
+      "drive_extension_m": 0.015
+    }
+  },
+  "duration_s": 24.0,
+  "sample_period_s": 0.02,
+  "models": [
+    {
+      "model_key": "demo49_tpu95hf",
+      "model_label": "Calibrated SpiRobs",
+      "model_file": "demo49_tpu95hf_taut_control.xml",
+      "series_stiffness_Nm_per_rad": 0.0001419176972246621,
+      "minimum_joint_stiffness_Nm_per_rad": 0.000838740254964,
+      "maximum_joint_stiffness_Nm_per_rad": 0.026053123321,
+      "right_hold_bend_deg": -524.0517676269856,
+      "left_hold_bend_deg": 523.7695241699865,
+      "right_hold_bending_side_contact_pairs": 6.24,
+      "left_hold_bending_side_contact_pairs": 6.3,
+      "right_hold_bending_side_contact_fraction": 0.3466666666666667,
+      "left_hold_bending_side_contact_fraction": 0.35,
+      "right_hold_adjacent_contact_pairs": 17.82,
+      "left_hold_adjacent_contact_pairs": 17.84,
+      "right_hold_all_adjacent_pairs_in_contact": false,
+      "left_hold_all_adjacent_pairs_in_contact": false,
+      "maximum_nonadjacent_contact_pairs": 0,
+      "maximum_segment_penetration_mm": 0.006758510994590915,
+      "final_return_error_deg": 0.40608277014538735,
+      "maximum_abs_bend_deg": 526.9962407886317,
+      "bend_tracking_rmse_deg": 24.87140253517315,
+      "minimum_right_tension_N": 0.42135724159761095,
+      "minimum_left_tension_N": 0.421358020474763,
+      "maximum_tension_N": 1.9277917291621287,
+      "right_taut_fraction": 1.0,
+      "left_taut_fraction": 1.0,
+      "both_taut_all_samples": true,
+      "left_vs_right_path_slope": -0.9992602652368419,
+      "left_vs_right_path_intercept_mm": -2.266010401017525,
+      "left_vs_right_path_r_squared": 0.9986953915087183,
+      "right_path_linear_theory_rmse_mm": 1.5128743458049843,
+      "left_path_linear_theory_rmse_mm": 1.5141613987825069,
+      "right_bend_path_vs_time_slope_mm_s": -23.071420489516687,
+      "right_bend_path_vs_time_r_squared": 0.964765468882893,
+      "left_bend_path_vs_time_slope_mm_s": -22.4366702239036,
+      "left_bend_path_vs_time_r_squared": 0.9629882128275093,
+      "maximum_command_m": 0.19070250317306156,
+      "finite": true,
+      "target_bend_deg": 530.0,
+      "drive_extension_m": 0.015
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+<mujoco model="showcase_cam_pulley">
+  <compiler autolimits="true" angle="radian" meshdir="../assets/irregular_pulleys" />
+  <size nuser_site="1" />
+  <option timestep="0.0002" gravity="0 0 -9.81" integrator="implicitfast"><flag energy="enable" /></option>
+  <extension>
+    <plugin plugin="mujoco.cable.unilateral">
+      <instance name="irregular_cable">
+        <config key="route_mode" value="surface" />
+        <config key="mesh_route_mode" value="guided_surface" />
+        <config key="route_tendon" value="irregular_seed" />
+        <config key="wrap_geoms" value="irregular_pulley_visual" />
+        <config key="mesh_guide_axis" value="0 1 0" />
+        <config key="mesh_guide_weight" value="500" />
+        <config key="home_length" value="auto_initial" />
+        <config key="stiffness" value="15000" />
+        <config key="damping" value="2" />
+        <config key="pretension_offset" value="0.00015" />
+        <config key="max_tension" value="100" />
+        <config key="capstan_mu" value="0.12" />
+        <config key="capstan_direction" value="forward" />
+        <config key="route_hysteresis" value="0.00002" />
+        <config key="visual_width" value="3.4" />
+        <config key="visual_smoothing_timeconstant" value="0.020" />
+      </instance>
+    </plugin>
+  </extension>
+  <asset>
+    <mesh name="irregular_profile" file="cam.obj" />
+    <material name="frame" rgba="0.52 0.60 0.66 1" />
+    <material name="pulley" rgba="0.76 0.78 0.80 0.46" />
+    <material name="left" rgba="0.12 0.52 0.88 1" />
+    <material name="right" rgba="0.92 0.35 0.10 1" />
+  </asset>
+  <visual><global azimuth="90" elevation="-8" /><headlight ambient="0.28 0.28 0.28" diffuse="0.75 0.75 0.75" /></visual>
+  <default><site size="0.004" /><default class="hint"><site user="2" size="0.0001" rgba="0 0 0 0" /></default></default>
+  <worldbody>
+    <camera name="overview" pos="0 -0.72 0.225" xyaxes="1 0 0 0 0 1" fovy="42" />
+    <light name="key" pos="-0.25 -0.80 0.75" dir="0.2 0.8 -0.7" />
+    <geom name="floor" type="plane" pos="0 0 0.06" size="0.34 0.24 0.01" rgba="0.13 0.15 0.17 1" friction="0.8 0.04 0.005" />
+    <geom type="capsule" fromto="0 0.04 0.06 0 0.04 0.415" size="0.007" material="frame" contype="0" conaffinity="0" />
+    <geom type="capsule" fromto="-0.20 0.04 0.415 0.20 0.04 0.415" size="0.007" material="frame" contype="0" conaffinity="0" />
+    <body name="irregular_pulley" pos="0 0 0.315">
+      <joint name="pulley_hinge" type="hinge" axis="0 1 0" damping="0.080"
+             armature="0.00080" limited="true" range="-0.32 0.32" />
+      <geom name="irregular_pulley_visual" type="mesh" mesh="irregular_profile" mass="0.080" material="pulley" contype="0" conaffinity="0" />
+      <geom type="cylinder" euler="1.57079632679 0 0" size="0.009 0.020" density="0" rgba="0.42 0.46 0.50 1" contype="0" conaffinity="0" />
+      <geom name="radius_marker" type="capsule" fromto="0 -0.019 0 0.038 -0.019 0" size="0.0022" density="0" rgba="0.08 0.35 1 1" contype="0" conaffinity="0" />
+    </body>
+    <site name="upper_hint" class="hint" pos="0 0 0.377" />
+    <body name="left_mass" pos="-0.074 0 0.145">
+      <freejoint name="left_free" />
+      <geom type="box" size="0.023 0.023 0.023" density="1200" material="left" />
+      <site name="left_end" pos="0 0 0.029" user="1" rgba="0.12 0.75 1 1" />
+    </body>
+    <body name="right_mass" pos="0.074 0 0.145">
+      <freejoint name="right_free" />
+      <geom type="box" size="0.029 0.029 0.029" density="1200" material="right" />
+      <site name="right_end" pos="0 0 0.035" user="1" rgba="1 0.35 0.08 1" />
+    </body>
+  </worldbody>
+  <tendon>
+    <spatial name="irregular_seed" width="0.000000001" rgba="1 0.25 0.04 1">
+      <site site="left_end" /><site site="upper_hint" /><site site="right_end" />
+    </spatial>
+  </tendon>
+  <actuator><motor name="pulley_drive" joint="pulley_hinge" gear="1" ctrllimited="true" ctrlrange="-0.002 0.002" /></actuator>
+  <sensor>
+    <plugin name="irregular_cable_state" instance="irregular_cable" />
+    <jointpos name="pulley_angle" joint="pulley_hinge" />
+    <jointvel name="pulley_speed" joint="pulley_hinge" />
+  </sensor>
+  <!-- free-form cam profile: the motor is optional; u=0 recovers the passive Result 1.3 topology. -->
+</mujoco>

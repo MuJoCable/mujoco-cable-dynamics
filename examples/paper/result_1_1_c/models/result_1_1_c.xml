@@ -1,0 +1,119 @@
+<mujoco model="result_1_1_c_physical_winch">
+  <compiler autolimits="true" angle="radian" />
+  <size nuser_site="1" />
+  <option timestep="0.0005" gravity="0 0 -9.81" integrator="implicitfast" />
+  <custom>
+    <numeric name="pulley_radius_m" data="0.050" />
+    <numeric name="winch_radius_m" data="0.025" />
+    <numeric name="ideal_pulley_to_winch_angle_ratio" data="-0.5" />
+    <numeric name="payload_mass_kg" data="0.200" />
+    <numeric name="bearing_damping_Nms_per_rad" data="0.005" />
+    <numeric name="winch_safe_max_angle_rad" data="2.7" />
+    <numeric name="winch_max_torque_Nm" data="0.5" />
+  </custom>
+  <extension>
+    <plugin plugin="mujoco.cable.unilateral">
+      <instance name="winch_cable">
+        <config key="stiffness" value="3000" />
+        <config key="damping" value="30" />
+        <config key="slack" value="0.0001" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.0007" />
+        <config key="max_tension" value="60" />
+        <!-- Winding is represented once by the rotating anchor and explicit
+             drum envelope.  Do not also subtract r*theta from free length. -->
+        <config key="ctrl_mode" value="target_contraction" />
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="winch_seed" />
+        <config key="wrap_geoms" value="winch_drum fixed_pulley_wrap" />
+        <config key="site_role_user_index" value="0" />
+        <config key="capstan_mu" value="0" />
+        <config key="visual_width" value="2.4" />
+      </instance>
+    </plugin>
+  </extension>
+  <asset>
+    <material name="frame_material" rgba="0.52 0.60 0.66 1" />
+    <material name="pulley_material" rgba="0.72 0.75 0.78 0.65" />
+    <material name="payload_material" rgba="0.08 0.36 0.88 1" />
+  </asset>
+  <default>
+    <geom friction="0.7 0.03 0.005" />
+    <site size="0.004" />
+    <default class="route_hint"><site size="0.0001" rgba="1 0.8 0 0" user="2" /></default>
+  </default>
+  <worldbody>
+    <light name="key" pos="-0.25 -0.80 0.72" dir="0.2 0.8 -0.7" />
+    <camera name="overview" pos="0 -0.84 0.27" xyaxes="1 0 0 0 0 1" fovy="44" />
+    <geom name="floor" type="plane" pos="0 0 -0.03" size="0.42 0.30 0.01" rgba="0.13 0.15 0.17 1" />
+    <geom name="left_post" type="capsule" fromto="-0.30 0.04 -0.01 -0.30 0.04 0.46"
+          size="0.007" material="frame_material" contype="0" conaffinity="0" />
+    <geom name="top_beam" type="capsule" fromto="-0.31 0.04 0.46 0.16 0.04 0.46"
+          size="0.007" material="frame_material" contype="0" conaffinity="0" />
+    <site name="spool_exit" pos="-0.150 0 0.305" size="0.004" rgba="1 0.82 0.05 1" />
+    <body name="winch" pos="-0.180 0 0.280">
+      <joint name="winch_hinge" type="hinge" axis="0 1 0"
+             limited="true" range="0 2.7"
+             damping="0.004" armature="0.0002" />
+      <geom name="winch_drum" type="cylinder" euler="1.57079632679 0 0"
+            size="0.025 0.018" mass="0.040" material="pulley_material"
+            contype="0" conaffinity="0" />
+      <geom name="winch_radius_marker" type="capsule"
+            fromto="0 -0.020 0 0.020 -0.020 0" size="0.002"
+            density="0" rgba="0.05 0.35 1 1" contype="0" conaffinity="0" />
+      <site name="spool_anchor" pos="-0.01968 -0.008 -0.01992" user="1"
+            size="0.005" rgba="0.95 0.05 0.03 1" />
+      <site name="spool_hint" class="route_hint" pos="0 0 -0.030" />
+    </body>
+    <body name="fixed_pulley" pos="0 0 0.36">
+      <joint name="pulley_hinge" type="hinge" axis="0 1 0" damping="0.005" armature="0.0002" />
+      <geom name="fixed_pulley_wrap" type="cylinder"
+            euler="1.57079632679 0 0" size="0.050 0.018" mass="0.080"
+            material="pulley_material" contype="1" conaffinity="1" />
+      <geom name="pulley_hub" type="cylinder"
+            euler="1.57079632679 0 0" size="0.010 0.023"
+            density="0" rgba="0.42 0.46 0.50 0.85"
+            contype="0" conaffinity="0" />
+      <geom name="pulley_radius_marker" type="capsule"
+            fromto="0 -0.020 0 0.043 -0.020 0" size="0.0022"
+            density="0" rgba="0.05 0.35 1 1"
+            contype="0" conaffinity="0" />
+    </body>
+    <site name="pulley_upper_hint" class="route_hint" pos="0 0 0.416" />
+    <body name="free_payload" pos="0.050 0 0.145">
+      <freejoint name="payload_free" />
+      <geom name="payload" type="box" size="0.032 0.032 0.026"
+            mass="0.200" material="payload_material" />
+      <site name="payload_cable_end" pos="0 0 0.033" user="1"
+            size="0.005" rgba="0.10 0.85 0.25 1" />
+    </body>
+  </worldbody>
+  <tendon>
+    <spatial name="winch_seed" limited="false" width="0.000000001" rgba="1.0 0.25 0.04 1">
+      <site site="spool_anchor" />
+      <site site="spool_hint" />
+      <site site="pulley_upper_hint" />
+      <site site="payload_cable_end" />
+    </spatial>
+  </tendon>
+  <actuator>
+    <position name="winch_motor" joint="winch_hinge" kp="20.0" kv="2.0"
+              ctrllimited="true" ctrlrange="0 2.7"
+              forcelimited="true" forcerange="-0.5 0.5" />
+  </actuator>
+  <equality>
+    <!-- Ideal no-slip reference: r_w*theta_w + r_p*theta_p = 0. -->
+    <joint name="ideal_no_slip_transmission"
+           joint1="pulley_hinge" joint2="winch_hinge"
+           polycoef="0 -0.5 0 0 0" solref="0.002 1" />
+  </equality>
+  <sensor>
+    <plugin name="winch_cable_state" instance="winch_cable" />
+    <jointpos name="winch_angle" joint="winch_hinge" />
+    <jointvel name="winch_angular_velocity" joint="winch_hinge" />
+    <jointpos name="pulley_angle" joint="pulley_hinge" />
+    <jointvel name="pulley_angular_velocity" joint="pulley_hinge" />
+    <framepos name="payload_position" objtype="body" objname="free_payload" />
+    <framelinvel name="payload_velocity" objtype="body" objname="free_payload" />
+  </sensor>
+</mujoco>

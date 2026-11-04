@@ -1,0 +1,41 @@
+{
+  "plugin": "libcable_unilateral.dylib",
+  "videos": [
+    {
+      "name": "irregular_pulley_ellipse",
+      "frames": 145,
+      "duration_s": 6.0,
+      "max_tension_N": 5.840340607001,
+      "max_route_status": 0,
+      "raw": "irregular_pulley_ellipse_raw.mp4",
+      "annotated": "irregular_pulley_ellipse_annotated.mp4"
+    },
+    {
+      "name": "irregular_pulley_cam",
+      "frames": 145,
+      "duration_s": 6.0,
+      "max_tension_N": 50.65331356252979,
+      "max_route_status": 0,
+      "raw": "irregular_pulley_cam_raw.mp4",
+      "annotated": "irregular_pulley_cam_annotated.mp4"
+    },
+    {
+      "name": "irregular_pulley_box",
+      "frames": 145,
+      "duration_s": 6.0,
+      "max_tension_N": 2.249999999999752,
+      "max_route_status": 0,
+      "raw": "irregular_pulley_box_raw.mp4",
+      "annotated": "irregular_pulley_box_annotated.mp4"
+    },
+    {
+      "name": "icra_surface_cables",
+      "frames": 211,
+      "duration_s": 7.0,
+      "max_tension_N": 3.0000000000000027,
+      "max_route_status": 0,
+      "raw": "icra_surface_cables_raw.mp4",
+      "annotated": "icra_surface_cables_annotated.mp4"
+    }
+  ]
+}

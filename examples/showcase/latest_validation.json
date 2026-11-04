@@ -1,0 +1,38 @@
+{
+  "scope": "headless route/finite-state check; not new rendered videos or formal accuracy validation",
+  "cases": [
+    {
+      "case": "irregular_pulley_ellipse",
+      "duration_s": 6.0,
+      "maximum_route_status": 0,
+      "maximum_tension_N": 26.5556724106764,
+      "finite": true,
+      "warnings": 0
+    },
+    {
+      "case": "irregular_pulley_cam",
+      "duration_s": 6.0,
+      "maximum_route_status": 0,
+      "maximum_tension_N": 100.0,
+      "finite": true,
+      "warnings": 0
+    },
+    {
+      "case": "irregular_pulley_box",
+      "duration_s": 6.0,
+      "maximum_route_status": 0,
+      "maximum_tension_N": 8.572906081373265,
+      "finite": true,
+      "warnings": 0
+    },
+    {
+      "case": "icra_surface_cables",
+      "duration_s": 7.0,
+      "maximum_route_status": 0,
+      "maximum_tension_N": 3.0000000000000027,
+      "finite": true,
+      "warnings": 0
+    }
+  ],
+  "passed": true
+}

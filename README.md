@@ -20,6 +20,12 @@
 [Threading guide](docs/CABLE_DESIGN_AND_THREADING_GUIDE.md) |
 [All commands](docs/RUN_ALL_DEMOS.md)
 
+[Paper examples: models, data, plots and raw/annotated videos](examples/paper/README.md)
+are organized separately from the small standalone demos. They include pulley
+theory checks, rolling contact, a matched native-tendon baseline, SpiRobs guide
+friction and a single-finger cable experiment. Historical evidence and current
+plugin reproductions are kept separate.
+
 A standalone C++ MuJoCo engine plugin for massless, unilateral cables routed
 over cylinders and closed mesh surfaces. The plugin computes runtime cable
 length, free length, tension, surface contact points, and rigid-body forces

@@ -1,0 +1,35 @@
+{
+  "case": "result_1_1_mu_0p15",
+  "model": "result_1_1/models/result_1_1_mu_0p15.xml",
+  "duration_s": 3.0,
+  "sample_count": 1501,
+  "equations": [
+    "T_load = m g",
+    "h = c",
+    "T_source/T_load = exp(mu beta tanh(|c_dot|/v_s))"
+  ],
+  "parameters": {
+    "payload_mass_kg": 0.2,
+    "gravity_mps2": 9.81,
+    "pulley_radius_m": 0.05,
+    "capstan_mu": 0.15,
+    "capstan_velocity_scale_mps": 0.01,
+    "bearing_damping_Nms_per_rad": 0.005
+  },
+  "metrics": {
+    "payload_lift_rmse_mm": 0.3220847573925039,
+    "source_tension_rmse_N": 0.016478864680833892,
+    "steady_payload_tension_mean_N": 1.9619999999997457,
+    "theory_payload_weight_N": 1.9620000000000002,
+    "peak_tangent_residual": 7.170761708921582e-08,
+    "peak_surface_residual_m": 0.0,
+    "maximum_route_status": 0.0,
+    "mean_wrap_angle_deg": 119.99553050994129,
+    "peak_theory_capstan_ratio": 1.3674353884429564,
+    "peak_measured_capstan_ratio": 1.3613515779879455,
+    "peak_source_tension_N": 2.6727184030837208,
+    "p95_step_time_ms": 0.27436104137450457,
+    "taut_fraction": 1.0,
+    "saturation_fraction": 0.0
+  }
+}

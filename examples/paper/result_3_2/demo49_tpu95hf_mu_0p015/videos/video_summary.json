@@ -1,0 +1,20 @@
+{
+  "key": "demo49_tpu95hf",
+  "label": "TPU95HF connector calibration | mu=0.015",
+  "source_model": "49_cpp_plugin_solidworks_spirobot_tpu95hf_calibrated.xml",
+  "raw_video": "demo49_tpu95hf_raw.mp4",
+  "annotated_video": "demo49_tpu95hf_annotated.mp4",
+  "duration_s": 24.0,
+  "fps": 20,
+  "resolution": [
+    960,
+    540
+  ],
+  "target_bend_deg": 530.0,
+  "drive_extension_m": 0.015,
+  "guide_friction_mu": 0.015,
+  "raw_size_bytes": 694137,
+  "annotated_size_bytes": 1059824,
+  "reused": true,
+  "case_key": "demo49_tpu95hf_mu_0p015"
+}

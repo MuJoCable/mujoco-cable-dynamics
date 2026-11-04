@@ -1,0 +1,101 @@
+<mujoco model="icra_surface_cable_logo">
+  <compiler autolimits="true" angle="radian" meshdir="../assets/icra" texturedir="../assets/icra" />
+  <size nuser_site="1" memory="96M" />
+  <option timestep="0.0005" gravity="0 0 0" integrator="implicitfast" />
+  <extension>
+    <plugin plugin="mujoco.cable.unilateral">
+      <instance name="red_logo_cable">
+        <config key="route_mode" value="surface" /><config key="mesh_route_mode" value="guided_surface" />
+        <config key="route_tendon" value="red_seed" /><config key="wrap_geoms" value="C_wrap R_wrap" />
+        <config key="mesh_guide_axis" value="0 1 0" /><config key="mesh_guide_weight" value="2000" />
+        <config key="home_length" value="auto_initial" /><config key="stiffness" value="300" />
+        <config key="damping" value="1.5" /><config key="pretension_offset" value="0.010" />
+        <config key="max_tension" value="10" /><config key="route_hysteresis" value="0.00005" />
+        <config key="visual_width" value="2.7" /><config key="visual_smoothing_timeconstant" value="0.025" />
+      </instance>
+      <instance name="blue_logo_cable">
+        <config key="route_mode" value="surface" /><config key="mesh_route_mode" value="guided_surface" />
+        <config key="route_tendon" value="blue_seed" /><config key="wrap_geoms" value="C_wrap" />
+        <config key="mesh_guide_axis" value="0 1 0" /><config key="mesh_guide_weight" value="2000" />
+        <config key="home_length" value="auto_initial" /><config key="stiffness" value="300" />
+        <config key="damping" value="1.5" /><config key="pretension_offset" value="0.010" />
+        <config key="max_tension" value="10" /><config key="route_hysteresis" value="0.00005" />
+        <config key="visual_width" value="2.7" /><config key="visual_smoothing_timeconstant" value="0.025" />
+      </instance>
+      <instance name="gold_logo_cable">
+        <config key="route_mode" value="surface" /><config key="mesh_route_mode" value="guided_surface" />
+        <config key="route_tendon" value="gold_seed" /><config key="wrap_geoms" value="A_wrap" />
+        <config key="mesh_guide_axis" value="0 1 0" /><config key="mesh_guide_weight" value="2000" />
+        <config key="home_length" value="auto_initial" /><config key="stiffness" value="250" />
+        <config key="damping" value="1.2" /><config key="pretension_offset" value="0.006" />
+        <config key="max_tension" value="8" /><config key="route_hysteresis" value="0.00005" />
+        <config key="visual_width" value="2.5" /><config key="visual_smoothing_timeconstant" value="0.025" />
+      </instance>
+    </plugin>
+  </extension>
+  <asset>
+    <mesh name="I_mesh" file="I.obj" /><mesh name="C_mesh" file="C.obj" />
+    <mesh name="R_mesh" file="R.obj" /><mesh name="A_mesh" file="A.obj" />
+    <texture name="purple_texture" type="2d" file="purple.png" />
+    <texture name="orange_texture" type="2d" file="orange.png" />
+    <material name="purple" texture="purple_texture" texuniform="true" texrepeat="2 2" rgba="1 1 1 1" />
+    <material name="orange" texture="orange_texture" texuniform="true" texrepeat="2 2" rgba="1 1 1 1" />
+  </asset>
+  <visual><global azimuth="90" elevation="0" /><headlight ambient="0.35 0.35 0.35" diffuse="0.78 0.78 0.78" /></visual>
+  <default>
+    <site size="0.005" />
+    <default class="hint"><site user="2" size="0.0001" rgba="0 0 0 0" /></default>
+    <default class="letter"><joint type="hinge" axis="0 1 0" damping="0.012" armature="0.00008" /></default>
+  </default>
+  <worldbody>
+    <camera name="overview" pos="0 -1.00 0.31" xyaxes="1 0 0 0 0 1" fovy="36" />
+    <light name="key" pos="-0.2 -0.8 0.7" dir="0.2 0.9 -0.5" />
+    <geom type="plane" pos="0 0 0.10" size="0.55 0.24 0.01" rgba="0.96 0.96 0.96 1" contype="0" conaffinity="0" />
+    <body name="letter_I" pos="-0.300 0 0.300">
+      <joint name="I_hinge" class="letter" damping="0.020" />
+      <geom name="I_visual" type="mesh" mesh="I_mesh" material="purple" mass="0.035" contype="0" conaffinity="0" />
+      <!-- All cable endpoints and hints use y=0, the extrusion mid-plane. -->
+      <site name="I_red_start" pos="0 0 0.075" user="1" rgba="1 0.20 0.25 1" />
+      <site name="I_blue_start" pos="0 0 -0.075" user="1" rgba="0.10 0.55 1 1" />
+      <geom type="sphere" size="0.007" pos="0 -0.016 0" rgba="0.96 0.96 0.98 1" density="0" contype="0" conaffinity="0" />
+    </body>
+    <body name="letter_C" pos="-0.120 0 0.300">
+      <joint name="C_hinge" class="letter" />
+      <geom name="C_wrap" type="mesh" mesh="C_mesh" material="orange" mass="0.060" contype="0" conaffinity="0" />
+      <site name="C_red_hint" class="hint" pos="0 -0.000  -0.074" />
+      <site name="C_blue_hint" class="hint" pos="0 0 0.074" />
+    </body>
+    <body name="letter_R" pos="0.075 0 0.300">
+      <joint name="R_hinge" class="letter" />
+      <geom name="R_wrap" type="mesh" mesh="R_mesh" material="purple" mass="0.065" contype="0" conaffinity="0" />
+      <site name="R_red_hint" class="hint" pos="0 0 0.074" />
+      <site name="R_blue_end" pos="-0.043 0 0.060" user="1" rgba="0.10 0.55 1 1" />
+      <site name="R_gold_start" pos="0.052 0 -0.064" user="1" rgba="1 0.72 0.10 1" />
+    </body>
+    <body name="letter_A" pos="0.280 0 0.300">
+      <joint name="A_hinge" class="letter" />
+      <geom name="A_wrap" type="mesh" mesh="A_mesh" material="purple" mass="0.060" contype="0" conaffinity="0" />
+      <site name="A_gold_hint" class="hint" pos="-0.040 0 -0.052" />
+      <site name="A_red_end" pos="-0.040 0 -0.010" user="1" rgba="1 0.20 0.25 1" />
+    </body>
+    <site name="gold_world_end" pos="0.430 0 0.285" user="1" rgba="1 0.72 0.10 1" />
+  </worldbody>
+  <tendon>
+    <spatial name="red_seed" width="0.000000001" rgba="1 0.18 0.22 1">
+      <site site="I_red_start" /><site site="C_red_hint" /><site site="R_red_hint" /><site site="A_red_end" />
+    </spatial>
+    <spatial name="blue_seed" width="0.000000001" rgba="0.08 0.55 1 1">
+      <site site="I_blue_start" /><site site="C_blue_hint" /><site site="R_blue_end" />
+    </spatial>
+    <spatial name="gold_seed" width="0.000000001" rgba="1 0.70 0.08 1">
+      <site site="R_gold_start" /><site site="A_gold_hint" /><site site="gold_world_end" />
+    </spatial>
+  </tendon>
+  <actuator><motor name="I_drive" joint="I_hinge" ctrllimited="true" ctrlrange="-0.030 0.030" gear="1" /></actuator>
+  <sensor>
+    <plugin name="red_state" instance="red_logo_cable" /><plugin name="blue_state" instance="blue_logo_cable" />
+    <plugin name="gold_state" instance="gold_logo_cable" />
+    <jointpos name="I_angle" joint="I_hinge" /><jointpos name="C_angle" joint="C_hinge" />
+    <jointpos name="R_angle" joint="R_hinge" /><jointpos name="A_angle" joint="A_hinge" />
+  </sensor>
+</mujoco>
