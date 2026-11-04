@@ -44,6 +44,8 @@ constexpr char kAttrHomeLength[] = "home_length";
 constexpr char kAttrPretensionOffset[] = "pretension_offset";
 constexpr char kAttrMaxTension[] = "max_tension";
 constexpr char kAttrCtrlMode[] = "ctrl_mode";
+constexpr char kAttrControlSourceActuator[] = "control_source_actuator";
+constexpr char kAttrControlScale[] = "control_scale";
 constexpr char kAttrSpoolRadius[] = "spool_radius";
 constexpr char kAttrSpoolJoint[] = "spool_joint";
 constexpr char kAttrSpoolReserveLength[] = "spool_reserve_length";
@@ -60,6 +62,10 @@ constexpr char kAttrMeshGuideWeight[] = "mesh_guide_weight";
 constexpr char kAttrRouteTendon[] = "route_tendon";
 constexpr char kAttrWrapGeoms[] = "wrap_geoms";
 constexpr char kAttrSiteRoleUserIndex[] = "site_role_user_index";
+constexpr char kAttrCylinderMinWrapAngle[] = "cylinder_min_wrap_angle";
+constexpr char kAttrCylinderWindingDirection[] =
+    "cylinder_winding_direction";
+constexpr char kAttrCylinderExtraTurns[] = "cylinder_extra_turns";
 constexpr char kAttrVisualWidth[] = "visual_width";
 constexpr char kAttrRouteHysteresis[] = "route_hysteresis";
 constexpr char kAttrCompositeMergeDistance[] = "composite_merge_distance";
@@ -71,7 +77,10 @@ constexpr int kFilteredContractionState = 1;
 constexpr int kTautLatchState = 2;
 constexpr int kPreviousTensionState = 3;
 constexpr int kImplicitInitializedState = 4;
-constexpr int kStateSize = 5;
+constexpr int kPreviousContractionState = 5;
+constexpr int kContractionRateState = 6;
+constexpr int kContractionInitializedState = 7;
+constexpr int kStateSize = 8;
 
 struct WrapPoint {
   std::array<mjtNum, 3> pos = {0, 0, 0};
@@ -280,7 +289,10 @@ UnilateralCable *UnilateralCable::Create(const mjModel *m, int instance) {
                                                        kAttrSpoolReserveLength,
                                                        kAttrCapstanMu,
                                                        kAttrCapstanVelocityScale,
+                                                       kAttrControlScale,
                                                        kAttrSiteRoleUserIndex,
+                                                       kAttrCylinderMinWrapAngle,
+                                                       kAttrCylinderExtraTurns,
                                                        kAttrVisualWidth,
                                                        kAttrRouteHysteresis,
                                                        kAttrCompositeMergeDistance,
@@ -317,6 +329,13 @@ UnilateralCable *UnilateralCable::Create(const mjModel *m, int instance) {
   if (!CheckOptionalEnum(m, instance, kAttrCtrlMode, kCtrlModes,
                          sizeof(kCtrlModes) / sizeof(kCtrlModes[0]))) {
     mju_warning("invalid ctrl_mode config for mujoco.cable.unilateral");
+    return nullptr;
+  }
+  std::string control_source =
+      ConfigToken(m, instance, kAttrControlSourceActuator);
+  if (!control_source.empty() &&
+      mj_name2id(m, mjOBJ_ACTUATOR, control_source.c_str()) < 0) {
+    mju_warning("control_source_actuator names an unknown actuator");
     return nullptr;
   }
   static constexpr const char *kIntegrationModes[] = {
@@ -414,6 +433,27 @@ UnilateralCable *UnilateralCable::Create(const mjModel *m, int instance) {
     }
   }
   if (route_mode == "surface") {
+    static constexpr const char *kCylinderWindingDirections[] = {
+        "auto", "positive", "negative"};
+    if (!CheckOptionalEnum(
+            m, instance, kAttrCylinderWindingDirection,
+            kCylinderWindingDirections,
+            sizeof(kCylinderWindingDirections) /
+                sizeof(kCylinderWindingDirections[0]))) {
+      mju_warning("invalid cylinder_winding_direction config");
+      return nullptr;
+    }
+    mjtNum minimum_wrap_angle =
+        ReadNumberOr(m, instance, kAttrCylinderMinWrapAngle, 0);
+    if (minimum_wrap_angle < 0 || minimum_wrap_angle >= 2 * mjPI) {
+      mju_warning("cylinder_min_wrap_angle must be in [0, 2*pi)");
+      return nullptr;
+    }
+    mjtNum extra_turns = ReadNumberOr(m, instance, kAttrCylinderExtraTurns, 0);
+    if (extra_turns < 0 || extra_turns != std::floor(extra_turns)) {
+      mju_warning("cylinder_extra_turns must be a nonnegative integer");
+      return nullptr;
+    }
     static constexpr const char *kMeshRouteModes[] = {
         "convex_surface", "taut_obstacle", "guided_surface"};
     if (!CheckOptionalEnum(m, instance, kAttrMeshRouteMode, kMeshRouteModes,
@@ -482,13 +522,6 @@ UnilateralCable *UnilateralCable::Create(const mjModel *m, int instance) {
     delete cable;
     return nullptr;
   }
-  if (ConfigToken(m, instance, kAttrCapstanDirection) == "velocity" &&
-      !cable->actuators_.empty()) {
-    mju_warning("capstan_direction=velocity currently requires a passive "
-                "surface cable without a plugin actuator");
-    delete cable;
-    return nullptr;
-  }
   return cable;
 }
 
@@ -515,8 +548,11 @@ UnilateralCable::UnilateralCable(const mjModel *m, int instance)
           ReadNumberOr(m, instance, kAttrGuideFrictionMu, 0)),
       capstan_velocity_scale_(
           ReadNumberOr(m, instance, kAttrCapstanVelocityScale, 0.01)),
+      control_scale_(ReadNumberOr(m, instance, kAttrControlScale, 1)),
       ctrl_mode_(ConfigString(m, instance, kAttrCtrlMode)),
       integration_mode_(ConfigToken(m, instance, kAttrIntegrationMode)),
+      control_source_actuator_(
+          ConfigToken(m, instance, kAttrControlSourceActuator)),
       spool_joint_(ConfigToken(m, instance, kAttrSpoolJoint)),
       spool_reserve_direction_(
           ConfigToken(m, instance, kAttrSpoolReserveDirection)),
@@ -550,6 +586,10 @@ UnilateralCable::UnilateralCable(const mjModel *m, int instance)
   }
   if (mesh_route_mode_.empty()) {
     mesh_route_mode_ = "convex_surface";
+  }
+  if (!control_source_actuator_.empty()) {
+    control_source_actuator_id_ = mj_name2id(
+        m, mjOBJ_ACTUATOR, control_source_actuator_.c_str());
   }
   if (!spool_joint_.empty()) {
     spool_joint_id_ = mj_name2id(m, mjOBJ_JOINT, spool_joint_.c_str());
@@ -610,6 +650,15 @@ UnilateralCable::UnilateralCable(const mjModel *m, int instance)
         ReadNumberOr(m, instance, kAttrCompositeMergeDistance, 0),
         ReadOptionalVector3(m, instance, kAttrMeshGuideAxis),
         ReadNumberOr(m, instance, kAttrMeshGuideWeight, 20),
+        ReadNumberOr(m, instance, kAttrCylinderMinWrapAngle, 0),
+        ConfigToken(m, instance, kAttrCylinderWindingDirection) == "positive"
+            ? 1
+            : (ConfigToken(m, instance, kAttrCylinderWindingDirection) ==
+                       "negative"
+                   ? -1
+                   : 0),
+        static_cast<int>(
+            ReadNumberOr(m, instance, kAttrCylinderExtraTurns, 0)),
         &error);
     if (!surface_route_.has_value()) {
       mju_warning("invalid surface route config: %s", error.c_str());
@@ -638,9 +687,11 @@ void UnilateralCable::Reset(mjtNum *plugin_state) {
 void UnilateralCable::Advance(const mjModel *m, mjData *d, int instance) const {
   mjtNum *state = d->plugin_state + m->plugin_stateadr[instance];
   int actuator_id = actuators_.empty() ? -1 : actuators_[0];
+  mjtNum current_contraction = 0;
   if (ctrl_mode_ == "spool_velocity" ||
       ctrl_mode_ == "spool_angular_velocity") {
     if (actuator_id < 0) {
+      state[kContractionRateState] = 0;
       return;
     }
     mjtNum speed = ClippedCtrl(m, d, actuator_id);
@@ -653,22 +704,32 @@ void UnilateralCable::Advance(const mjModel *m, mjData *d, int instance) const {
     state[kIntegratedContractionState] += m->opt.timestep * speed;
     state[kIntegratedContractionState] =
         mju_max(0, state[kIntegratedContractionState]);
-    return;
+    current_contraction = state[kIntegratedContractionState];
+  } else if (control_timeconstant_ > 0 || max_contraction_rate_ > 0) {
+    mjtNum target = RawContraction(m, d, actuator_id);
+    mjtNum alpha =
+        control_timeconstant_ > 0
+            ? -std::expm1(-m->opt.timestep / control_timeconstant_)
+            : 1;
+    mjtNum step = alpha * (target - state[kFilteredContractionState]);
+    if (max_contraction_rate_ > 0) {
+      mjtNum maximum_step = max_contraction_rate_ * m->opt.timestep;
+      step = mju_clip(step, -maximum_step, maximum_step);
+    }
+    state[kFilteredContractionState] += step;
+    current_contraction = state[kFilteredContractionState];
+  } else {
+    current_contraction = RawContraction(m, d, actuator_id);
   }
-  if (control_timeconstant_ <= 0 && max_contraction_rate_ <= 0) {
-    return;
+  if (state[kContractionInitializedState] > 0.5 && m->opt.timestep > 0) {
+    state[kContractionRateState] =
+        (current_contraction - state[kPreviousContractionState]) /
+        m->opt.timestep;
+  } else {
+    state[kContractionRateState] = 0;
+    state[kContractionInitializedState] = 1;
   }
-  mjtNum target = RawContraction(m, d, actuator_id);
-  mjtNum alpha =
-      control_timeconstant_ > 0
-          ? -std::expm1(-m->opt.timestep / control_timeconstant_)
-          : 1;
-  mjtNum step = alpha * (target - state[kFilteredContractionState]);
-  if (max_contraction_rate_ > 0) {
-    mjtNum maximum_step = max_contraction_rate_ * m->opt.timestep;
-    step = mju_clip(step, -maximum_step, maximum_step);
-  }
-  state[kFilteredContractionState] += step;
+  state[kPreviousContractionState] = current_contraction;
 }
 
 void UnilateralCable::Compute(const mjModel *m, mjData *d, int instance,
@@ -838,6 +899,8 @@ void UnilateralCable::RegisterPlugin() {
                                      kAttrPretensionOffset,
                                      kAttrMaxTension,
                                      kAttrCtrlMode,
+                                     kAttrControlSourceActuator,
+                                     kAttrControlScale,
                                      kAttrSpoolRadius,
                                      kAttrSpoolJoint,
                                      kAttrSpoolReserveLength,
@@ -854,6 +917,9 @@ void UnilateralCable::RegisterPlugin() {
                                      kAttrRouteTendon,
                                      kAttrWrapGeoms,
                                      kAttrSiteRoleUserIndex,
+                                     kAttrCylinderMinWrapAngle,
+                                     kAttrCylinderWindingDirection,
+                                     kAttrCylinderExtraTurns,
                                      kAttrVisualWidth,
                                      kAttrRouteHysteresis,
                                      kAttrCompositeMergeDistance,
@@ -945,6 +1011,7 @@ UnilateralCable::EvalResult UnilateralCable::Evaluate(
   } else {
     result.contraction = RawContraction(m, d, actuator_id);
   }
+  result.contraction_velocity = state[kContractionRateState];
   mjtNum automatic_home =
       route_mode_ == "surface" && surface_route_->has_initial_length()
           ? surface_route_->initial_length()
@@ -1208,9 +1275,13 @@ void UnilateralCable::MultiplyImplicitOperator(
 
 mjtNum UnilateralCable::RawContraction(const mjModel *m, const mjData *d,
                                        int actuator_id) const {
+  int control_actuator_id = control_source_actuator_id_ >= 0
+                                ? control_source_actuator_id_
+                                : actuator_id;
   if (ctrl_mode_ == "target_spool_angle") {
-    return actuator_id >= 0
-               ? SpoolAngleContraction(ClippedCtrl(m, d, actuator_id))
+    return control_actuator_id >= 0
+               ? control_scale_ * SpoolAngleContraction(
+                                      ClippedCtrl(m, d, control_actuator_id))
                : 0;
   }
   if (ctrl_mode_ == "joint_spool_angle") {
@@ -1218,7 +1289,9 @@ mjtNum UnilateralCable::RawContraction(const mjModel *m, const mjData *d,
                ? SpoolAngleContraction(d->qpos[spool_qposadr_] - spool_qpos0_)
                : 0;
   }
-  return actuator_id >= 0 ? ClippedCtrl(m, d, actuator_id) : 0;
+  return control_actuator_id >= 0
+             ? control_scale_ * ClippedCtrl(m, d, control_actuator_id)
+             : 0;
 }
 
 bool UnilateralCable::UpdateSurfaceRoute(const mjModel *m, const mjData *d) {
@@ -1250,6 +1323,11 @@ void UnilateralCable::ApplySurfaceForces(const mjModel *m, mjData *d,
                               ? EstimateSurfaceRouteMaterialSpeed(
                                     m, d, points, directions)
                               : 0;
+  if (velocity_direction) {
+    // Positive contraction winds cable into the first route endpoint, so its
+    // material velocity is opposite the seed tendon's forward direction.
+    material_speed -= result.contraction_velocity;
+  }
   for (int segment = 0; segment + 1 < static_cast<int>(points.size());
        ++segment) {
     segment_tensions[segment] = current_tension;
@@ -1300,6 +1378,13 @@ void UnilateralCable::ApplySurfaceForces(const mjModel *m, mjData *d,
     current_tension *= std::exp(mju_clip(exponent, mjtNum(-20), mjtNum(20)));
   }
 
+  struct BodyWrench {
+    int body;
+    std::array<mjtNum, 3> force = {0, 0, 0};
+    std::array<mjtNum, 3> torque = {0, 0, 0};
+  };
+  std::vector<BodyWrench> wrenches;
+  wrenches.reserve(8);
   for (int node = 0; node < static_cast<int>(points.size()); ++node) {
     mjtNum force[3] = {0, 0, 0};
     if (node > 0) {
@@ -1309,8 +1394,27 @@ void UnilateralCable::ApplySurfaceForces(const mjModel *m, mjData *d,
     if (node + 1 < static_cast<int>(points.size())) {
       mju_addToScl3(force, directions[node].data(), segment_tensions[node]);
     }
-    ApplyForceAtPoint(m, d, points[node].body_id, points[node].pos.data(),
-                      force);
+    int body = points[node].body_id;
+    if (body <= 0) {
+      continue;
+    }
+    auto found = std::find_if(wrenches.begin(), wrenches.end(),
+                              [body](const BodyWrench &w) { return w.body == body; });
+    if (found == wrenches.end()) {
+      wrenches.push_back({body});
+      found = wrenches.end() - 1;
+    }
+    mjtNum arm[3], torque[3];
+    mju_sub3(arm, points[node].pos.data(), d->xpos + 3 * body);
+    mju_cross(torque, arm, force);
+    mju_add3(found->force.data(), found->force.data(), force);
+    mju_add3(found->torque.data(), found->torque.data(), torque);
+  }
+  // Rigid-body wrench summation is exactly the same force map as applying
+  // every contact separately, but avoids repeated point Jacobian assembly.
+  for (const BodyWrench &w : wrenches) {
+    mj_applyFT(m, d, w.force.data(), w.torque.data(), d->xpos + 3 * w.body,
+                w.body, d->qfrc_passive);
   }
 }
 

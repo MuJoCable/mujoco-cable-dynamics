@@ -18,6 +18,7 @@
 #include <mujoco/mujoco.h>
 
 #include <array>
+#include <map>
 #include <optional>
 #include <string>
 #include <vector>
@@ -65,7 +66,8 @@ class SurfaceEnvelopeRoute {
       int site_role_user_index, MeshRouteMode mesh_route_mode,
       mjtNum route_hysteresis, mjtNum composite_merge_distance,
       const std::optional<std::array<mjtNum, 3>> &mesh_guide_axis,
-      mjtNum mesh_guide_weight,
+      mjtNum mesh_guide_weight, mjtNum cylinder_min_wrap_angle,
+      int cylinder_winding_direction, int cylinder_extra_turns,
       std::string *error);
 
   SurfaceEnvelopeRoute() = default;
@@ -91,6 +93,37 @@ class SurfaceEnvelopeRoute {
   };
 
   struct MeshState {
+    MeshState() = default;
+    MeshState(const MeshState &) = default;
+    MeshState(MeshState &&) noexcept = default;
+    MeshState &operator=(MeshState &&) noexcept = default;
+    MeshState &operator=(const MeshState &source) {
+      if (this == &source) return *this;
+      // Geometry is immutable after Create. Each mjData still owns its own
+      // vectors, but repeated viewer copies need only the mutable corridor.
+      if (!geometry_model || geometry_model != source.geometry_model ||
+          mesh_id != source.mesh_id) {
+        vertices = source.vertices;
+        faces = source.faces;
+        neighbors = source.neighbors;
+      }
+      geometry_model = source.geometry_model;
+      mesh_id = source.mesh_id;
+      seed_face = source.seed_face;
+      strip = source.strip;
+      parameters = source.parameters;
+      active_transitions = source.active_transitions;
+      mandatory_transitions = source.mandatory_transitions;
+      guided_anchor = source.guided_anchor;
+      guide_plane_origin = source.guide_plane_origin;
+      guide_plane_normal = source.guide_plane_normal;
+      scale = source.scale;
+      guided_anchor_valid = source.guided_anchor_valid;
+      guide_plane_valid = source.guide_plane_valid;
+      convex = source.convex;
+      return *this;
+    }
+    const mjModel *geometry_model = nullptr;
     int mesh_id = -1;
     int seed_face = -1;
     std::vector<std::array<mjtNum, 3>> vertices;
@@ -129,12 +162,34 @@ class SurfaceEnvelopeRoute {
     int solver_iterations = 0;
     bool valid = false;
     bool used_fallback = false;
+    std::array<int, 2> rigid_anchor_sites = {-1, -1};
+    std::array<mjtNum, 3> rigid_previous_local = {0, 0, 0};
+    std::array<mjtNum, 3> rigid_next_local = {0, 0, 0};
+    bool rigid_cache_valid = false;
   };
 
   struct Element {
     enum class Type { kSite, kWrap };
     Type type = Type::kSite;
     int index = -1;
+  };
+
+  struct MeshChordCache {
+    const mjModel *model = nullptr;
+    std::map<int, std::map<std::array<mjtNum, 6>, bool>> entries;
+    MeshChordCache() = default;
+    MeshChordCache(const MeshChordCache &) = default;
+    MeshChordCache(MeshChordCache &&) noexcept = default;
+    MeshChordCache &operator=(MeshChordCache &&) noexcept = default;
+    MeshChordCache &operator=(const MeshChordCache &source) {
+      if (this != &source && (!model || model != source.model)) {
+        model = source.model;
+        entries = source.entries;
+      }
+      // Existing exact visibility memo entries remain valid for this model.
+      // Do not copy thousands of transient tree nodes on every viewer sync.
+      return *this;
+    }
   };
 
   bool InitializeWrap(const mjModel *m, const mjData *d, int wrap_index,
@@ -162,10 +217,15 @@ class SurfaceEnvelopeRoute {
   mjtNum composite_merge_distance_ = 0;
   std::optional<std::array<mjtNum, 3>> mesh_guide_axis_;
   mjtNum mesh_guide_weight_ = 0;
+  mjtNum cylinder_min_wrap_angle_ = 0;
+  int cylinder_winding_direction_ = 0;
+  int cylinder_extra_turns_ = 0;
   std::vector<int> seed_site_ids_;
   std::vector<int> site_roles_;
   std::vector<int> hard_site_ids_;
   std::vector<Wrap> wraps_;
+  std::vector<int> collision_mesh_ids_;
+  MeshChordCache mesh_chord_cache_;
   std::vector<Element> elements_;
   std::vector<bool> composite_pair_active_;
   std::vector<int> composite_left_segment_;

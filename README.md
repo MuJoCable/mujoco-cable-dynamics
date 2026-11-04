@@ -50,6 +50,15 @@ The intended domain is quasi-static and low-frequency cable-driven mechanisms
 where cable mass, sag, bending, torsion, wave propagation, and self-contact can
 be neglected.
 
+### Latest Source Update
+
+The source includes rigid-frame route caching, bounded visibility memoization,
+reduced mesh-copy overhead, body-wrench force accumulation, and optional
+shared cable commands. See [runtime and compatibility notes](docs/RUNTIME_OPTIMIZATION.md).
+Rebuild the library and reload MJCF after updating; old plugin-state checkpoints
+are not compatible with the expanded state layout. These optimizations do not
+guarantee real-time simulation.
+
 ## Native MuJoCo Tendon Comparison
 
 MuJoCo spatial tendons remain the preferred choice for ordinary fixed routing
