@@ -833,7 +833,21 @@ Vec3 PointVelocity(const mjModel *m, const mjData *d,
   Vec3 omega = {velocity[0], velocity[1], velocity[2]};
   Vec3 linear = {velocity[3], velocity[4], velocity[5]};
   Vec3 offset = Sub(point.pos, PointerVec(d->xpos + 3 * point.body_id));
-  return Add(linear, Cross(omega, offset));
+  Vec3 material_velocity = Add(linear, Cross(omega, offset));
+  if (point.geom_id >= 0 && m->geom_type[point.geom_id] == mjGEOM_CYLINDER) {
+    // A shortest-path contact can slide over a smooth surface.  The envelope
+    // theorem therefore retains only the obstacle's normal velocity; material
+    // motion tangent to an axisymmetric cylinder is a reparameterization of
+    // the same geometric surface and must not change cable length.
+    Vec3 local_normal = Normalize(
+        {point.local_pos[0], point.local_pos[1], mjtNum(0)});
+    mjtNum world_normal_data[3];
+    mju_mulMatVec3(world_normal_data, d->geom_xmat + 9 * point.geom_id,
+                   local_normal.data());
+    Vec3 world_normal = PointerVec(world_normal_data);
+    return Scale(world_normal, Dot(material_velocity, world_normal));
+  }
+  return material_velocity;
 }
 
 } // namespace
@@ -843,9 +857,11 @@ std::optional<SurfaceEnvelopeRoute> SurfaceEnvelopeRoute::Create(
     int site_role_user_index, MeshRouteMode mesh_route_mode,
     mjtNum route_hysteresis, mjtNum composite_merge_distance,
     const std::optional<std::array<mjtNum, 3>> &mesh_guide_axis,
-    mjtNum mesh_guide_weight,
+    mjtNum mesh_guide_weight, mjtNum cylinder_min_wrap_angle,
+    int cylinder_winding_direction, int cylinder_extra_turns,
     std::string *error) {
   SurfaceEnvelopeRoute route;
+  route.mesh_chord_cache_.model = m;
   route.tendon_id_ = tendon_id;
   route.site_role_user_index_ = site_role_user_index;
   route.mesh_route_mode_ = mesh_route_mode;
@@ -853,6 +869,9 @@ std::optional<SurfaceEnvelopeRoute> SurfaceEnvelopeRoute::Create(
   route.composite_merge_distance_ = composite_merge_distance;
   route.mesh_guide_axis_ = mesh_guide_axis;
   route.mesh_guide_weight_ = std::max(mjtNum(0), mesh_guide_weight);
+  route.cylinder_min_wrap_angle_ = cylinder_min_wrap_angle;
+  route.cylinder_winding_direction_ = cylinder_winding_direction;
+  route.cylinder_extra_turns_ = cylinder_extra_turns;
   if (tendon_id < 0 || tendon_id >= m->ntendon) {
     *error = "route_tendon does not name a valid tendon";
     return std::nullopt;
@@ -936,6 +955,7 @@ std::optional<SurfaceEnvelopeRoute> SurfaceEnvelopeRoute::Create(
         return std::nullopt;
       }
       wrap.mesh.mesh_id = mesh_id;
+      wrap.mesh.geometry_model = m;
       int vertex_address = m->mesh_vertadr[mesh_id];
       int vertex_count = m->mesh_vertnum[mesh_id];
       int face_address = m->mesh_faceadr[mesh_id];
@@ -1072,6 +1092,12 @@ std::optional<SurfaceEnvelopeRoute> SurfaceEnvelopeRoute::Create(
     }
 
     int wrap_index = static_cast<int>(route.wraps_.size());
+    if (geom_type == mjGEOM_MESH &&
+        std::find(route.collision_mesh_ids_.begin(),
+                  route.collision_mesh_ids_.end(), geom_id) ==
+            route.collision_mesh_ids_.end()) {
+      route.collision_mesh_ids_.push_back(geom_id);
+    }
     route.wraps_.push_back(std::move(wrap));
     route.elements_.push_back({Element::Type::kWrap, wrap_index});
   }
@@ -1083,11 +1109,27 @@ std::optional<SurfaceEnvelopeRoute> SurfaceEnvelopeRoute::Create(
     route.composite_right_local_.assign(route.wraps_.size() - 1, {0, 0, 0});
     route.composite_reacquire_cooldown_.assign(route.wraps_.size() - 1, 0);
   }
+  for (int i = 1; i + 1 < static_cast<int>(route.elements_.size()); ++i) {
+    const Element &element = route.elements_[i];
+    if (element.type != Element::Type::kWrap ||
+        route.elements_[i - 1].type != Element::Type::kSite ||
+        route.elements_[i + 1].type != Element::Type::kSite) {
+      continue;
+    }
+    Wrap &wrap = route.wraps_[element.index];
+    int a = route.hard_site_ids_[route.elements_[i - 1].index];
+    int b = route.hard_site_ids_[route.elements_[i + 1].index];
+    if (m->site_bodyid[a] == wrap.body_id &&
+        m->site_bodyid[b] == wrap.body_id) {
+      wrap.rigid_anchor_sites = {a, b};
+    }
+  }
   return route;
 }
 
 void SurfaceEnvelopeRoute::Reset() {
   result_ = Result();
+  mesh_chord_cache_.entries.clear();
   has_initial_length_ = false;
   initial_length_ = 0;
   initialized_ = false;
@@ -1102,6 +1144,7 @@ void SurfaceEnvelopeRoute::Reset() {
     wrap.initialized = false;
     wrap.valid = false;
     wrap.used_fallback = false;
+    wrap.rigid_cache_valid = false;
     wrap.contact_points.clear();
     wrap.mesh.strip.clear();
     wrap.mesh.parameters.clear();
@@ -1124,6 +1167,31 @@ bool SurfaceEnvelopeRoute::SolveWrap(const mjModel *m, const mjData *d,
                                      const std::array<mjtNum, 3> &previous,
                                      const std::array<mjtNum, 3> &next) {
   Wrap *wrap = &wraps_[wrap_index];
+  bool rigid_call =
+      wrap->rigid_anchor_sites[0] >= 0 &&
+      Distance(previous, PointerVec(d->site_xpos +
+                                    3 * wrap->rigid_anchor_sites[0])) < 1e-12 &&
+      Distance(next, PointerVec(d->site_xpos +
+                                3 * wrap->rigid_anchor_sites[1])) < 1e-12;
+  Vec3 previous_local = WorldToLocal(d, wrap->geom_id, previous);
+  Vec3 next_local = WorldToLocal(d, wrap->geom_id, next);
+  bool same_rigid_inputs =
+      rigid_call &&
+      Distance(previous_local, wrap->rigid_previous_local) < 1e-12 &&
+      Distance(next_local, wrap->rigid_next_local) < 1e-12;
+  if (rigid_call && wrap->rigid_cache_valid && wrap->initialized &&
+      wrap->valid && !wrap->used_fallback &&
+      wrap->tangent_residual <= 1e-5 && wrap->surface_residual <= 1e-7 &&
+      same_rigid_inputs) {
+    // These anchors and the obstacle share one rigid frame. Reuse only its
+    // local contact solution; velocity and all-obstacle checks still run.
+    for (Point &point : wrap->contact_points) {
+      point.pos = LocalToWorld(d, wrap->geom_id, point.local_pos);
+    }
+    wrap->solver_iterations = 0;
+    return true;
+  }
+  wrap->rigid_cache_valid = false;
   bool can_fallback = wrap->initialized && wrap->valid &&
                       !wrap->contact_points.empty();
   CylinderState saved_cylinder = wrap->cylinder;
@@ -1146,6 +1214,20 @@ bool SurfaceEnvelopeRoute::SolveWrap(const mjModel *m, const mjData *d,
   }
   if (solved) {
     wrap->used_fallback = false;
+    if (rigid_call) {
+      bool stationary = can_fallback && same_rigid_inputs &&
+                        saved_points.size() == wrap->contact_points.size();
+      for (int i = 0; stationary && i < static_cast<int>(saved_points.size());
+           ++i) {
+        stationary = Distance(saved_points[i].local_pos,
+                              wrap->contact_points[i].local_pos) < 1e-12;
+      }
+      wrap->rigid_previous_local = previous_local;
+      wrap->rigid_next_local = next_local;
+      // Do not freeze a merely acceptable initial solution: its active set
+      // may still improve in subsequent warm sweeps and affect home length.
+      wrap->rigid_cache_valid = stationary;
+    }
     return true;
   }
   if (!can_fallback) {
@@ -1200,17 +1282,42 @@ bool SurfaceEnvelopeRoute::SolveCylinder(
   int best_sign = wrap->cylinder.branch_sign;
   int best_iterations = 0;
   mjtNum best_score = std::numeric_limits<mjtNum>::infinity();
-  std::vector<int> signs =
-      initialize ? std::vector<int>{-1, 1} : std::vector<int>{best_sign};
+  std::vector<int> signs;
+  if (cylinder_winding_direction_ != 0) {
+    signs = {cylinder_winding_direction_};
+  } else {
+    signs = initialize ? std::vector<int>{-1, 1}
+                       : std::vector<int>{best_sign};
+  }
 
   for (int sign : signs) {
     for (mjtNum entry_angle : entry_candidates) {
       for (mjtNum exit_angle : exit_candidates) {
+        Vec3 entry = CylinderPoint(radius, radius * entry_angle, 0);
+        Vec3 exit = CylinderPoint(radius, radius * exit_angle, 0);
+        Vec3 previous_planar = {previous[0], previous[1], 0};
+        Vec3 next_planar = {next[0], next[1], 0};
+        Vec3 entry_straight = Normalize(Sub(entry, previous_planar));
+        Vec3 exit_straight = Normalize(Sub(next_planar, exit));
+        Vec3 entry_tangent = {-std::sin(entry_angle) * sign,
+                              std::cos(entry_angle) * sign, 0};
+        Vec3 exit_tangent = {-std::sin(exit_angle) * sign,
+                             std::cos(exit_angle) * sign, 0};
+        if (cylinder_winding_direction_ != 0 &&
+            (Dot(entry_straight, entry_tangent) < 1 - 1e-8 ||
+             Dot(exit_straight, exit_tangent) < 1 - 1e-8)) {
+          continue;
+        }
         mjtNum delta_angle =
             sign > 0 ? PositiveModulo(exit_angle - entry_angle, 2 * mjPI)
                      : -PositiveModulo(entry_angle - exit_angle, 2 * mjPI);
         if (std::abs(delta_angle) < kMinimumWrapAngle) {
           delta_angle = sign * kMaximumWrapAngle;
+        }
+        delta_angle += sign * 2 * mjPI * cylinder_extra_turns_;
+        if (std::abs(delta_angle) + kGeometryTolerance <
+            cylinder_min_wrap_angle_) {
+          continue;
         }
         mjtNum unwrapped_exit = entry_angle + delta_angle;
         mjtNum seed_distance = AngularDistanceToArc(
@@ -1297,7 +1404,20 @@ bool SurfaceEnvelopeRoute::SolveCylinder(
         if (!std::isfinite(length)) {
           continue;
         }
-        mjtNum score = length + 1000 * radius * seed_distance;
+        // The hint chooses the homotopy branch at initialization.  At runtime
+        // preserve the previous world-space tangency points instead of reusing
+        // the hint's material-frame angle: spinning an axisymmetric pulley
+        // changes that angle without changing the physical obstacle.
+        mjtNum score = length;
+        if (initialize) {
+          score += 1000 * radius * seed_distance;
+        } else if (wrap->contact_points.size() >= 2) {
+          Vec3 entry_world = LocalToWorld(d, wrap->geom_id, entry);
+          Vec3 exit_world = LocalToWorld(d, wrap->geom_id, exit);
+          score += 10 *
+                   (Distance(entry_world, wrap->contact_points.front().pos) +
+                    Distance(exit_world, wrap->contact_points.back().pos));
+        }
         if (score < best_score) {
           best_score = score;
           best_sign = sign;
@@ -1808,9 +1928,30 @@ bool SurfaceEnvelopeRoute::SolveMesh(
           return false;
         }
       }
-      return SegmentClearOfMesh(m, d, wrap->geom_id,
-                                LocalToWorld(d, wrap->geom_id, first),
-                                LocalToWorld(d, wrap->geom_id, second));
+      bool internal = first_transition >= 0 &&
+                      second_transition < transition_count;
+      std::array<mjtNum, 6> key = {first[0], first[1], first[2],
+                                   second[0], second[1], second[2]};
+      // Internal chords are expressed in the immutable mesh's local frame.
+      // Memoize exact coordinates only, never quantized points or inter-body
+      // spans. Normal-cone checks above and all-obstacle checks still run.
+      auto &cache = mesh_chord_cache_.entries[wrap->geom_id];
+      if (internal) {
+        auto found = cache.find(key);
+        if (found != cache.end()) {
+          return found->second;
+        }
+      }
+      bool clear = SegmentClearOfMesh(
+          m, d, wrap->geom_id, LocalToWorld(d, wrap->geom_id, first),
+          LocalToWorld(d, wrap->geom_id, second));
+      if (internal) {
+        if (cache.size() >= 2048) {
+          cache.clear();
+        }
+        cache.emplace(key, clear);
+      }
+      return clear;
     };
     if (!reuse) {
       auto seed_visible_parameter = [&](bool entry, int transition) {
@@ -3489,31 +3630,28 @@ bool SurfaceEnvelopeRoute::BuildResult(const mjModel *m, const mjData *d) {
          segment + 1 < static_cast<int>(next_result.points.size()); ++segment) {
       const Point &first = next_result.points[segment];
       const Point &second = next_result.points[segment + 1];
-      for (const Wrap &wrap : wraps_) {
-        if (wrap.geom_type != mjGEOM_MESH) {
-          continue;
-        }
+      for (int geom_id : collision_mesh_ids_) {
         // Only adjacent points emitted by the same solved wrap are known to
         // follow its triangle corridor.  Consecutive guided wraps may name the
         // same geom, but their connecting span is still a free chord and must
         // be checked against that mesh.
-        bool same_surface_span = first.geom_id == wrap.geom_id &&
-                                 second.geom_id == wrap.geom_id &&
+        bool same_surface_span = first.geom_id == geom_id &&
+                                 second.geom_id == geom_id &&
                                  first.wrap_index == second.wrap_index;
         if (same_surface_span) {
           continue;
         }
-        if (!SegmentClearOfMesh(m, d, wrap.geom_id, first.pos, second.pos)) {
+        if (!SegmentClearOfMesh(m, d, geom_id, first.pos, second.pos)) {
           if (second.wrap_index >= 0 &&
-              wraps_[second.wrap_index].geom_id == wrap.geom_id) {
+              wraps_[second.wrap_index].geom_id == geom_id) {
             repair_wrap_index_ = second.wrap_index;
           } else if (first.wrap_index >= 0 &&
-                     wraps_[first.wrap_index].geom_id == wrap.geom_id) {
+                     wraps_[first.wrap_index].geom_id == geom_id) {
             repair_wrap_index_ = first.wrap_index;
           } else {
             for (int candidate = 0;
                  candidate < static_cast<int>(wraps_.size()); ++candidate) {
-              if (wraps_[candidate].geom_id == wrap.geom_id) {
+              if (wraps_[candidate].geom_id == geom_id) {
                 repair_wrap_index_ = candidate;
                 break;
               }
@@ -3523,14 +3661,14 @@ bool SurfaceEnvelopeRoute::BuildResult(const mjModel *m, const mjData *d) {
           mjtNum diagnostic_length = Norm(diagnostic_delta);
           mjtNum diagnostic_hit =
               diagnostic_length > mjMINVAL
-                  ? RayMesh(m, d, wrap.geom_id, first.pos,
+                  ? RayMesh(m, d, geom_id, first.pos,
                             Scale(diagnostic_delta, 1 / diagnostic_length))
                   : -1;
           mju_warning(
               "nonconvex route free span intersects mesh geom %d between route "
               "points %d and %d (length %.9g, hit %.9g, endpoint wraps %d/%d, "
               "endpoint geoms %d/%d)",
-              wrap.geom_id, segment, segment + 1, diagnostic_length,
+              geom_id, segment, segment + 1, diagnostic_length,
               diagnostic_hit, first.wrap_index, second.wrap_index,
               first.geom_id, second.geom_id);
           return false;

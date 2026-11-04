@@ -48,6 +48,7 @@ private:
     mjtNum velocity = 0;
     mjtNum free_length = 0;
     mjtNum contraction = 0;
+    mjtNum contraction_velocity = 0;
     mjtNum extension = 0;
     mjtNum effective_stiffness = 0;
     mjtNum effective_damping = 0;
@@ -102,8 +103,10 @@ private:
   mjtNum capstan_mu_ = 0;
   mjtNum guide_friction_mu_ = 0;
   mjtNum capstan_velocity_scale_ = 0.01;
+  mjtNum control_scale_ = 1;
   std::string ctrl_mode_;
   std::string integration_mode_;
+  std::string control_source_actuator_;
   std::string spool_joint_;
   std::string spool_reserve_direction_;
   std::string capstan_direction_;
@@ -112,6 +115,7 @@ private:
   std::string route_tendon_;
   std::string wrap_geoms_;
   int route_tendon_id_ = -1;
+  int control_source_actuator_id_ = -1;
   int site_role_user_index_ = 0;
   mjtNum visual_width_ = 2;
   mjtNum visual_smoothing_timeconstant_ = 0;
