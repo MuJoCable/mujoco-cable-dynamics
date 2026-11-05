@@ -1,0 +1,2 @@
+case_key,attempt,drive_extension_m,minimum_hold_completion_fraction,complete_bend_reached,maximum_tension_N,maximum_segment_penetration_mm
+demo49_tpu95hf_mu_0p015,1,0.015,0.9882725613338451,True,1.948910987923794,0.006758503240427749

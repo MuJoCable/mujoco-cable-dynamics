@@ -1,0 +1,311 @@
+<mujoco model="result_2_2c_demo42_single_finger">
+  <compiler angle="radian" autolimits="true" meshdir="../../../assets/biomimetic_finger" />
+  <option timestep="0.001" gravity="0 0 0" integrator="implicitfast" />
+  <size nuser_site="2" />
+  <extension>
+    <plugin plugin="mujoco.cable.unilateral">
+      <instance name="mcp_bore_cable">
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="mcp_bore_route_seed" />
+        <config key="wrap_geoms" value="mcp_fixed_pulley" />
+        <config key="site_role_user_index" value="0" />
+        <config key="guide_friction_mu" value="0.20" />
+        <config key="cylinder_winding_direction" value="negative" />
+        <config key="home_length" value="auto_initial" />
+        <config key="stiffness" value="1200" />
+        <config key="damping" value="2" />
+        <config key="slack" value="0.0001" />
+        <config key="pretension_offset" value="0" />
+        <config key="max_tension" value="25" />
+        <config key="capstan_mu" value="0.05" />
+        <config key="capstan_direction" value="forward" />
+        <config key="visual_width" value="4" />
+      </instance>
+      <instance name="through_hole_cable_2">
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="through_hole_route_2" />
+        <config key="site_role_user_index" value="0" />
+        <config key="guide_friction_mu" value="0.20" />
+        <config key="home_length" value="auto_initial" />
+        <config key="stiffness" value="4000" />
+        <config key="damping" value="1" />
+        <config key="slack" value="0.00002" />
+        <config key="pretension_offset" value="0" />
+        <config key="max_tension" value="25" />
+        <config key="capstan_direction" value="forward" />
+        <config key="visual_width" value="4" />
+      </instance>
+      <instance name="through_hole_cable_3">
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="through_hole_route_3" />
+        <config key="site_role_user_index" value="0" />
+        <config key="guide_friction_mu" value="0.20" />
+        <config key="home_length" value="auto_initial" />
+        <config key="stiffness" value="4000" />
+        <config key="damping" value="1" />
+        <config key="slack" value="0.00002" />
+        <config key="pretension_offset" value="0" />
+        <config key="max_tension" value="25" />
+        <config key="capstan_direction" value="forward" />
+        <config key="visual_width" value="4" />
+      </instance>
+      <instance name="mcp_tangent_cable_4">
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="mcp_tangent_route_4" />
+        <config key="site_role_user_index" value="0" />
+        <config key="guide_friction_mu" value="0.20" />
+        <config key="home_length" value="auto_initial" />
+        <config key="stiffness" value="1200" />
+        <config key="damping" value="1" />
+        <config key="slack" value="0.0001" />
+        <config key="pretension_offset" value="0" />
+        <config key="max_tension" value="25" />
+        <config key="capstan_direction" value="forward" />
+        <config key="visual_width" value="4" />
+        <config key="wrap_geoms" value="mcp_fixed_pulley" />
+        <config key="cylinder_winding_direction" value="positive" />
+        <config key="cylinder_extra_turns" value="1" />
+        <config key="control_source_actuator" value="mcp_differential_drive" />
+        <config key="control_scale" value="-1" />
+        <config key="capstan_mu" value="0.05" />
+      </instance>
+      <instance name="through_hole_cable_5">
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="through_hole_route_5" />
+        <config key="site_role_user_index" value="0" />
+        <config key="guide_friction_mu" value="0.20" />
+        <config key="home_length" value="auto_initial" />
+        <config key="stiffness" value="1200" />
+        <config key="damping" value="1" />
+        <config key="slack" value="0.0001" />
+        <config key="pretension_offset" value="0" />
+        <config key="max_tension" value="15" />
+        <config key="capstan_direction" value="forward" />
+        <config key="visual_width" value="4" />
+      </instance>
+      <instance name="through_hole_cable_6">
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="through_hole_route_6" />
+        <config key="site_role_user_index" value="0" />
+        <config key="guide_friction_mu" value="0.20" />
+        <config key="home_length" value="auto_initial" />
+        <config key="stiffness" value="1200" />
+        <config key="damping" value="1" />
+        <config key="slack" value="0.0001" />
+        <config key="pretension_offset" value="0" />
+        <config key="max_tension" value="15" />
+        <config key="capstan_direction" value="forward" />
+        <config key="visual_width" value="4" />
+      </instance>
+    </plugin>
+  </extension>
+  <statistic center="0 0 0.030" extent="0.12" />
+  <asset>
+    <mesh name="finger_base_mesh" file="asm_finger - finger_part_0-1.STL" scale="0.001 0.001 0.001" />
+    <mesh name="finger_proximal_mesh" file="asm_finger - finger_part_1-1.STL" scale="0.001 0.001 0.001" />
+    <mesh name="finger_middle_mesh" file="asm_finger - finger_part_2-1.STL" scale="0.001 0.001 0.001" />
+    <mesh name="finger_distal_mesh" file="asm_finger - finger_part_3-1.STL" scale="0.001 0.001 0.001" />
+    <material name="base_material" rgba="0.55 0.58 0.62 0.45" />
+    <material name="proximal_material" rgba="0.95 0.48 0.08 0.45" />
+    <material name="middle_material" rgba="0.10 0.58 0.90 0.45" />
+    <material name="distal_material" rgba="0.08 0.68 0.42 0.45" />
+    <material name="pulley_material" rgba="0.72 0.75 0.79 0.38" />
+  </asset>
+  <visual>
+    <global offwidth="1280" offheight="720" azimuth="90" elevation="0" />
+    <quality shadowsize="4096" />
+    <headlight ambient="0.30 0.30 0.30" diffuse="0.72 0.72 0.72" />
+  </visual>
+  <default>
+    <joint damping="0.015" frictionloss="0.0003" armature="0.00001" />
+    <geom contype="0" conaffinity="0" />
+  </default>
+  <worldbody>
+    <light name="key" pos="0.08 0.10 0.16" dir="-0.3 -0.4 -1" />
+    <camera name="side" pos="0 0.14 0.030" fovy="32" xyaxes="0 0 1 1 0 0" />
+    <camera name="oblique" pos="0.10 0.16 0.12" xyaxes="0.79 -0.49 0.37 -0.08 0.52 0.85" />
+    <body name="finger_cad_frame" pos="-0.014069941 -0.120095927 -0.897585419">
+      <geom name="finger_base_visual" type="mesh" mesh="finger_base_mesh" material="base_material" density="0" />
+      <site name="sw_point_01_base" type="sphere" pos="0.016044941 0.126845927 0.885110419" size="0.00058" rgba="0.90 0.18 0.16 1" group="3" user="1 0" />
+      <site name="sw_point_02_base" type="sphere" pos="0.0105449409 0.126810431 0.890124741" size="0.00058" rgba="0.90 0.18 0.16 1" group="3" />
+      <site name="sw_point_07_base" type="sphere" pos="0.016044941 0.113345927 0.885110419" size="0.00058" rgba="0.90 0.18 0.16 1" group="3" />
+      <site name="sw_point_08_base" type="sphere" pos="0.0105449405 0.113381424 0.890124747" size="0.00058" rgba="0.90 0.18 0.16 1" group="3" />
+      <site name="sw_point_09_base" type="sphere" pos="0.0113199405 0.122095927 0.893085419" size="0.00058" rgba="0.90 0.18 0.16 1" group="3" />
+      <site name="sw_point_10_base" type="sphere" pos="0.009069941 0.118595927 0.892585419" size="0.00058" rgba="0.90 0.18 0.16 1" group="3" />
+      <site name="sw_point_11_base" type="sphere" pos="0.0168436381 0.11809592 0.893025268" size="0.00058" rgba="0.90 0.18 0.16 1" group="3" />
+      <site name="sw_point_12_base" type="sphere" pos="0.017611508 0.121595934 0.892858949" size="0.00058" rgba="0.90 0.18 0.16 1" group="3" user="3 0" />
+      <site name="sw_point_50_base" type="sphere" pos="0.009069941 0.118595927 0.897585419" size="0.00075" rgba="0.90 0.18 0.16 1" group="3" />
+      <site name="sw_point_52_base" type="sphere" pos="0.014069941 0.120095927 0.897585419" size="0.00058" rgba="0.90 0.18 0.16 1" group="3" />
+      <site name="axis_mcp" type="sphere" pos="0.014069941 0.120095927 0.897585419" size="0.00125" rgba="1 0.95 0.05 1" group="3" />
+      <body name="mcp_fixed_pulley_frame" pos="0.014069941 0.120095927 0.897585419">
+        <geom name="mcp_fixed_pulley" type="cylinder" euler="-1.57079632679 0 0" size="0.0034 0.00230" material="pulley_material" density="0" group="2" />
+        <site name="mcp_wrap_guide_A_pos_x" type="sphere" pos="0.0038 0 0" size="0.00032" rgba="0.95 0.12 0.10 1" group="4" />
+        <site name="mcp_wrap_guide_B_pos_z" type="sphere" pos="0 0 0.0038" size="0.00032" rgba="0.10 0.75 0.20 1" group="4" />
+        <site name="mcp_wrap_guide_C_neg_x" type="sphere" pos="-0.0038 0 0" size="0.00032" rgba="0.10 0.35 0.95 1" group="4" />
+        <site name="mcp_wrap_guide_D_neg_z" type="sphere" pos="0 0 -0.0038" size="0.00032" rgba="0.90 0.12 0.78 1" group="4" />
+        <site name="mcp_full_turn_hint" type="sphere" pos="0.0034 0 0" size="0.0004" rgba="1 0.9 0.1 0.35" user="2 0" group="4" />
+        <site name="cable4_mcp_tangent_hint" type="sphere" pos="-0.0034 0 0" size="0.00018" rgba="1 1 1 0.12" user="2 0" group="4" />
+      </body>
+      <body name="proximal_phalanx" pos="0.014069941 0.120095927 0.897585419">
+        <joint name="mcp_joint" type="hinge" axis="0 1 0" range="0 1.57079632679" />
+        <geom name="proximal_visual" type="mesh" mesh="finger_proximal_mesh" pos="-0.014069941 -0.120095927 -0.897585419" material="proximal_material" mass="0.040" />
+        <site name="sw_point_03_proximal" type="sphere" pos="0.0035 0.0015 0.0075" size="0.00058" rgba="1.00 0.52 0.05 1" group="3" user="1 0" />
+        <site name="sw_point_04_proximal" type="sphere" pos="0.0035 0.0015 0.004" size="0.00058" rgba="1.00 0.52 0.05 1" group="3" user="3 0.20" />
+        <site name="sw_point_05_proximal" type="sphere" pos="0.00275 -0.0015 0.004" size="0.00058" rgba="1.00 0.52 0.05 1" group="3" />
+        <site name="sw_point_06_proximal" type="sphere" pos="0.00275 -0.0015 0.0075" size="0.00058" rgba="1.00 0.52 0.05 1" group="3" />
+        <site name="sw_point_13_proximal" type="sphere" pos="-0.005 -0.0015 0.005" size="0.00058" rgba="1.00 0.52 0.05 1" group="3" />
+        <site name="sw_point_14_proximal" type="sphere" pos="-0.00275 0.0015 0.005" size="0.00058" rgba="1.00 0.52 0.05 1" group="3" />
+        <site name="sw_point_15_proximal" type="sphere" pos="-0.00275 0.0015 0.004" size="0.00058" rgba="1.00 0.52 0.05 1" group="3" />
+        <site name="sw_point_16_proximal" type="sphere" pos="-0.005 0.0015 0.037" size="0.00058" rgba="1.00 0.52 0.05 1" group="3" />
+        <site name="sw_point_17_proximal" type="sphere" pos="-0.005 -0.0015 0.037" size="0.00058" rgba="1.00 0.52 0.05 1" group="3" />
+        <site name="sw_point_18_proximal" type="sphere" pos="0.0035 0.0015 0.0345" size="0.00058" rgba="1.00 0.52 0.05 1" group="3" />
+        <site name="sw_point_19_proximal" type="sphere" pos="0.0035 -0.0015 0.0345" size="0.00058" rgba="1.00 0.52 0.05 1" group="3" />
+        <site name="sw_point_20_proximal" type="sphere" pos="-0.005 0.0015 0.042" size="0.00075" rgba="1.00 0.52 0.05 1" group="3" />
+        <site name="sw_point_21_proximal" type="sphere" pos="-0.005 -0.0015 0.042" size="0.00075" rgba="1.00 0.52 0.05 1" group="3" />
+        <site name="sw_point_22_proximal" type="sphere" pos="0.00347467425 0.0014999988 0.036512648" size="0.00058" rgba="1.00 0.52 0.05 1" group="3" />
+        <site name="sw_point_23_proximal" type="sphere" pos="0.00347467425 -0.0015000012 0.036512648" size="0.00058" rgba="1.00 0.52 0.05 1" group="3" />
+        <site name="sw_point_24_proximal" type="sphere" pos="0.0035 0.0015 0.0385" size="0.00058" rgba="1.00 0.52 0.05 1" group="3" />
+        <site name="sw_point_25_proximal" type="sphere" pos="0.0035 -0.0015 0.0385" size="0.00058" rgba="1.00 0.52 0.05 1" group="3" />
+        <site name="sw_point_51_proximal" type="sphere" pos="-0.005 -0.0015 0" size="0.00075" rgba="1.00 0.52 0.05 1" group="3" />
+        <site name="sw_point_53_proximal" type="sphere" pos="-4.26325641e-17 0 0.042" size="0.00058" rgba="1.00 0.52 0.05 1" group="3" />
+        <site name="axis_pip" type="sphere" pos="-4.26325641e-17 0 0.042" size="0.00125" rgba="1 0.95 0.05 1" group="3" />
+        <body name="middle_phalanx" pos="0 0 0.042">
+          <joint name="pip_joint" type="hinge" axis="0 1 0" range="0 1.57079632679" />
+          <geom name="middle_visual" type="mesh" mesh="finger_middle_mesh" pos="-0.014069941 -0.120095927 -0.939585419" material="middle_material" mass="0.022" />
+          <site name="sw_point_26_middle" type="sphere" pos="-0.005 0.0015 0.004" size="0.00058" rgba="0.05 0.72 1.00 1" group="3" />
+          <site name="sw_point_27_middle" type="sphere" pos="-0.005 -0.0015 0.004" size="0.00058" rgba="0.05 0.72 1.00 1" group="3" />
+          <site name="sw_point_28_middle" type="sphere" pos="-0.005 0.0015 0" size="0.00075" rgba="0.05 0.72 1.00 1" group="3" />
+          <site name="sw_point_29_middle" type="sphere" pos="-0.005 -0.0015 0" size="0.00075" rgba="0.05 0.72 1.00 1" group="3" />
+          <site name="sw_point_30_middle" type="sphere" pos="0.0035 -0.0015 0.0075" size="0.00058" rgba="0.05 0.72 1.00 1" group="3" />
+          <site name="sw_point_31_middle" type="sphere" pos="0.0035 0.0015 0.0075" size="0.00058" rgba="0.05 0.72 1.00 1" group="3" />
+          <site name="sw_point_32_middle" type="sphere" pos="0.0035 0.0015 0.0035" size="0.00058" rgba="0.05 0.72 1.00 1" group="3" />
+          <site name="sw_point_33_middle" type="sphere" pos="0.0035 -0.0015 0.0035" size="0.00058" rgba="0.05 0.72 1.00 1" group="3" />
+          <site name="sw_point_34_middle" type="sphere" pos="0.0035 -0.0015 0.0125" size="0.00058" rgba="0.05 0.72 1.00 1" group="3" />
+          <site name="sw_point_35_middle" type="sphere" pos="0.0035 0.0015 0.0125" size="0.00058" rgba="0.05 0.72 1.00 1" group="3" />
+          <site name="sw_point_36_middle" type="sphere" pos="0.0035 0.0015 0.0165" size="0.00058" rgba="0.05 0.72 1.00 1" group="3" />
+          <site name="sw_point_37_middle" type="sphere" pos="0.0035 -0.0015 0.0165" size="0.00058" rgba="0.05 0.72 1.00 1" group="3" />
+          <site name="sw_point_38_middle" type="sphere" pos="-0.005 0.0015 0.02" size="0.00075" rgba="0.05 0.72 1.00 1" group="3" />
+          <site name="sw_point_39_middle" type="sphere" pos="-0.005 -0.0015 0.02" size="0.00075" rgba="0.05 0.72 1.00 1" group="3" />
+          <site name="sw_point_40_middle" type="sphere" pos="-0.005 -0.0015 0.016" size="0.00058" rgba="0.05 0.72 1.00 1" group="3" />
+          <site name="sw_point_41_middle" type="sphere" pos="-0.005 0.0015 0.016" size="0.00058" rgba="0.05 0.72 1.00 1" group="3" />
+          <site name="sw_point_54_middle" type="sphere" pos="5.68434189e-17 0 0.02" size="0.00058" rgba="0.05 0.72 1.00 1" group="3" />
+          <site name="axis_dip" type="sphere" pos="5.68434189e-17 0 0.02" size="0.00125" rgba="1 0.95 0.05 1" group="3" />
+          <body name="distal_phalanx" pos="0 0 0.020">
+            <joint name="dip_joint" type="hinge" axis="0 1 0" range="0 1.57079632679" />
+            <geom name="distal_visual" type="mesh" mesh="finger_distal_mesh" pos="-0.014069941 -0.120095927 -0.959585419" material="distal_material" mass="0.018" />
+            <site name="sw_point_42_distal" type="sphere" pos="0.0035 0.0015 0.0035" size="0.00058" rgba="0.10 0.78 0.34 1" group="3" />
+            <site name="sw_point_43_distal" type="sphere" pos="0.0035 -0.0015 0.0035" size="0.00058" rgba="0.10 0.78 0.34 1" group="3" />
+            <site name="sw_point_44_distal" type="sphere" pos="-0.005 0.0015 0" size="0.00075" rgba="0.10 0.78 0.34 1" group="3" />
+            <site name="sw_point_45_distal" type="sphere" pos="-0.005 -0.0015 0" size="0.00075" rgba="0.10 0.78 0.34 1" group="3" />
+            <site name="sw_point_46_distal" type="sphere" pos="-0.005 0.0015 0.004" size="0.00058" rgba="0.10 0.78 0.34 1" group="3" />
+            <site name="sw_point_47_distal" type="sphere" pos="-0.005 -0.0015 0.004" size="0.00058" rgba="0.10 0.78 0.34 1" group="3" />
+            <site name="sw_point_48_distal" type="sphere" pos="0.0035 -0.0015 0.0075" size="0.00058" rgba="0.10 0.78 0.34 1" group="3" />
+            <site name="sw_point_49_distal" type="sphere" pos="0.0035 0.0015 0.0075" size="0.00058" rgba="0.10 0.78 0.34 1" group="3" />
+            <site name="cable3_sw_point_42_distal" type="sphere" pos="0.0035 0.0015 0.0035" size="0.00018" rgba="1 1 1 0.12" user="3 0.2" group="4" />
+            <site name="cable3_sw_point_49_distal" type="sphere" pos="0.0035 0.0015 0.0075" size="0.00018" rgba="1 1 1 0.12" user="1 0" group="4" />
+            <site name="cable6_sw_point_45_distal" type="sphere" pos="-0.005 -0.0015 0.0001" size="0.00018" rgba="1 1 1 0.12" user="3 0.2" group="4" />
+            <site name="cable6_sw_point_47_distal" type="sphere" pos="-0.005 -0.0015 0.004" size="0.00018" rgba="1 1 1 0.12" user="1 0" group="4" />
+          </body>
+          <site name="cable2_sw_point_32_middle" type="sphere" pos="0.0035 0.0015 0.0035" size="0.00018" rgba="1 1 1 0.12" user="3 0.2" group="4" />
+          <site name="cable2_sw_point_31_middle" type="sphere" pos="0.0035 0.0015 0.0075" size="0.00018" rgba="1 1 1 0.12" user="1 0" group="4" />
+          <site name="cable3_sw_point_28_middle" type="sphere" pos="-0.005 0.0015 0.0001" size="0.00018" rgba="1 1 1 0.12" user="3 0.2" group="4" />
+          <site name="cable3_sw_point_26_middle" type="sphere" pos="-0.005 0.0015 0.004" size="0.00018" rgba="1 1 1 0.12" user="3 0.2" group="4" />
+          <site name="cable3_sw_point_35_middle" type="sphere" pos="0.0035 0.0015 0.0125" size="0.00018" rgba="1 1 1 0.12" user="3 0.2" group="4" />
+          <site name="cable3_sw_point_36_middle" type="sphere" pos="0.0035 0.0015 0.0165" size="0.00018" rgba="1 1 1 0.12" user="3 0.2" group="4" />
+          <site name="cable5_sw_point_29_middle" type="sphere" pos="-0.005 -0.0015 0.0001" size="0.00018" rgba="1 1 1 0.12" user="3 0.2" group="4" />
+          <site name="cable5_sw_point_27_middle" type="sphere" pos="-0.005 -0.0015 0.004" size="0.00018" rgba="1 1 1 0.12" user="1 0" group="4" />
+          <site name="cable6_sw_point_33_middle" type="sphere" pos="0.0035 -0.0015 0.0035" size="0.00018" rgba="1 1 1 0.12" user="3 0.2" group="4" />
+          <site name="cable6_sw_point_30_middle" type="sphere" pos="0.0035 -0.0015 0.0075" size="0.00018" rgba="1 1 1 0.12" user="3 0.2" group="4" />
+          <site name="cable6_sw_point_40_middle" type="sphere" pos="-0.005 -0.0015 0.016" size="0.00018" rgba="1 1 1 0.12" user="3 0.2" group="4" />
+          <site name="cable6_sw_point_39_middle" type="sphere" pos="-0.005 -0.0015 0.02" size="0.00018" rgba="1 1 1 0.12" user="3 0.2" group="4" />
+        </body>
+        <site name="cable2_sw_point_51_proximal" type="sphere" pos="-0.005 -0.0015 0.0001" size="0.00018" rgba="1 1 1 0.12" user="3 0.2" group="4" />
+        <site name="cable2_sw_point_13_proximal" type="sphere" pos="-0.005 -0.0015 0.005" size="0.00018" rgba="1 1 1 0.12" user="3 0.2" group="4" />
+        <site name="cable2_sw_point_18_proximal" type="sphere" pos="0.0035 0.0015 0.0345" size="0.00018" rgba="1 1 1 0.12" user="3 0.2" group="4" />
+        <site name="cable2_sw_point_24_proximal" type="sphere" pos="0.0035 0.0015 0.0385" size="0.00018" rgba="1 1 1 0.12" user="3 0.2" group="4" />
+        <site name="cable3_sw_point_16_proximal" type="sphere" pos="-0.005 0.0015 0.037" size="0.00018" rgba="1 1 1 0.12" user="1 0" group="4" />
+        <site name="cable3_sw_point_20_proximal" type="sphere" pos="-0.005 0.0015 0.042" size="0.00018" rgba="1 1 1 0.12" user="3 0.2" group="4" />
+        <site name="cable4_sw_point_15_proximal" type="sphere" pos="-0.00275 0.0015 0.004" size="0.00018" rgba="1 1 1 0.12" user="3 0.2" group="4" />
+        <site name="cable4_sw_point_14_proximal" type="sphere" pos="-0.00275 0.0015 0.005" size="0.00018" rgba="1 1 1 0.12" user="1 0" group="4" />
+        <site name="cable5_sw_point_05_proximal" type="sphere" pos="0.00275 -0.0015 0.004" size="0.00018" rgba="1 1 1 0.12" user="3 0.2" group="4" />
+        <site name="cable5_sw_point_06_proximal" type="sphere" pos="0.00275 -0.0015 0.0075" size="0.00018" rgba="1 1 1 0.12" user="3 0.2" group="4" />
+        <site name="cable5_sw_point_17_proximal" type="sphere" pos="-0.005 -0.0015 0.037" size="0.00018" rgba="1 1 1 0.12" user="3 0.2" group="4" />
+        <site name="cable5_sw_point_21_proximal" type="sphere" pos="-0.005 -0.0015 0.042" size="0.00018" rgba="1 1 1 0.12" user="3 0.2" group="4" />
+        <site name="cable6_sw_point_19_proximal" type="sphere" pos="0.0035 -0.0015 0.0345" size="0.00018" rgba="1 1 1 0.12" user="1 0" group="4" />
+        <site name="cable6_sw_point_25_proximal" type="sphere" pos="0.0035 -0.0015 0.0385" size="0.00018" rgba="1 1 1 0.12" user="3 0.2" group="4" />
+      </body>
+      <site name="cable2_sw_point_02_base" type="sphere" pos="0.0105449409 0.126810431 0.890124741" size="0.00018" rgba="1 1 1 0.12" user="1 0" group="4" />
+      <site name="cable2_sw_point_10_base" type="sphere" pos="0.009069941 0.118595927 0.892585419" size="0.00018" rgba="1 1 1 0.12" user="3 0.2" group="4" />
+      <site name="cable2_sw_point_50_base" type="sphere" pos="0.009069941 0.118595927 0.897585419" size="0.00018" rgba="1 1 1 0.12" user="3 0.2" group="4" />
+      <site name="cable4_sw_point_09_base" type="sphere" pos="0.0113199405 0.122095927 0.893085419" size="0.00018" rgba="1 1 1 0.12" user="1 0" group="4" />
+      <site name="cable5_sw_point_11_base" type="sphere" pos="0.0168436381 0.11809592 0.893025268" size="0.00018" rgba="1 1 1 0.12" user="1 0" group="4" />
+    </body>
+  </worldbody>
+  <tendon>
+    <spatial name="mcp_bore_route_seed" width="0.000000001" rgba="0.95 0.08 0.22 1">
+      <site site="sw_point_01_base" />
+      <site site="sw_point_12_base" />
+      <site site="mcp_full_turn_hint" />
+      <site site="sw_point_04_proximal" />
+      <site site="sw_point_03_proximal" />
+    </spatial>
+    <spatial name="through_hole_route_2" width="0.000000001" rgba="0.12 0.82 0.30 1">
+      <site site="cable2_sw_point_02_base" />
+      <site site="cable2_sw_point_10_base" />
+      <site site="cable2_sw_point_50_base" />
+      <site site="cable2_sw_point_51_proximal" />
+      <site site="cable2_sw_point_13_proximal" />
+      <site site="cable2_sw_point_18_proximal" />
+      <site site="cable2_sw_point_24_proximal" />
+      <site site="cable2_sw_point_32_middle" />
+      <site site="cable2_sw_point_31_middle" />
+    </spatial>
+    <spatial name="through_hole_route_3" width="0.000000001" rgba="0.12 0.42 0.98 1">
+      <site site="cable3_sw_point_16_proximal" />
+      <site site="cable3_sw_point_20_proximal" />
+      <site site="cable3_sw_point_28_middle" />
+      <site site="cable3_sw_point_26_middle" />
+      <site site="cable3_sw_point_35_middle" />
+      <site site="cable3_sw_point_36_middle" />
+      <site site="cable3_sw_point_42_distal" />
+      <site site="cable3_sw_point_49_distal" />
+    </spatial>
+    <spatial name="mcp_tangent_route_4" width="0.000000001" rgba="0.88 0.16 0.82 1">
+      <site site="cable4_sw_point_09_base" />
+      <site site="cable4_mcp_tangent_hint" />
+      <site site="cable4_sw_point_15_proximal" />
+      <site site="cable4_sw_point_14_proximal" />
+    </spatial>
+    <spatial name="through_hole_route_5" width="0.000000001" rgba="0.98 0.62 0.08 1">
+      <site site="cable5_sw_point_11_base" />
+      <site site="cable5_sw_point_05_proximal" />
+      <site site="cable5_sw_point_06_proximal" />
+      <site site="cable5_sw_point_17_proximal" />
+      <site site="cable5_sw_point_21_proximal" />
+      <site site="cable5_sw_point_29_middle" />
+      <site site="cable5_sw_point_27_middle" />
+    </spatial>
+    <spatial name="through_hole_route_6" width="0.000000001" rgba="0.02 0.78 0.86 1">
+      <site site="cable6_sw_point_19_proximal" />
+      <site site="cable6_sw_point_25_proximal" />
+      <site site="cable6_sw_point_33_middle" />
+      <site site="cable6_sw_point_30_middle" />
+      <site site="cable6_sw_point_40_middle" />
+      <site site="cable6_sw_point_39_middle" />
+      <site site="cable6_sw_point_45_distal" />
+      <site site="cable6_sw_point_47_distal" />
+    </spatial>
+  </tendon>
+  <actuator>
+    <plugin name="mcp_differential_drive" tendon="mcp_bore_route_seed" instance="mcp_bore_cable" ctrlrange="-0.025 0.025" gear="0" />
+  </actuator>
+  <sensor>
+    <plugin name="mcp_bore_cable_state" instance="mcp_bore_cable" />
+    <jointpos name="mcp_angle" joint="mcp_joint" />
+    <plugin name="through_hole_cable_2_state" instance="through_hole_cable_2" />
+    <plugin name="through_hole_cable_3_state" instance="through_hole_cable_3" />
+    <plugin name="mcp_tangent_cable_4_state" instance="mcp_tangent_cable_4" />
+    <plugin name="through_hole_cable_5_state" instance="through_hole_cable_5" />
+    <plugin name="through_hole_cable_6_state" instance="through_hole_cable_6" />
+  </sensor>
+</mujoco>

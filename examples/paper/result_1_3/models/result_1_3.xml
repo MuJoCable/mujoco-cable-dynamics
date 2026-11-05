@@ -1,0 +1,100 @@
+<mujoco model="result_1_3_atwood_with_landing">
+  <compiler autolimits="true" angle="radian" />
+  <size nuser_site="1" />
+  <option timestep="0.0002" gravity="0 0 -9.81" integrator="RK4">
+    <flag energy="enable" />
+  </option>
+  <custom>
+    <numeric name="pulley_radius_m" data="0.050" />
+    <numeric name="pulley_mass_kg" data="0.080" />
+    <numeric name="payload_density_kg_per_m3" data="1200" />
+    <numeric name="left_box_half_size_m" data="0.023" />
+    <numeric name="right_box_half_size_m" data="0.029" />
+    <numeric name="bearing_damping_Nms_per_rad" data="0.005" />
+    <numeric name="capstan_mu" data="0.12" />
+  </custom>
+  <extension>
+    <plugin plugin="mujoco.cable.unilateral">
+      <instance name="atwood_cable">
+        <config key="stiffness" value="15000" />
+        <config key="damping" value="0" />
+        <config key="slack" value="0" />
+        <config key="home_length" value="auto_initial" />
+        <config key="pretension_offset" value="0.00015" />
+        <config key="max_tension" value="100" />
+        <config key="route_mode" value="surface" />
+        <config key="route_tendon" value="atwood_seed" />
+        <config key="wrap_geoms" value="atwood_pulley_wrap" />
+        <config key="site_role_user_index" value="0" />
+        <config key="capstan_mu" value="0.12" />
+        <config key="capstan_direction" value="velocity" />
+        <config key="capstan_velocity_scale" value="0.020" />
+        <config key="visual_width" value="2.4" />
+      </instance>
+    </plugin>
+  </extension>
+  <asset>
+    <material name="frame_material" rgba="0.52 0.60 0.66 1" />
+    <material name="pulley_material" rgba="0.72 0.75 0.78 0.65" />
+    <material name="left_material" rgba="0.12 0.52 0.88 1" />
+    <material name="right_material" rgba="0.92 0.35 0.10 1" />
+  </asset>
+  <default><site size="0.004" /><default class="route_hint"><site size="0.0001" rgba="1 0.8 0 0" user="2" /></default></default>
+  <worldbody>
+    <light name="key" pos="-0.25 -0.80 0.75" dir="0.2 0.8 -0.7" />
+    <camera name="overview" pos="0 -0.82 0.33" xyaxes="1 0 0 0 0 1" fovy="44" />
+    <geom name="floor" type="plane" pos="0 0 0.08" size="0.34 0.25 0.01"
+          friction="0.8 0.04 0.005" rgba="0.13 0.15 0.17 1" />
+    <geom name="support_post" type="capsule" fromto="0 0.04 0 0 0.04 0.58"
+          size="0.007" material="frame_material" contype="0" conaffinity="0" />
+    <geom name="support_beam" type="capsule" fromto="-0.18 0.04 0.58 0.18 0.04 0.58"
+          size="0.007" material="frame_material" contype="0" conaffinity="0" />
+    <geom name="axle_support" type="cylinder" pos="0 0.026 0.490"
+          euler="1.57079632679 0 0" size="0.011 0.034"
+          material="frame_material" contype="0" conaffinity="0" />
+    <body name="atwood_pulley" pos="0 0 0.490">
+      <joint name="pulley_hinge" type="hinge" axis="0 1 0"
+             damping="0.005" frictionloss="0" armature="0.0002" />
+      <geom name="atwood_pulley_wrap" type="cylinder"
+            euler="1.57079632679 0 0" size="0.050 0.016" mass="0.080"
+            material="pulley_material" contype="0" conaffinity="0" />
+      <geom name="pulley_hub" type="cylinder" euler="1.57079632679 0 0"
+            size="0.010 0.021" density="0" rgba="0.42 0.46 0.50 1"
+            contype="0" conaffinity="0" />
+      <geom name="pulley_radius_marker" type="capsule"
+            fromto="0 -0.019 0 0.043 -0.019 0" size="0.0022"
+            density="0" rgba="0.05 0.35 1 1" contype="0" conaffinity="0" />
+    </body>
+    <site name="pulley_upper_hint" class="route_hint" pos="0 0 0.546" />
+    <body name="left_mass" pos="-0.050 0 0.220">
+      <freejoint name="left_free" />
+      <geom name="left_payload" type="box" size="0.023 0.023 0.023"
+            density="1200" material="left_material" />
+      <site name="left_cable_end" pos="0 0 0.029" user="1"
+            size="0.005" rgba="0.12 0.75 1 1" />
+    </body>
+    <body name="right_mass" pos="0.050 0 0.220">
+      <freejoint name="right_free" />
+      <geom name="right_payload" type="box" size="0.029 0.029 0.029"
+            density="1200" material="right_material" />
+      <site name="right_cable_end" pos="0 0 0.035" user="1"
+            size="0.005" rgba="1 0.35 0.08 1" />
+    </body>
+  </worldbody>
+  <tendon>
+    <spatial name="atwood_seed" limited="false" width="0.000000001" rgba="1.0 0.25 0.04 1">
+      <site site="left_cable_end" />
+      <site site="pulley_upper_hint" />
+      <site site="right_cable_end" />
+    </spatial>
+  </tendon>
+  <sensor>
+    <plugin name="atwood_cable_state" instance="atwood_cable" />
+    <jointpos name="pulley_angle" joint="pulley_hinge" />
+    <jointvel name="pulley_angular_velocity" joint="pulley_hinge" />
+    <framepos name="left_position" objtype="body" objname="left_mass" />
+    <framelinvel name="left_velocity" objtype="body" objname="left_mass" />
+    <framepos name="right_position" objtype="body" objname="right_mass" />
+    <framelinvel name="right_velocity" objtype="body" objname="right_mass" />
+  </sensor>
+</mujoco>

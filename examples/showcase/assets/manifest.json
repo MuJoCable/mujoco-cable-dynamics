@@ -1,0 +1,46 @@
+{
+  "meshes": {
+    "assets/irregular_pulleys/ellipse.obj": {
+      "vertices": 128,
+      "triangles": 252,
+      "edges": 378,
+      "nonmanifold_edges": 0
+    },
+    "assets/irregular_pulleys/cam.obj": {
+      "vertices": 144,
+      "triangles": 284,
+      "edges": 426,
+      "nonmanifold_edges": 0
+    },
+    "assets/irregular_pulleys/box.obj": {
+      "vertices": 144,
+      "triangles": 284,
+      "edges": 426,
+      "nonmanifold_edges": 0
+    },
+    "assets/icra/I.obj": {
+      "vertices": 8,
+      "triangles": 12,
+      "edges": 18,
+      "nonmanifold_edges": 0
+    },
+    "assets/icra/C.obj": {
+      "vertices": 188,
+      "triangles": 372,
+      "edges": 558,
+      "nonmanifold_edges": 0
+    },
+    "assets/icra/R.obj": {
+      "vertices": 78,
+      "triangles": 152,
+      "edges": 228,
+      "nonmanifold_edges": 0
+    },
+    "assets/icra/A.obj": {
+      "vertices": 22,
+      "triangles": 40,
+      "edges": 60,
+      "nonmanifold_edges": 0
+    }
+  }
+}

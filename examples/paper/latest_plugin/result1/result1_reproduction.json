@@ -1,0 +1,14 @@
+{
+  "action": "result1",
+  "plugin_sha256": "8292c3de3a5aaaaa743fa3e2cd29d6ac4d7bd87bf3726ee86b6be2a72fc6ff0d",
+  "archived_plugin_sha256": "c3c8f8b1873c75573b6a2f63bc712251926d279a3f94584d15e33ad34247642f",
+  "historical_data_overwritten": false,
+  "source_sha256": {
+    "plugin/native_route.h": "a1beffdfae8a555e32ee88fd36ee32067dab1aaac7b71da5f3ffd9c64e13c64d",
+    "plugin/unilateral_cable.h": "cd33702fca76557f9ac92b53ee3b7c9975f6f4442c343dbfe42adf825bd0b364",
+    "plugin/unilateral_cable.cc": "ec24420af78fb5eab23bc485364939188d7901a62320a1192307c341f6fa12b5",
+    "plugin/surface_route.cc": "767c0e02657cd69a14e6c78bb5fb2b7130006d14b31101250b59bbcdb3e13b3a",
+    "plugin/surface_route.h": "7e897153d8f771a9fa58faff7f1e8b9aa81d5f69bc0b85385ce1d74544c272cf",
+    "plugin/register.cc": "935cb3a989f6b8f6c7425560865ee8cfaa4f5810482058174b005b67f7b3ac1d"
+  }
+}

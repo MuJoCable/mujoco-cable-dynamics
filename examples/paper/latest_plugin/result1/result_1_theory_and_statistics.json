@@ -1,0 +1,242 @@
+[
+  {
+    "case": "result_1_1_mu_0",
+    "model": "result_1_1/models/result_1_1.xml",
+    "duration_s": 3.0,
+    "sample_count": 1501,
+    "equations": [
+      "T_load = m g",
+      "h = c",
+      "T_source/T_load = exp(mu beta tanh(|c_dot|/v_s))"
+    ],
+    "parameters": {
+      "payload_mass_kg": 0.2,
+      "gravity_mps2": 9.81,
+      "pulley_radius_m": 0.05,
+      "capstan_mu": 0.0,
+      "capstan_velocity_scale_mps": 0.01,
+      "bearing_damping_Nms_per_rad": 0.005
+    },
+    "metrics": {
+      "payload_lift_rmse_mm": 0.1605629026290299,
+      "source_tension_rmse_N": 0.0076198742975803115,
+      "steady_payload_tension_mean_N": 1.9620000000000117,
+      "theory_payload_weight_N": 1.9620000000000002,
+      "peak_tangent_residual": 6.530592924332806e-08,
+      "peak_surface_residual_m": 0.0,
+      "maximum_route_status": 0.0,
+      "mean_wrap_angle_deg": 119.99553050994129,
+      "peak_theory_capstan_ratio": 1.0,
+      "peak_measured_capstan_ratio": 1.0000000000000002,
+      "peak_source_tension_N": 2.0100140238377295,
+      "p95_step_time_ms": 0.3034202614799142,
+      "taut_fraction": 1.0,
+      "saturation_fraction": 0.0
+    }
+  },
+  {
+    "case": "result_1_1_mu_0p15",
+    "model": "result_1_1/models/result_1_1_mu_0p15.xml",
+    "duration_s": 3.0,
+    "sample_count": 1501,
+    "equations": [
+      "T_load = m g",
+      "h = c",
+      "T_source/T_load = exp(mu beta tanh(|c_dot|/v_s))"
+    ],
+    "parameters": {
+      "payload_mass_kg": 0.2,
+      "gravity_mps2": 9.81,
+      "pulley_radius_m": 0.05,
+      "capstan_mu": 0.15,
+      "capstan_velocity_scale_mps": 0.01,
+      "bearing_damping_Nms_per_rad": 0.005
+    },
+    "metrics": {
+      "payload_lift_rmse_mm": 0.3220847573925039,
+      "source_tension_rmse_N": 0.016478864680833892,
+      "steady_payload_tension_mean_N": 1.9619999999997457,
+      "theory_payload_weight_N": 1.9620000000000002,
+      "peak_tangent_residual": 7.170761708921582e-08,
+      "peak_surface_residual_m": 0.0,
+      "maximum_route_status": 0.0,
+      "mean_wrap_angle_deg": 119.99553050994129,
+      "peak_theory_capstan_ratio": 1.3674353884429564,
+      "peak_measured_capstan_ratio": 1.3613515779879455,
+      "peak_source_tension_N": 2.6727184030837208,
+      "p95_step_time_ms": 0.2979684853926301,
+      "taut_fraction": 1.0,
+      "saturation_fraction": 0.0
+    }
+  },
+  {
+    "case": "result_1_1_b_mu_0",
+    "model": "result_1_1_b/models/result_1_1_b_mu_0.xml",
+    "duration_s": 3.0,
+    "sample_count": 1501,
+    "equations": [
+      "T_load = m g",
+      "h = c",
+      "T_source/T_load = exp(mu beta tanh(|c_dot|/v_s))",
+      "I_eff omega_dot + b omega = R (T_source - T_load)"
+    ],
+    "parameters": {
+      "payload_mass_kg": 0.2,
+      "gravity_mps2": 9.81,
+      "pulley_radius_m": 0.05,
+      "capstan_mu": 0.0,
+      "capstan_velocity_scale_mps": 0.01,
+      "bearing_damping_Nms_per_rad": 0.005
+    },
+    "metrics": {
+      "payload_lift_rmse_mm": 0.1605629026291099,
+      "source_tension_rmse_N": 0.007619874297581376,
+      "steady_payload_tension_mean_N": 1.962000000000007,
+      "theory_payload_weight_N": 1.9620000000000002,
+      "peak_tangent_residual": 7.529377028966352e-08,
+      "peak_surface_residual_m": 0.0,
+      "maximum_route_status": 0.0,
+      "mean_wrap_angle_deg": 119.9955305099412,
+      "peak_theory_capstan_ratio": 1.0,
+      "peak_measured_capstan_ratio": 1.0000000000000002,
+      "peak_source_tension_N": 2.0100140238377295,
+      "peak_pulley_omega_radps": 9.1209586850595e-15,
+      "capstan_torque_balance_rmse_Nm": 5.032791882803442e-17,
+      "p95_step_time_ms": 0.27579392772167916,
+      "taut_fraction": 1.0,
+      "saturation_fraction": 0.0
+    }
+  },
+  {
+    "case": "result_1_1_b_mu_0p15",
+    "model": "result_1_1_b/models/result_1_1_b.xml",
+    "duration_s": 3.0,
+    "sample_count": 1501,
+    "equations": [
+      "T_load = m g",
+      "h = c",
+      "T_source/T_load = exp(mu beta tanh(|c_dot|/v_s))",
+      "I_eff omega_dot + b omega = R (T_source - T_load)"
+    ],
+    "parameters": {
+      "payload_mass_kg": 0.2,
+      "gravity_mps2": 9.81,
+      "pulley_radius_m": 0.05,
+      "capstan_mu": 0.15,
+      "capstan_velocity_scale_mps": 0.01,
+      "bearing_damping_Nms_per_rad": 0.005
+    },
+    "metrics": {
+      "payload_lift_rmse_mm": 0.1716913834770709,
+      "source_tension_rmse_N": 0.008016305161887359,
+      "steady_payload_tension_mean_N": 1.961999999999937,
+      "theory_payload_weight_N": 1.9620000000000002,
+      "peak_tangent_residual": 7.17164572869275e-08,
+      "peak_surface_residual_m": 6.938893903907228e-18,
+      "maximum_route_status": 0.0,
+      "mean_wrap_angle_deg": 119.99553050994123,
+      "peak_theory_capstan_ratio": 1.0309984009398614,
+      "peak_measured_capstan_ratio": 1.0309803614879065,
+      "peak_source_tension_N": 2.023830844811762,
+      "peak_pulley_omega_radps": 0.6053263857830834,
+      "capstan_torque_balance_rmse_Nm": 4.087601271386509e-05,
+      "p95_step_time_ms": 0.274421158246696,
+      "taut_fraction": 1.0,
+      "saturation_fraction": 0.0
+    }
+  },
+  {
+    "case": "result_1_1_c_winch",
+    "model": "result_1_1_c/models/result_1_1_c.xml",
+    "duration_s": 3.5,
+    "sample_count": 1751,
+    "equations": [
+      "s = r_w theta_w = -r_p theta_p",
+      "theta_p/theta_w = -r_w/r_p",
+      "h approximately equals s for an inextensible cable"
+    ],
+    "parameters": {
+      "winch_radius_m": 0.025,
+      "pulley_radius_m": 0.05,
+      "ideal_angle_ratio": -0.5,
+      "payload_mass_kg": 0.2
+    },
+    "metrics": {
+      "angle_constraint_rmse_rad": 9.469344123720793e-06,
+      "rim_travel_rmse_mm": 0.00047346720618616025,
+      "payload_lift_rmse_mm": 0.09150164313341184,
+      "maximum_route_status": 0.0,
+      "final_payload_lift_mm": 39.83258677805207,
+      "final_theory_takeup_mm": 39.93867768389647,
+      "p95_step_time_ms": 0.5523835076019168,
+      "taut_fraction": 1.0,
+      "saturation_fraction": 0.0
+    }
+  },
+  {
+    "case": "result_1_2_moving_pulley",
+    "model": "result_1_2/models/result_1_2.xml",
+    "duration_s": 3.5,
+    "sample_count": 1751,
+    "equations": [
+      "c = 2 h",
+      "2 T = (m_p + m_l) g",
+      "|theta_fixed/theta_moving| = 2 only under ideal no-slip transport"
+    ],
+    "parameters": {
+      "pulley_radius_m": 0.04,
+      "moving_pulley_mass_kg": 0.08,
+      "payload_mass_kg": 0.2,
+      "total_suspended_mass_kg": 0.28,
+      "ideal_tension_N": 1.3734000000000002,
+      "capstan_mu": 0.12
+    },
+    "metrics": {
+      "moving_pulley_lift_rmse_mm": 0.14247162628752252,
+      "moving_load_lift_rmse_mm": 0.43536816254246635,
+      "tension_rmse_N": 0.1292438390640012,
+      "maximum_tether_drift_um": 4.170060379588003,
+      "ramp_end_fixed_to_moving_angle_ratio": 4.163503557145487,
+      "maximum_route_status": 0.0,
+      "final_moving_pulley_lift_mm": 10.17484812217473,
+      "final_load_lift_mm": 10.184683444731709,
+      "final_theory_lift_mm": 10.0,
+      "p95_step_time_ms": 0.590628944337368,
+      "taut_fraction": 1.0,
+      "saturation_fraction": 0.0
+    }
+  },
+  {
+    "case": "result_1_3_atwood_landing",
+    "model": "result_1_3/models/result_1_3.xml",
+    "duration_s": 1.25,
+    "sample_count": 626,
+    "equations": [
+      "M_eff = m_L + m_R + I_eff/R^2",
+      "M_eff v_dot + (b/R^2) v = (m_R-m_L) g",
+      "T_L = m_L (g + v_dot), T_R = m_R (g - v_dot)",
+      "omega = v/R before landing under ideal no-slip transport"
+    ],
+    "parameters": {
+      "left_mass_kg": 0.1168032,
+      "right_mass_kg": 0.23413440000000002,
+      "pulley_radius_m": 0.05,
+      "effective_pulley_inertia_kgm2": 0.00030000000000000003,
+      "bearing_damping_Nms_per_rad": 0.005,
+      "effective_translational_mass_kg": 0.4709376,
+      "travel_to_floor_m": 0.111
+    },
+    "metrics": {
+      "theory_landing_time_s": 0.3818121382404204,
+      "measured_landing_time_s": 0.34599999999999453,
+      "prelanding_right_speed_rmse_mps": 0.06677625946557333,
+      "prelanding_pulley_omega_rmse_radps": 1.40583184303747,
+      "peak_postlanding_contact_force_N": 15.005731304759417,
+      "maximum_route_status": 0.0,
+      "landing_time_relative_error_percent": -9.379518002090224,
+      "p95_step_time_ms": 0.7421750575304028,
+      "taut_fraction": 0.5303514376996805,
+      "saturation_fraction": 0.0
+    }
+  }
+]

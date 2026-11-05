@@ -1,0 +1,748 @@
+{
+  "scope": "load/short-step check, not a full motion or hardware validation",
+  "models": [
+    {
+      "model": "result_1_1/models/result_1_1.xml",
+      "nq": 7,
+      "nv": 6,
+      "nu": 1,
+      "steps": 10,
+      "max_route_status": 0.0,
+      "warning_count": 0
+    },
+    {
+      "model": "result_1_1/models/result_1_1_mu_0p15.xml",
+      "nq": 7,
+      "nv": 6,
+      "nu": 1,
+      "steps": 10,
+      "max_route_status": 0.0,
+      "warning_count": 0
+    },
+    {
+      "model": "result_1_1_b/models/result_1_1_b.xml",
+      "nq": 8,
+      "nv": 7,
+      "nu": 1,
+      "steps": 10,
+      "max_route_status": 0.0,
+      "warning_count": 0
+    },
+    {
+      "model": "result_1_1_b/models/result_1_1_b_mu_0.xml",
+      "nq": 8,
+      "nv": 7,
+      "nu": 1,
+      "steps": 10,
+      "max_route_status": 0.0,
+      "warning_count": 0
+    },
+    {
+      "model": "result_1_1_c/models/result_1_1_c.xml",
+      "nq": 9,
+      "nv": 8,
+      "nu": 1,
+      "steps": 10,
+      "max_route_status": 0.0,
+      "warning_count": 0
+    },
+    {
+      "model": "result_1_2/models/result_1_2.xml",
+      "nq": 7,
+      "nv": 7,
+      "nu": 1,
+      "steps": 10,
+      "max_route_status": 0.0,
+      "warning_count": 0
+    },
+    {
+      "model": "result_1_3/models/result_1_3.xml",
+      "nq": 15,
+      "nv": 13,
+      "nu": 0,
+      "steps": 10,
+      "max_route_status": 0.0,
+      "warning_count": 0
+    },
+    {
+      "model": "result_2_1/models/result_2_1a_ideal_virtual_hinge.xml",
+      "nq": 2,
+      "nv": 2,
+      "nu": 1,
+      "steps": 10,
+      "max_route_status": 0,
+      "warning_count": 0
+    },
+    {
+      "model": "result_2_1/models/result_2_1b_mujocable_surface.xml",
+      "nq": 7,
+      "nv": 6,
+      "nu": 2,
+      "steps": 10,
+      "max_route_status": 0.0,
+      "warning_count": 0
+    },
+    {
+      "model": "result_2_2/demo42_single_finger/models/result_2_2c_demo42_single_finger.xml",
+      "nq": 3,
+      "nv": 3,
+      "nu": 1,
+      "steps": 10,
+      "max_route_status": 0.0,
+      "warning_count": 0
+    },
+    {
+      "model": "result_2_2/models/result_2_2.xml",
+      "nq": 18,
+      "nv": 18,
+      "nu": 2,
+      "steps": 10,
+      "max_route_status": 0.0,
+      "warning_count": 0
+    },
+    {
+      "model": "result_2_2/models/result_2_2a_mujocable_mu_0p15.xml",
+      "nq": 18,
+      "nv": 18,
+      "nu": 2,
+      "steps": 10,
+      "max_route_status": 0.0,
+      "warning_count": 0
+    },
+    {
+      "model": "result_2_2/models/result_2_2b_native_tendon.xml",
+      "nq": 18,
+      "nv": 18,
+      "nu": 2,
+      "steps": 10,
+      "max_route_status": 0,
+      "warning_count": 0
+    },
+    {
+      "model": "result_2_3/models/result_2_3_mu_0p00.xml",
+      "nq": 18,
+      "nv": 18,
+      "nu": 2,
+      "steps": 10,
+      "max_route_status": 0.0,
+      "warning_count": 0
+    },
+    {
+      "model": "result_2_3/models/result_2_3_mu_0p05.xml",
+      "nq": 18,
+      "nv": 18,
+      "nu": 2,
+      "steps": 10,
+      "max_route_status": 0.0,
+      "warning_count": 0
+    },
+    {
+      "model": "result_2_3/models/result_2_3_mu_0p15.xml",
+      "nq": 18,
+      "nv": 18,
+      "nu": 2,
+      "steps": 10,
+      "max_route_status": 0.0,
+      "warning_count": 0
+    },
+    {
+      "model": "result_2_3/models/result_2_3_mu_0p30.xml",
+      "nq": 18,
+      "nv": 18,
+      "nu": 2,
+      "steps": 10,
+      "max_route_status": 0.0,
+      "warning_count": 0
+    },
+    {
+      "model": "result_2_3/models/result_2_3_mu_0p45.xml",
+      "nq": 18,
+      "nv": 18,
+      "nu": 2,
+      "steps": 10,
+      "max_route_status": 0.0,
+      "warning_count": 0
+    },
+    {
+      "model": "result_2_3/models/result_2_3_mu_0p60.xml",
+      "nq": 18,
+      "nv": 18,
+      "nu": 2,
+      "steps": 10,
+      "max_route_status": 0.0,
+      "warning_count": 0
+    },
+    {
+      "model": "result_3_1/models/result_3_1.xml",
+      "nq": 3,
+      "nv": 3,
+      "nu": 1,
+      "steps": 10,
+      "max_route_status": 0.0,
+      "warning_count": 0
+    },
+    {
+      "model": "result_3_2/demo49_tpu95hf_mu_0p015/model.xml",
+      "nq": 18,
+      "nv": 18,
+      "nu": 2,
+      "steps": 10,
+      "max_route_status": 0.0,
+      "warning_count": 0
+    },
+    {
+      "model": "result_3_2/demo49_tpu95hf_mu_0p015/videos/models/demo49_tpu95hf_video_control.xml",
+      "nq": 18,
+      "nv": 18,
+      "nu": 2,
+      "steps": 10,
+      "max_route_status": 0.0,
+      "warning_count": 0
+    },
+    {
+      "model": "result_3_2/models/result_3_2.xml",
+      "nq": 18,
+      "nv": 18,
+      "nu": 2,
+      "steps": 10,
+      "max_route_status": 0.0,
+      "warning_count": 0
+    }
+  ],
+  "videos": [
+    {
+      "video": "result_1_1/videos/result_1_1_mu_0_annotated.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "3.050000"
+      }
+    },
+    {
+      "video": "result_1_1/videos/result_1_1_mu_0_raw.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "3.050000"
+      }
+    },
+    {
+      "video": "result_1_1/videos/result_1_1_mu_0p15_annotated.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "3.050000"
+      }
+    },
+    {
+      "video": "result_1_1/videos/result_1_1_mu_0p15_raw.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "3.050000"
+      }
+    },
+    {
+      "video": "result_1_1_b/videos/result_1_1_b_mu_0_annotated.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "3.050000"
+      }
+    },
+    {
+      "video": "result_1_1_b/videos/result_1_1_b_mu_0_raw.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "3.050000"
+      }
+    },
+    {
+      "video": "result_1_1_b/videos/result_1_1_b_mu_0p15_annotated.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "3.050000"
+      }
+    },
+    {
+      "video": "result_1_1_b/videos/result_1_1_b_mu_0p15_raw.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "3.050000"
+      }
+    },
+    {
+      "video": "result_1_1_c/videos/result_1_1_c_winch_annotated.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "3.550000"
+      }
+    },
+    {
+      "video": "result_1_1_c/videos/result_1_1_c_winch_raw.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "3.550000"
+      }
+    },
+    {
+      "video": "result_1_2/videos/result_1_2_moving_pulley_annotated.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "3.550000"
+      }
+    },
+    {
+      "video": "result_1_2/videos/result_1_2_moving_pulley_raw.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "3.550000"
+      }
+    },
+    {
+      "video": "result_1_3/videos/result_1_3_atwood_landing_annotated.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "1.300000"
+      }
+    },
+    {
+      "video": "result_1_3/videos/result_1_3_atwood_landing_raw.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "1.300000"
+      }
+    },
+    {
+      "video": "result_2_1/videos/demo24_faive_baseline_annotated.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "2.550000"
+      }
+    },
+    {
+      "video": "result_2_1/videos/demo24_faive_baseline_raw.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "2.550000"
+      }
+    },
+    {
+      "video": "result_2_1/videos/demo25_faive_surface_cable_annotated.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "2.650000"
+      }
+    },
+    {
+      "video": "result_2_1/videos/demo25_faive_surface_cable_raw.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "2.650000"
+      }
+    },
+    {
+      "video": "result_2_1/videos/result_2_1_mujocable_50deg_annotated.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "2.550000"
+      }
+    },
+    {
+      "video": "result_2_1/videos/result_2_1_mujocable_50deg_raw.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "2.550000"
+      }
+    },
+    {
+      "video": "result_2_1/videos/result_2_1_virtual_hinge_annotated.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "2.550000"
+      }
+    },
+    {
+      "video": "result_2_1/videos/result_2_1_virtual_hinge_raw.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "2.550000"
+      }
+    },
+    {
+      "video": "result_2_2/demo42_single_finger/videos/result_2_2c_demo42_bending_plane_annotated.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "8.050000"
+      }
+    },
+    {
+      "video": "result_2_2/demo42_single_finger/videos/result_2_2c_demo42_bending_plane_raw.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "8.050000"
+      }
+    },
+    {
+      "video": "result_2_2/demo42_single_finger/videos/result_2_2c_demo42_oblique_annotated.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "8.050000"
+      }
+    },
+    {
+      "video": "result_2_2/demo42_single_finger/videos/result_2_2c_demo42_oblique_raw.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "8.050000"
+      }
+    },
+    {
+      "video": "result_2_2/videos/result_2_2_mujocable_annotated.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "6.050000"
+      }
+    },
+    {
+      "video": "result_2_2/videos/result_2_2_mujocable_raw.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "6.050000"
+      }
+    },
+    {
+      "video": "result_2_2/videos/result_2_2_native_tendon_annotated.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "6.050000"
+      }
+    },
+    {
+      "video": "result_2_2/videos/result_2_2_native_tendon_raw.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "6.050000"
+      }
+    },
+    {
+      "video": "result_2_3/videos/result_2_3_mu_0p00_annotated.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "6.050000"
+      }
+    },
+    {
+      "video": "result_2_3/videos/result_2_3_mu_0p00_raw.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "6.050000"
+      }
+    },
+    {
+      "video": "result_2_3/videos/result_2_3_mu_0p15_annotated.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "6.050000"
+      }
+    },
+    {
+      "video": "result_2_3/videos/result_2_3_mu_0p15_raw.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "6.050000"
+      }
+    },
+    {
+      "video": "result_2_3/videos/result_2_3_mu_0p60_annotated.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "6.050000"
+      }
+    },
+    {
+      "video": "result_2_3/videos/result_2_3_mu_0p60_raw.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "6.050000"
+      }
+    },
+    {
+      "video": "result_3_2/demo49_tpu95hf_mu_0p015/videos/demo49_tpu95hf_annotated.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "24.000000"
+      }
+    },
+    {
+      "video": "result_3_2/demo49_tpu95hf_mu_0p015/videos/demo49_tpu95hf_raw.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 540
+        }
+      ],
+      "format": {
+        "duration": "24.000000"
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

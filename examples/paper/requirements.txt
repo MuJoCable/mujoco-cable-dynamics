@@ -1,0 +1,4 @@
+mujoco==3.4.0
+numpy
+matplotlib
+pillow

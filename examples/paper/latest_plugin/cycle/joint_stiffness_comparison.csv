@@ -1,0 +1,19 @@
+model_key,model_label,joint,stiffness_Nm_per_rad
+demo49_tpu95hf,Calibrated SpiRobs,1,0.026053123321
+demo49_tpu95hf,Calibrated SpiRobs,2,0.0242044611263
+demo49_tpu95hf,Calibrated SpiRobs,3,0.0188574640176
+demo49_tpu95hf,Calibrated SpiRobs,4,0.0147292950267
+demo49_tpu95hf,Calibrated SpiRobs,5,0.0115376799127
+demo49_tpu95hf,Calibrated SpiRobs,6,0.00906643197865
+demo49_tpu95hf,Calibrated SpiRobs,7,0.00714993426203
+demo49_tpu95hf,Calibrated SpiRobs,8,0.00566119966474
+demo49_tpu95hf,Calibrated SpiRobs,9,0.00450279479188
+demo49_tpu95hf,Calibrated SpiRobs,10,0.00359991413701
+demo49_tpu95hf,Calibrated SpiRobs,11,0.00289509624983
+demo49_tpu95hf,Calibrated SpiRobs,12,0.00234417169322
+demo49_tpu95hf,Calibrated SpiRobs,13,0.00191324036729
+demo49_tpu95hf,Calibrated SpiRobs,14,0.00157626197703
+demo49_tpu95hf,Calibrated SpiRobs,15,0.00131337140367
+demo49_tpu95hf,Calibrated SpiRobs,16,0.0011095741481
+demo49_tpu95hf,Calibrated SpiRobs,17,0.000953852341412
+demo49_tpu95hf,Calibrated SpiRobs,18,0.000838740254964

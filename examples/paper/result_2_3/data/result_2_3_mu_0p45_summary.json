@@ -1,0 +1,10 @@
+{
+  "final_bend_deg": -437.04462388048535,
+  "hold_bend_deg": -438.51312689613917,
+  "tracking_rmse_deg": 52.51188182387706,
+  "maximum_active_tension_N": 7.958583059527885,
+  "maximum_active_cable_takeup_mm": 96.55270305821108,
+  "minimum_active_cable_takeup_mm": 0.0,
+  "maximum_route_status": 0,
+  "mean_hold_joint_angle_deg": -24.361840383118842
+}

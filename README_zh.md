@@ -20,6 +20,10 @@
 [穿绳设计指南](docs/CABLE_DESIGN_AND_THREADING_GUIDE_zh.md) |
 [全部命令](docs/RUN_ALL_DEMOS_zh.md)
 
+新增[论文案例：模型、数据、图表和 raw/annotated 视频](examples/paper/README_zh.md)，
+包含滑轮理论验证、滚动关节、原生 tendon 对照、SpiRobs 摩擦扫描和单指穿绳实验。
+历史论文结果与当前插件复跑分开存放，运行入口及来源说明均在 `examples/`。
+
 这是一个独立的 MuJoCo C++ engine plugin，用于模拟在圆柱和闭合 mesh 表面上包络的
 无质量单边受拉绳索。插件不把绳子离散成大量刚体，而是在运行时计算绳长、自由长度、
 张力、表面接触点以及作用于刚体的力和力矩。

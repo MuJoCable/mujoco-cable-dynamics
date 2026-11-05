@@ -1,0 +1,28 @@
+{
+  "case": "result_1_1_c_winch",
+  "model": "result_1_1_c/models/result_1_1_c.xml",
+  "duration_s": 3.5,
+  "sample_count": 1751,
+  "equations": [
+    "s = r_w theta_w = -r_p theta_p",
+    "theta_p/theta_w = -r_w/r_p",
+    "h approximately equals s for an inextensible cable"
+  ],
+  "parameters": {
+    "winch_radius_m": 0.025,
+    "pulley_radius_m": 0.05,
+    "ideal_angle_ratio": -0.5,
+    "payload_mass_kg": 0.2
+  },
+  "metrics": {
+    "angle_constraint_rmse_rad": 9.469344124847298e-06,
+    "rim_travel_rmse_mm": 0.0004734672062423413,
+    "payload_lift_rmse_mm": 0.09150164151618206,
+    "maximum_route_status": 0.0,
+    "final_payload_lift_mm": 39.832586786801876,
+    "final_theory_takeup_mm": 39.93867768390632,
+    "p95_step_time_ms": 0.5232519120909274,
+    "taut_fraction": 1.0,
+    "saturation_fraction": 0.0
+  }
+}

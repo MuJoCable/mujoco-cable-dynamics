@@ -6,3 +6,9 @@
 *.dll binary
 *.zip binary
 *.gz binary
+
+# Preserve archived experiment bytes for provenance and checksum validation.
+examples/** -text
+examples/**/*.csv whitespace=cr-at-eol
+examples/**/*.svg whitespace=-blank-at-eol linguist-generated=true
+examples/**/models/*.xml whitespace=-blank-at-eol

@@ -1,0 +1,39 @@
+{
+  "_comparison": {
+    "final_angle_difference_deg": 0.0029024741463015147,
+    "interpretation": "The virtual-hinge input prescribes joint angle; the surface-cable input shortens a unilateral cable and the output emerges from contact dynamics.",
+    "protocol": "output_matched",
+    "surface_contraction_command_mm": 6.0,
+    "surface_to_baseline_angle_ratio": 1.0003665389385512,
+    "virtual_hinge_command_per_joint_rad": 0.06912812392862772,
+    "virtual_hinge_nominal_total_angle_deg": 7.921499493535368
+  },
+  "surface_cable:actuation": {
+    "contact_fraction": 0.9992,
+    "final_actual_contraction_mm": 2.9999999999999782,
+    "final_angle_deg": 7.921499493535368,
+    "final_angular_rate_deg_s": 0.30722490573538574,
+    "final_control_command": 0.006,
+    "maximum_route_status": 0,
+    "maximum_tension_N": 5.251678254783203,
+    "p95_step_ms": 5.949604482157156,
+    "peak_abs_angle_deg": 7.921499493535368,
+    "peak_axial_compliance_mm": 1.3126383094565113,
+    "residual_axial_displacement_mm": 1.160662872631102,
+    "rise_time_to_90pct_final_s": 1.0201999999999203
+  },
+  "virtual_hinge:actuation": {
+    "contact_fraction": 0.0,
+    "final_actual_contraction_mm": null,
+    "final_angle_deg": 7.9185970193890665,
+    "final_angular_rate_deg_s": 0.004271746127861907,
+    "final_control_command": 0.06912812392862772,
+    "maximum_route_status": -1,
+    "maximum_tension_N": null,
+    "p95_step_ms": 0.0024170149117708206,
+    "peak_abs_angle_deg": 7.9185970193890665,
+    "peak_axial_compliance_mm": 1.3922770669602983e-10,
+    "residual_axial_displacement_mm": 1.3921319794018006e-10,
+    "rise_time_to_90pct_final_s": 0.43850000000000033
+  }
+}

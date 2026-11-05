@@ -1,0 +1,445 @@
+{
+  "source": "user-supplied SolidWorks STEP export",
+  "source_files": [
+    "0.STEP",
+    "1.STEP",
+    "2.STEP",
+    "3.STEP",
+    "4.STEP",
+    "5.STEP",
+    "6.STEP",
+    "7.STEP",
+    "8.STEP",
+    "9.STEP",
+    "10.STEP",
+    "11.STEP",
+    "12.STEP",
+    "13.STEP",
+    "14.STEP",
+    "15.STEP",
+    "16.STEP",
+    "17.STEP",
+    "18.STEP",
+    "asm_spirobot_reference_geometry.csv"
+  ],
+  "source_sha256": {
+    "0.STEP": "da0b400b6bd07a092cf0179075ae72d5c2bad803475b3a24e8a6479e9a14b417",
+    "1.STEP": "0aefb55662a5f0a533d867da44534d4f840b0786d01b25641427d09392cd60d8",
+    "2.STEP": "e5030af84b81e648e0b9bc6d2ed8ce952186eeafdc9de3a14187391d7ce0cfcc",
+    "3.STEP": "3f0b4fb57fa68b1081795c04f0e2c262a4815bc8288a9b99f9636ab1fd01cba8",
+    "4.STEP": "5f78ccb32fc3b15db40ba1db423177b54a620891320c753f9c207c25da98f0e6",
+    "5.STEP": "46db6a9b8cafb46429652064e24db75e230fa50bb207c5ff9011d14a1e96e5a3",
+    "6.STEP": "9554c7133f7cd4037e9e0980e7e745a9a6ad7b605ad8cc1e2c4dd4a72585dc29",
+    "7.STEP": "fe95105fd464173cb45af7cd5012f41738557fb0502f7f8238ccf8454f2c371e",
+    "8.STEP": "229b3954e295b78ca9f70ed4860e4c524b52c991d68fcac4098f3082d74a6620",
+    "9.STEP": "336bd8a7d4109544b1de48b5882bc900f9632c546337ef8fd6db41c060a9c8fd",
+    "10.STEP": "5179f457791b4bbdec007d53627c5a5ff724764bb98f918049d7c6b2ee5cf706",
+    "11.STEP": "bf16f9d4acbf72792fcf89381559705cfd296862faf20c314d378031cd0a7abe",
+    "12.STEP": "dcedec6f988b56a0b341b02003a3c96510db74412fa389287096a8621eb448c8",
+    "13.STEP": "52f6a2aceb5c6946ec727e400d283bd6b294af10812c9eaea9b7d9e030dac366",
+    "14.STEP": "8db3d3af39d446db466555cc23b0f02b0274a2e14c5eeefd34dec6887d5f0844",
+    "15.STEP": "95bd3946654b369e956d905191d96ebf99ddae00bcc5475a9d0977548265fcec",
+    "16.STEP": "d51ceb0bf7afa388c1b24eac9d6fc4a1baceffe35ed5aa37d9457855bc6c551a",
+    "17.STEP": "8c7582777f9a644a8193f4b46f1ed4afe128a07932dc0556482e2ab328de8416",
+    "18.STEP": "d38e3a616654a95555c6925b9af8589305d77cba4b0b243d715d120d055e5884",
+    "asm_spirobot_reference_geometry.csv": "875e911166dc9535b7b055e100477126b1e0ea91e817fd901585466f766a3b81"
+  },
+  "geometry_method": "convex triangulation of STEP BREP vertices",
+  "step_surface_limit": "B-spline faces are approximated by the convex boundary triangulation",
+  "assembly": {
+    "removed_global_translation_mm": [
+      -0.336554949337486,
+      -12.8903964146462,
+      1000.00000000001
+    ],
+    "maximum_spacing_error_mm": 8.633094239485217e-13,
+    "component_axis": "assembly +Y",
+    "hinge_axis": "local +Z"
+  },
+  "base_part": 0,
+  "moving_parts": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+  ],
+  "unit_count": 18,
+  "total_moving_length_mm": 234.25458849407352,
+  "mean_adjacent_scale": 0.9118000000000002,
+  "maximum_adjacent_scale_deviation": 2.220446049250313e-16,
+  "equivalent_log_spiral_b": 0.17634611749671905,
+  "hole_axis": {
+    "plane": "local z=0 planar body",
+    "tip_fraction_of_lateral_half_width": 0.5,
+    "base_fraction_of_lateral_half_width": 0.9,
+    "positive_equation_mm": "x=20.764906+(-0.0783939246)*y",
+    "negative_equation_mm": "x=-(20.764906+(-0.0783939246)*y)",
+    "guide_span": "derived from STEP lateral rigid-body sections",
+    "physical_bore_note": "STEP files contain no cylindrical bore faces; role-3 guides model the computed axes"
+  },
+  "flexure": {
+    "model": "serial Kelvin-Voigt hinges",
+    "root_stiffness_Nm_per_rad": 0.004,
+    "root_damping_Nms_per_rad": 0.004,
+    "scale_law": "k_i=k_root*s_i^3, c_i=c_root*s_i^3",
+    "calibration_status": "nominal; identify from printed TPU95A torque-angle-rate tests"
+  },
+  "units": [
+    {
+      "unit": 1,
+      "scale": 1.0,
+      "length_mm": 25.500000000000007,
+      "max_half_width_mm": 23.0721177771039,
+      "guide_span_source": "STEP lateral rigid-body sections",
+      "joint_stiffness_Nm_per_rad": 0.004,
+      "joint_damping_Nms_per_rad": 0.004,
+      "positive_entry_local_mm": [
+        19.932166996902286,
+        10.622494117647044,
+        0.0
+      ],
+      "positive_exit_local_mm": [
+        18.932644458770252,
+        23.372494117647044,
+        0.0
+      ]
+    },
+    {
+      "unit": 2,
+      "scale": 0.9118,
+      "length_mm": 23.25090000000001,
+      "max_half_width_mm": 21.037156989163343,
+      "guide_span_source": "STEP lateral rigid-body sections",
+      "joint_stiffness_Nm_per_rad": 0.0030322063641280007,
+      "joint_damping_Nms_per_rad": 0.0030322063641280007,
+      "positive_entry_local_mm": [
+        18.006569500657946,
+        9.685590136470577,
+        0.0
+      ],
+      "positive_exit_local_mm": [
+        17.09520485038916,
+        21.31104013647058,
+        0.0
+      ]
+    },
+    {
+      "unit": 3,
+      "scale": 0.8313792400000003,
+      "length_mm": 21.200170620000012,
+      "max_half_width_mm": 19.18167974271914,
+      "guide_span_source": "STEP lateral rigid-body sections",
+      "joint_stiffness_Nm_per_rad": 0.0022985688586645886,
+      "joint_damping_Nms_per_rad": 0.0022985688586645886,
+      "positive_entry_local_mm": [
+        16.25080970358236,
+        8.831321086433874,
+        0.0
+      ],
+      "positive_exit_local_mm": [
+        15.419827415467278,
+        19.431406396433882,
+        0.0
+      ]
+    },
+    {
+      "unit": 4,
+      "scale": 0.7580515910320004,
+      "length_mm": 19.330315571316014,
+      "max_half_width_mm": 17.489855589411313,
+      "guide_span_source": "STEP lateral rigid-body sections",
+      "joint_stiffness_Nm_per_rad": 0.0017424337804073005,
+      "joint_damping_Nms_per_rad": 0.0017424337804073005,
+      "positive_entry_local_mm": [
+        14.64990792060884,
+        8.052398566610407,
+        0.0
+      ],
+      "positive_exit_local_mm": [
+        13.89221827030551,
+        17.717556352268414,
+        0.0
+      ]
+    },
+    {
+      "unit": 5,
+      "scale": 0.691191440702978,
+      "length_mm": 17.625381737925945,
+      "max_half_width_mm": 15.947250326425237,
+      "guide_span_source": "STEP lateral rigid-body sections",
+      "joint_stiffness_Nm_per_rad": 0.0013208546995056572,
+      "joint_damping_Nms_per_rad": 0.0013208546995056572,
+      "positive_entry_local_mm": [
+        13.190205674893583,
+        7.34217701303537,
+        0.0
+      ],
+      "positive_exit_local_mm": [
+        12.499344251747006,
+        16.154867881998342,
+        0.0
+      ]
+    },
+    {
+      "unit": 6,
+      "scale": 0.6302283556329755,
+      "length_mm": 16.07082306864088,
+      "max_half_width_mm": 14.540702847634535,
+      "guide_span_source": "STEP lateral rigid-body sections",
+      "joint_stiffness_Nm_per_rad": 0.0010012760064823584,
+      "joint_damping_Nms_per_rad": 0.0010012760064823584,
+      "positive_entry_local_mm": [
+        11.85924916725041,
+        6.694597000485651,
+        0.0
+      ],
+      "positive_exit_local_mm": [
+        11.229321721625363,
+        14.73000853480609,
+        0.0
+      ]
+    },
+    {
+      "unit": 7,
+      "scale": 0.5746422146661471,
+      "length_mm": 14.653376473986755,
+      "max_half_width_mm": 13.25821285647317,
+      "guide_span_source": "STEP lateral rigid-body sections",
+      "joint_stiffness_Nm_per_rad": 0.0007590188697761189,
+      "joint_damping_Nms_per_rad": 0.0007590188697761189,
+      "positive_entry_local_mm": [
+        10.645683023581368,
+        6.104133545042819,
+        0.0
+      ],
+      "positive_exit_local_mm": [
+        10.071315178660447,
+        13.430821782036197,
+        0.0
+      ]
+    },
+    {
+      "unit": 8,
+      "scale": 0.523958771332593,
+      "length_mm": 13.360948668981127,
+      "max_half_width_mm": 12.088838482532239,
+      "guide_span_source": "STEP lateral rigid-body sections",
+      "joint_stiffness_Nm_per_rad": 0.0005753754618570979,
+      "joint_damping_Nms_per_rad": 0.0005753754618570979,
+      "positive_entry_local_mm": [
+        9.53915341378393,
+        5.565748966370043,
+        0.0
+      ],
+      "positive_exit_local_mm": [
+        9.015444812785038,
+        12.246223300860606,
+        0.0
+      ]
+    },
+    {
+      "unit": 9,
+      "scale": 0.47774560770105845,
+      "length_mm": 12.182512996376994,
+      "max_half_width_mm": 11.022602928372898,
+      "guide_span_source": "STEP lateral rigid-body sections",
+      "joint_stiffness_Nm_per_rad": 0.0004361642843015452,
+      "joint_damping_Nms_per_rad": 0.0004361642843015452,
+      "positive_entry_local_mm": [
+        8.53021971557063,
+        5.074849907536206,
+        0.0
+      ],
+      "positive_exit_local_mm": [
+        8.05270221317984,
+        11.166106405724703,
+        0.0
+      ]
+    },
+    {
+      "unit": 10,
+      "scale": 0.43560844510182517,
+      "length_mm": 11.108015350096546,
+      "max_half_width_mm": 10.05040935009041,
+      "guide_span_source": "STEP lateral rigid-body sections",
+      "joint_stiffness_Nm_per_rad": 0.00033063502966612006,
+      "joint_damping_Nms_per_rad": 0.00033063502966612006,
+      "positive_entry_local_mm": [
+        7.610273969539742,
+        4.627248145691513,
+        0.0
+      ],
+      "positive_exit_local_mm": [
+        7.174873510859818,
+        10.181255820739786,
+        0.0
+      ]
+    },
+    {
+      "unit": 11,
+      "scale": 0.3971877802438444,
+      "length_mm": 10.128288396218034,
+      "max_half_width_mm": 9.163963245412438,
+      "guide_span_source": "STEP lateral rigid-body sections",
+      "joint_stiffness_Nm_per_rad": 0.00025063841028931524,
+      "joint_damping_Nms_per_rad": 0.00025063841028931524,
+      "positive_entry_local_mm": [
+        6.771467438308779,
+        4.219124859241523,
+        0.0
+      ],
+      "positive_exit_local_mm": [
+        6.374469300084424,
+        9.283269057350537,
+        0.0
+      ]
+    },
+    {
+      "unit": 12,
+      "scale": 0.36215581802633734,
+      "length_mm": 9.234973359671605,
+      "max_half_width_mm": 8.355701687167063,
+      "guide_span_source": "STEP lateral rigid-body sections",
+      "joint_stiffness_Nm_per_rad": 0.00018999684569354663,
+      "joint_damping_Nms_per_rad": 0.00018999684569354663,
+      "positive_entry_local_mm": [
+        6.006643643132387,
+        3.846998046656421,
+        0.0
+      ],
+      "positive_exit_local_mm": [
+        5.644660740699418,
+        8.464484726492222,
+        0.0
+      ]
+    },
+    {
+      "unit": 13,
+      "scale": 0.3302136748764144,
+      "length_mm": 8.42044870934857,
+      "max_half_width_mm": 7.618728798358929,
+      "guide_span_source": "STEP lateral rigid-body sections",
+      "joint_stiffness_Nm_per_rad": 0.00014402741116905445,
+      "joint_damping_Nms_per_rad": 0.00014402741116905445,
+      "positive_entry_local_mm": [
+        5.309277306690548,
+        3.5076928189413255,
+        0.0
+      ],
+      "positive_exit_local_mm": [
+        4.97922129625217,
+        7.717917173615609,
+        0.0
+      ]
+    },
+    {
+      "unit": 14,
+      "scale": 0.3010888287523147,
+      "length_mm": 7.677765133184026,
+      "max_half_width_mm": 6.946756918343673,
+      "guide_span_source": "STEP lateral rigid-body sections",
+      "joint_stiffness_Nm_per_rad": 0.00010918020818892181,
+      "joint_damping_Nms_per_rad": 0.00010918020818892181,
+      "positive_entry_local_mm": [
+        4.673418681122882,
+        3.198314312310701,
+        0.0
+      ],
+      "positive_exit_local_mm": [
+        4.372473610805173,
+        7.037196878902714,
+        0.0
+      ]
+    },
+    {
+      "unit": 15,
+      "scale": 0.27453279405636055,
+      "length_mm": 7.000586248437196,
+      "max_half_width_mm": 6.3340529581457625,
+      "guide_span_source": "STEP lateral rigid-body sections",
+      "joint_stiffness_Nm_per_rad": 8.27642305268172e-05,
+      "joint_damping_Nms_per_rad": 8.27642305268172e-05,
+      "positive_entry_local_mm": [
+        4.093642786330285,
+        2.916222989964898,
+        0.0
+      ],
+      "positive_exit_local_mm": [
+        3.819241071214595,
+        6.416516114183496,
+        0.0
+      ]
+    },
+    {
+      "unit": 16,
+      "scale": 0.2503190016205896,
+      "length_mm": 6.383134541325037,
+      "max_half_width_mm": 5.775389487237307,
+      "guide_span_source": "STEP lateral rigid-body sections",
+      "joint_stiffness_Nm_per_rad": 6.273955663139305e-05,
+      "joint_damping_Nms_per_rad": 6.273955663139305e-05,
+      "positive_entry_local_mm": [
+        3.5650031254583965,
+        2.6590121222499947,
+        0.0
+      ],
+      "positive_exit_local_mm": [
+        3.3148036416159066,
+        5.850579392912512,
+        0.0
+      ]
+    },
+    {
+      "unit": 17,
+      "scale": 0.22824086567765367,
+      "length_mm": 5.82014207478017,
+      "max_half_width_mm": 5.266000134462977,
+      "guide_span_source": "STEP lateral rigid-body sections",
+      "joint_stiffness_Nm_per_rad": 4.75598207250698e-05,
+      "joint_damping_Nms_per_rad": 4.75598207250698e-05,
+      "positive_entry_local_mm": [
+        3.082989482675405,
+        2.4244872530675456,
+        0.0
+      ],
+      "positive_exit_local_mm": [
+        2.854857593307827,
+        5.33455829045763,
+        0.0
+      ]
+    },
+    {
+      "unit": 18,
+      "scale": 0.20811002132488465,
+      "length_mm": 5.30680554378456,
+      "max_half_width_mm": 4.801538922603344,
+      "guide_span_source": "STEP lateral rigid-body sections",
+      "joint_stiffness_Nm_per_rad": 3.605279776983587e-05,
+      "joint_damping_Nms_per_rad": 3.605279776983587e-05,
+      "positive_entry_local_mm": [
+        2.643489443185878,
+        2.2106474773469884,
+        0.0
+      ],
+      "positive_exit_local_mm": [
+        2.435478786460518,
+        4.864050249239268,
+        0.0
+      ]
+    }
+  ]
+}

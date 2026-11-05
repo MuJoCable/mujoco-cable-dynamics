@@ -1,0 +1,239 @@
+{
+  "assets": {
+    "index_mp.stl": {
+      "contact_asset": "index_mp_contact.obj",
+      "contact_depth_m": 0.006,
+      "contact_metrics": {
+        "boundary_edges": 6,
+        "bounds_m": [
+          [
+            -0.04242810821533203,
+            0.16913705444335939,
+            0.01852068901062012
+          ],
+          [
+            -0.028373672485351564,
+            0.1758656768798828,
+            0.028945274353027343
+          ]
+        ],
+        "connected_components": 1,
+        "degenerate_faces": 0,
+        "faces": 70,
+        "nonmanifold_edges": 0,
+        "signed_volume_m3": -6.318536151077084e-06,
+        "vertices": 39
+      },
+      "exact_duplicate_faces_removed": 11,
+      "extracted_outer_metrics": {
+        "boundary_edges": 0,
+        "bounds_m": [
+          [
+            -0.0451697883605957,
+            0.16913705444335939,
+            0.01852068901062012
+          ],
+          [
+            -0.028373672485351564,
+            0.2039374694824219,
+            0.0319508056640625
+          ]
+        ],
+        "connected_components": 1,
+        "degenerate_faces": 0,
+        "faces": 272,
+        "nonmanifold_edges": 0,
+        "signed_volume_m3": 3.287610203394618e-06,
+        "vertices": 138
+      },
+      "outer_asset": "index_mp_outer.obj",
+      "outer_metrics": {
+        "boundary_edges": 0,
+        "bounds_m": [
+          [
+            -0.0451697883605957,
+            0.16913705444335939,
+            0.01852068901062012
+          ],
+          [
+            -0.028373672485351564,
+            0.2039374694824219,
+            0.0319508056640625
+          ]
+        ],
+        "connected_components": 1,
+        "degenerate_faces": 0,
+        "faces": 6496,
+        "nonmanifold_edges": 0,
+        "signed_volume_m3": 3.2876102033946686e-06,
+        "vertices": 3250
+      },
+      "route_max_edge_m": 0.002,
+      "selection": {
+        "candidate_count": 20,
+        "enclosed_volume_m3": 3.287610203394618e-06,
+        "manifold_patch_sizes": [
+          7,
+          6,
+          3,
+          4,
+          2,
+          2,
+          248,
+          2,
+          7,
+          832,
+          4
+        ],
+        "rejected_larger_self_intersecting_candidates": [
+          {
+            "enclosed_volume_m3": 5.105739887200578e-06,
+            "faces": 1080,
+            "intersecting_faces": [
+              0,
+              361
+            ]
+          }
+        ],
+        "selected_patch_sizes": [
+          6,
+          3,
+          2,
+          2,
+          248,
+          7,
+          4
+        ],
+        "selected_patches": [
+          1,
+          2,
+          4,
+          5,
+          6,
+          8,
+          10
+        ],
+        "self_intersection_tolerance_m": 4.2118099451446874e-11
+      },
+      "source_faces": 1128
+    },
+    "index_pp.stl": {
+      "contact_asset": "index_pp_contact.obj",
+      "contact_depth_m": 0.006,
+      "contact_metrics": {
+        "boundary_edges": 21,
+        "bounds_m": [
+          [
+            -0.041618072509765625,
+            0.16159458923339845,
+            0.013677524566650391
+          ],
+          [
+            -0.02708036422729492,
+            0.17038430786132813,
+            0.027881254196166994
+          ]
+        ],
+        "connected_components": 1,
+        "degenerate_faces": 0,
+        "faces": 131,
+        "nonmanifold_edges": 0,
+        "signed_volume_m3": 8.017319036297797e-06,
+        "vertices": 77
+      },
+      "exact_duplicate_faces_removed": 18,
+      "extracted_outer_metrics": {
+        "boundary_edges": 0,
+        "bounds_m": [
+          [
+            -0.041618072509765625,
+            0.12372125244140625,
+            0.010390260696411134
+          ],
+          [
+            -0.02344044876098633,
+            0.17038430786132813,
+            0.027881254196166994
+          ]
+        ],
+        "connected_components": 1,
+        "degenerate_faces": 0,
+        "faces": 292,
+        "nonmanifold_edges": 0,
+        "signed_volume_m3": 5.656674906056308e-06,
+        "vertices": 148
+      },
+      "outer_asset": "index_pp_outer.obj",
+      "outer_metrics": {
+        "boundary_edges": 0,
+        "bounds_m": [
+          [
+            -0.041618072509765625,
+            0.12372125244140625,
+            0.010390260696411134
+          ],
+          [
+            -0.02344044876098633,
+            0.17038430786132813,
+            0.027881254196166994
+          ]
+        ],
+        "connected_components": 1,
+        "degenerate_faces": 0,
+        "faces": 8820,
+        "nonmanifold_edges": 0,
+        "signed_volume_m3": 5.656674906056503e-06,
+        "vertices": 4412
+      },
+      "route_max_edge_m": 0.002,
+      "selection": {
+        "candidate_count": 20,
+        "enclosed_volume_m3": 5.656674906056308e-06,
+        "manifold_patch_sizes": [
+          9,
+          2,
+          9,
+          2,
+          2,
+          268,
+          2,
+          2,
+          2,
+          824
+        ],
+        "rejected_larger_self_intersecting_candidates": [
+          {
+            "enclosed_volume_m3": 9.200935729002083e-06,
+            "faces": 1092,
+            "intersecting_faces": [
+              0,
+              379
+            ]
+          }
+        ],
+        "selected_patch_sizes": [
+          9,
+          9,
+          2,
+          2,
+          268,
+          2
+        ],
+        "selected_patches": [
+          0,
+          2,
+          3,
+          4,
+          5,
+          7
+        ],
+        "self_intersection_tolerance_m": 5.3952399200979654e-11
+      },
+      "source_faces": 1140
+    }
+  },
+  "generator": "scripts/prepare_faive_pip_outer_surfaces.py",
+  "method": "exact duplicate removal, nonmanifold-edge patch cut, exhaustive closed-patch selection by maximum enclosed volume, consistent outward winding, and conforming route-edge subdivision",
+  "output_units": "m",
+  "source_units": "mm"
+}

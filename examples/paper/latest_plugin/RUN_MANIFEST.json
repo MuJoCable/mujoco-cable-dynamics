@@ -1,0 +1,381 @@
+{
+  "date": "2026-11-04",
+  "base_commit": "68c555951ec1f5ca222827876f4a37909fe18c87",
+  "plugin_sha256": "8292c3de3a5aaaaa743fa3e2cd29d6ac4d7bd87bf3726ee86b6be2a72fc6ff0d",
+  "files": [
+    {
+      "path": "result1/figures/figure3_result1_pulley_validation.pdf",
+      "sha256": "02f6efa5e878c1a6a8d40c3897bedda20448c8cdf1daff74298cc79439a991ca"
+    },
+    {
+      "path": "result1/figures/figure3_result1_pulley_validation.png",
+      "sha256": "55f4ac3bd3abee5f6e35e8f04a29a2b831786a172960cc284013d20dc800ac88"
+    },
+    {
+      "path": "result1/figures/figure3_result1_pulley_validation.svg",
+      "sha256": "a634efb8bb1957b57560b22ea74a82eacec86e57cbbeea1e320555d17343506f"
+    },
+    {
+      "path": "result1/result1_reproduction.json",
+      "sha256": "18236c794960ec78ad743f9177f19b9dfc6b5e677b76158d450b04d293bc46bc"
+    },
+    {
+      "path": "result1/result_1_1/data/result_1_1_mu_0_summary.json",
+      "sha256": "9a40c9b2ae5fdd97d2ca628f937753393029739aa7d35eca4e5f0cb23e990a19"
+    },
+    {
+      "path": "result1/result_1_1/data/result_1_1_mu_0_timeseries.csv",
+      "sha256": "9243904b7373b659c5fd3e6c9617cc52214a4c12b388f9611c24f4cea8398548"
+    },
+    {
+      "path": "result1/result_1_1/data/result_1_1_mu_0p15_summary.json",
+      "sha256": "9035a8bd04602d89a1676294e4ff52dedb211c3c0f385ef732b9f3ee3f13cd55"
+    },
+    {
+      "path": "result1/result_1_1/data/result_1_1_mu_0p15_timeseries.csv",
+      "sha256": "153145514d0940c8f8ecbecd72e498cad19cdf938e4d35954142eb27621780be"
+    },
+    {
+      "path": "result1/result_1_1/figures/result_1_1_mu_0_theory_vs_simulation.pdf",
+      "sha256": "57f6304ae3807f00801affdf910fcf8725d57f2a9475392f50b6e740336ef329"
+    },
+    {
+      "path": "result1/result_1_1/figures/result_1_1_mu_0_theory_vs_simulation.png",
+      "sha256": "4ecfa754daa5c9fb1ff0ce0a05924244158040177bd647f09398adff225929d6"
+    },
+    {
+      "path": "result1/result_1_1/figures/result_1_1_mu_0_theory_vs_simulation.svg",
+      "sha256": "506de0241937e301e220be2d6653b149a13fa600413bf3941a69792d0e96ec62"
+    },
+    {
+      "path": "result1/result_1_1/figures/result_1_1_mu_0p15_theory_vs_simulation.pdf",
+      "sha256": "17a64ac0703d54dd39e9d1597a9a6b0f19f0237bd486de41b479bf73bd6da167"
+    },
+    {
+      "path": "result1/result_1_1/figures/result_1_1_mu_0p15_theory_vs_simulation.png",
+      "sha256": "855f57ccb1bf2d5f3d6ecf45fc3b878dec7f2002313af8173d47ebfc12c352d6"
+    },
+    {
+      "path": "result1/result_1_1/figures/result_1_1_mu_0p15_theory_vs_simulation.svg",
+      "sha256": "f034d4076b2ad80584304ef51f548187eacf942d60a84475f6b88182828fea95"
+    },
+    {
+      "path": "result1/result_1_1_b/data/result_1_1_b_mu_0_summary.json",
+      "sha256": "4235edad2521f3e4dd83cb2d0281821ffb5ecd28fcd9f7ddca7629a38bc84aed"
+    },
+    {
+      "path": "result1/result_1_1_b/data/result_1_1_b_mu_0_timeseries.csv",
+      "sha256": "5b9c01f27d33793b4d4259f5a7a682d7e1c61174d5dd72f349e5f87612d65c88"
+    },
+    {
+      "path": "result1/result_1_1_b/data/result_1_1_b_mu_0p15_summary.json",
+      "sha256": "94fec5a522aa2bf8398924612148498dd271dfe228e3d6f1fc3f7cacbc106855"
+    },
+    {
+      "path": "result1/result_1_1_b/data/result_1_1_b_mu_0p15_timeseries.csv",
+      "sha256": "ebc614cada8959ebd4ec37c53cef0415cd4843f3c06e0a88eaf233f27bfe8a1d"
+    },
+    {
+      "path": "result1/result_1_1_b/figures/result_1_1_b_mu_0_theory_vs_simulation.pdf",
+      "sha256": "d723c7f0c62ab22a6357c77f3155ae4c82f0b8e6c14614dc69759f2dea85fea2"
+    },
+    {
+      "path": "result1/result_1_1_b/figures/result_1_1_b_mu_0_theory_vs_simulation.png",
+      "sha256": "f00540ed8b1c74254459b85a44f4fc227de5ebd586486b169d247ea38c77dc32"
+    },
+    {
+      "path": "result1/result_1_1_b/figures/result_1_1_b_mu_0_theory_vs_simulation.svg",
+      "sha256": "390281d37bec1383419ad0ac463544d823e6a69d72e4d46aada30f59496db4f4"
+    },
+    {
+      "path": "result1/result_1_1_b/figures/result_1_1_b_mu_0p15_theory_vs_simulation.pdf",
+      "sha256": "2d1be2a4e1e1c46d10ebbfb6a7ce907e98ed58a6738492419b97739e6c82536d"
+    },
+    {
+      "path": "result1/result_1_1_b/figures/result_1_1_b_mu_0p15_theory_vs_simulation.png",
+      "sha256": "eca57f3363cf4528e6ea7c34ec2bedc326ffaa41ec590b42e6de12f8e728e8de"
+    },
+    {
+      "path": "result1/result_1_1_b/figures/result_1_1_b_mu_0p15_theory_vs_simulation.svg",
+      "sha256": "0f5711015486b6c86e54a2505743363fad8bc83b4cc7181450ee1b3d922e941f"
+    },
+    {
+      "path": "result1/result_1_1_c/data/result_1_1_c_winch_summary.json",
+      "sha256": "801198b31bcaa5732b3d432279994c97e4a242f5aa5cc747fd00aa5961cceadc"
+    },
+    {
+      "path": "result1/result_1_1_c/data/result_1_1_c_winch_timeseries.csv",
+      "sha256": "98878d5abbbf538df5c4df6d0a3a0e5d53b12327db02633982526a8a11f29c8e"
+    },
+    {
+      "path": "result1/result_1_1_c/figures/result_1_1_c_winch_theory_vs_simulation.pdf",
+      "sha256": "844e4f1d42ffd276797bb6543c3315307f288c99904f2305f2382ea2b9e54f7e"
+    },
+    {
+      "path": "result1/result_1_1_c/figures/result_1_1_c_winch_theory_vs_simulation.png",
+      "sha256": "ce092f2892db5e5b638b50ff9653a87a66176c010fd7733bb1bbdf642a822564"
+    },
+    {
+      "path": "result1/result_1_1_c/figures/result_1_1_c_winch_theory_vs_simulation.svg",
+      "sha256": "4bab1b2972b77fe0c7fa03674a0dd8872737cca7481f1d64894ba4daeacf3216"
+    },
+    {
+      "path": "result1/result_1_2/data/result_1_2_moving_pulley_summary.json",
+      "sha256": "dd2bbc8bdfde4b83ad6a5c94f8ed8749b96314ec65419b40d26b4c9533498831"
+    },
+    {
+      "path": "result1/result_1_2/data/result_1_2_moving_pulley_timeseries.csv",
+      "sha256": "e97973cc7e191221bba5ba5ac533d68f066997929e7bab409f966df3a271a158"
+    },
+    {
+      "path": "result1/result_1_2/figures/result_1_2_moving_pulley_theory_vs_simulation.pdf",
+      "sha256": "d8a7caf710a67f07f5b331825f89f439a8372ee906d48f58021870cc423cce32"
+    },
+    {
+      "path": "result1/result_1_2/figures/result_1_2_moving_pulley_theory_vs_simulation.png",
+      "sha256": "7d05a0a4ae902ce221869d47c61c2b8be9893a9adfffc9285dd79bc850d52dab"
+    },
+    {
+      "path": "result1/result_1_2/figures/result_1_2_moving_pulley_theory_vs_simulation.svg",
+      "sha256": "2ee2c6691ec0e6daf7a52b476c0e309d9cb08aa84afa8f0c6c3aa30ed8ec0291"
+    },
+    {
+      "path": "result1/result_1_3/data/result_1_3_atwood_landing_summary.json",
+      "sha256": "f8d073f22a6d5f024fcd26807d310f704c1b8e282ced1c0d3a5053c05f549519"
+    },
+    {
+      "path": "result1/result_1_3/data/result_1_3_atwood_landing_timeseries.csv",
+      "sha256": "c440675b5f317a9973eb4b8b84b807376895990fa6f1f551c874094ca18b02a1"
+    },
+    {
+      "path": "result1/result_1_3/figures/result_1_3_atwood_landing_theory_vs_simulation.pdf",
+      "sha256": "4c69b952ff659fa8810f9817dbed416ed7b46f70447731827d1ea49d3a7d3b90"
+    },
+    {
+      "path": "result1/result_1_3/figures/result_1_3_atwood_landing_theory_vs_simulation.png",
+      "sha256": "47743211736f394cfe70d7fa26c7dd6ae728a9c069c9763370d9c2406eacf416"
+    },
+    {
+      "path": "result1/result_1_3/figures/result_1_3_atwood_landing_theory_vs_simulation.svg",
+      "sha256": "f34532b34f9ea4db9ec560c5397975a8738269d55c61ba12cdde718ff1f4c526"
+    },
+    {
+      "path": "result1/result_1_summary.csv",
+      "sha256": "f9915736f60c4c15cf151dd063f42509a55b47c37fcc408d10ba338863c140ce"
+    },
+    {
+      "path": "result1/result_1_theory_and_statistics.json",
+      "sha256": "f24feeaee8a1fbdacf4f3a96c453fe66ccb5ca1b74ddbf1399238b452ee82df1"
+    },
+    {
+      "path": "result2/figures/figure4_result2_simulation_comparison.pdf",
+      "sha256": "df783a560016c1f82404286d7bffac754a0342baa01b06c830d6a4ad11ef25c4"
+    },
+    {
+      "path": "result2/figures/figure4_result2_simulation_comparison.png",
+      "sha256": "4c9556b11822d8d6ed2776c7bba3ed202c95780e41bdc1c7961758c7d7ca539a"
+    },
+    {
+      "path": "result2/figures/figure4_result2_simulation_comparison.svg",
+      "sha256": "8340deab431f1dcce0375433425d6a07f0ea8273e5235767c4a6eda4f3f6e09e"
+    },
+    {
+      "path": "result2/result2_reproduction.json",
+      "sha256": "f5aeff9ee6fbb8303ac31d112a1af18cf9d8ccec2b182bee28d65e9e9305855f"
+    },
+    {
+      "path": "result2/result_2_1/data/result_2_1_faive_comparison.csv",
+      "sha256": "15c7f315b967051500e00654cf3c1c5e31c40763be29b7fc4c7e93df07b9030b"
+    },
+    {
+      "path": "result2/result_2_1/data/result_2_1_faive_summary.json",
+      "sha256": "171385f59df84a262ecac90c64fb5c6bdbbc5665a4a8a24167b0ded0ae4cf4c1"
+    },
+    {
+      "path": "result2/result_2_1/figures/result_2_1_faive_50deg_comparison.pdf",
+      "sha256": "7fa678600c34647e852b213d361490e834d3ceff89a5ff0016e0da4c06d74177"
+    },
+    {
+      "path": "result2/result_2_1/figures/result_2_1_faive_50deg_comparison.png",
+      "sha256": "34872670eaaacdd4892503f7d2ed689ee6203bb1af03929adefb131841607433"
+    },
+    {
+      "path": "result2/result_2_1/figures/result_2_1_faive_50deg_comparison.svg",
+      "sha256": "ddbe96c3992ccb8b4a7c85430db9a5066bc7b26e524a61a785b21c459832870d"
+    },
+    {
+      "path": "result2/result_2_2/data/result_2_2_comparison.csv",
+      "sha256": "a4031d093e80347aabbc1d8a0074ea4b4b03a112b2c0f1ded8259bf27447bd4d"
+    },
+    {
+      "path": "result2/result_2_2/data/result_2_2_joint_parameters.csv",
+      "sha256": "8509aed7baf6367df0897f9398d4a311a1c9333a667c0b7e9311b6b74a033a25"
+    },
+    {
+      "path": "result2/result_2_2/data/result_2_2_summary.json",
+      "sha256": "3f5e324cb16aa75bfc23f9f38efd0dde7e9dd2b494949c6e445a2ba00f952b40"
+    },
+    {
+      "path": "result2/result_2_2/figures/result_2_2_native_vs_mujocable.pdf",
+      "sha256": "7bd5719d3bdada852e880edb76c492806e55ac851ffa82c83b8204fa76385d45"
+    },
+    {
+      "path": "result2/result_2_2/figures/result_2_2_native_vs_mujocable.png",
+      "sha256": "c818044bfae1afe306b4d55b6163b47ed4a75652f39f0554ab27e461c490aa13"
+    },
+    {
+      "path": "result2/result_2_2/figures/result_2_2_native_vs_mujocable.svg",
+      "sha256": "72f7eb713921124d7490626184ca17da36508ec104e6cb9affa8d293074e8e51"
+    },
+    {
+      "path": "result2/result_2_3/data/result_2_3_hold_shape_coordinates.csv",
+      "sha256": "338d246dbd5fdb4e29a787f1409a00dbd0b374ea1f39d9fce579267a2ed3c4e1"
+    },
+    {
+      "path": "result2/result_2_3/data/result_2_3_joint_response_long.csv",
+      "sha256": "11dcbc9302b2a252a1f00f0be86a228356bf7cbead007d30274dfe0f23238056"
+    },
+    {
+      "path": "result2/result_2_3/data/result_2_3_mu_0p00.csv",
+      "sha256": "3f4d9cb9f944083c6db3ca41c898e5bb381cbe9eecd74fdfa03aa0c0af625894"
+    },
+    {
+      "path": "result2/result_2_3/data/result_2_3_mu_0p15.csv",
+      "sha256": "30bc93d56b8e5dcc127262d8e4e02fa629d828a24d11db3a83157e990981f9a9"
+    },
+    {
+      "path": "result2/result_2_3/data/result_2_3_mu_0p30.csv",
+      "sha256": "c1370960d9d0b33837ecf9cefdadebe99c1878add1764f2e550f4b7524770058"
+    },
+    {
+      "path": "result2/result_2_3/data/result_2_3_mu_0p45.csv",
+      "sha256": "1ebd8386bcf5e1044a3e72d21e9a8f5bf5af42b5b707d1ac33f0e5c34a9042a2"
+    },
+    {
+      "path": "result2/result_2_3/data/result_2_3_mu_0p60.csv",
+      "sha256": "ff4415aaf07a7d39a4a82c374cd5083b4d82a677bc41f38c329e1962960f69d8"
+    },
+    {
+      "path": "result2/result_2_3/data/result_2_3_summary.json",
+      "sha256": "5efb0d546371177d0c2494ddbc83c124dd8740435ce0f6c954cf0f940cf497c8"
+    },
+    {
+      "path": "result2/result_2_3/figures/result_2_3_extension_vs_each_joint.pdf",
+      "sha256": "d799d1edadca615df5560c96da784128c0c43678796ca1ae78e527c33d24fb44"
+    },
+    {
+      "path": "result2/result_2_3/figures/result_2_3_extension_vs_each_joint.png",
+      "sha256": "c914fb35e490ed454c607542007a1bc0e3c6838a6b6048db25d598107e8349d3"
+    },
+    {
+      "path": "result2/result_2_3/figures/result_2_3_extension_vs_each_joint.svg",
+      "sha256": "9d3bfa6e25d1c3615913db53355fcd3eb28a3c5da4a1f9937518923bb3743d94"
+    },
+    {
+      "path": "result2/result_2_3/figures/result_2_3_friction_bending_states.pdf",
+      "sha256": "899c087915b045fe9855840629998572e1adf976d37ad87cc5e561b7d33a1887"
+    },
+    {
+      "path": "result2/result_2_3/figures/result_2_3_friction_bending_states.png",
+      "sha256": "f2bf2cab407fa0b4992f7e81c478fecd3ed6aac159b9e1d249df9aa817dcd2fe"
+    },
+    {
+      "path": "result2/result_2_3/figures/result_2_3_friction_bending_states.svg",
+      "sha256": "193a482dd860631dba06b6c29246e440019eb4de8a8d8c498920c29bda689bbe"
+    },
+    {
+      "path": "result2/result_2_3/figures/result_2_3_friction_summary.pdf",
+      "sha256": "4ad78559af6d94f99aab7b1a7b04a5d3cd4b2d7bc88fa1818cc2cb12876598b8"
+    },
+    {
+      "path": "result2/result_2_3/figures/result_2_3_friction_summary.png",
+      "sha256": "cec28fe333b16b16a7d925a6ae3b6cc1aec7c9b79f1ecafaef2d6bbf89ecc87f"
+    },
+    {
+      "path": "result2/result_2_3/figures/result_2_3_friction_summary.svg",
+      "sha256": "97b9911775d8f7b436e7c98165a6a3ac750229cf225b72527a83b64c885aa425"
+    },
+    {
+      "path": "result2/result_2_3/figures/result_2_3_tension_vs_each_joint.pdf",
+      "sha256": "436c9b8e29d120be8e3161f4d284ebadf8fe69f8c7379a3f8343279a3e00bfe7"
+    },
+    {
+      "path": "result2/result_2_3/figures/result_2_3_tension_vs_each_joint.png",
+      "sha256": "d6d17a1b5cf6baf5c943118b72030561ce53957576872d315a9abb8e8baeed9d"
+    },
+    {
+      "path": "result2/result_2_3/figures/result_2_3_tension_vs_each_joint.svg",
+      "sha256": "61cedc46fe060bfd7e4439208f8286c48f5c03374314b6ac7da0fd34a531c2ac"
+    },
+    {
+      "path": "result2/result_2_summary.csv",
+      "sha256": "3d406bd0b9a221a69c9642a2815585f49a57750fea63343034d172baceca378d"
+    },
+    {
+      "path": "cycle/comparison_summary.csv",
+      "sha256": "43dcda0781ada04c34a12103b4a7bec6ab96a2f6e4123f3fd66c9a4062bc0fa6"
+    },
+    {
+      "path": "cycle/cycle_reproduction.json",
+      "sha256": "30a42b7c2292bfbca33c311cda0b64433e86f8aadb03b2de5e3beb67dd0ce64a"
+    },
+    {
+      "path": "cycle/demo49_tpu95hf/bending_cycle.pdf",
+      "sha256": "70e5ad2a97226a24eaab2c79511f48cf20ac5fe831c77af1417ed17bb93e87e2"
+    },
+    {
+      "path": "cycle/demo49_tpu95hf/bending_cycle.png",
+      "sha256": "7f734fdb512c379bcc79130a5bb73a7be86b01c78827666be181640667e66c4d"
+    },
+    {
+      "path": "cycle/demo49_tpu95hf/bending_cycle.svg",
+      "sha256": "377e5ce29096544331a708d2997632a475d5dd238c948ab1824e5cf1ce7dd851"
+    },
+    {
+      "path": "cycle/demo49_tpu95hf/bending_cycle_timeseries.csv",
+      "sha256": "b12e56dbe3acb500683d578cd082ed392b891c7d2bc64cacb4b5a45b9da3fecb"
+    },
+    {
+      "path": "cycle/demo49_tpu95hf/cable_length_change_vs_time.pdf",
+      "sha256": "65391177034b3c397c9a6605435f434476305e21d2279af676400ed2b07c24be"
+    },
+    {
+      "path": "cycle/demo49_tpu95hf/cable_length_change_vs_time.png",
+      "sha256": "956294736ddb3ed1b6cfb36a8929052c6e7e74967558cad4b1c1dd186f4c90ba"
+    },
+    {
+      "path": "cycle/demo49_tpu95hf/cable_length_change_vs_time.svg",
+      "sha256": "3b5a5e4a9d2ef4a66ad53825a794bbc71169ffc71e8030fd0eab09183a57e3c8"
+    },
+    {
+      "path": "cycle/demo49_tpu95hf/servo_trajectory.csv",
+      "sha256": "031765a21826e2a11924d59bf82c545eb683e06ec1044d8d520542ad8aa6d4ef"
+    },
+    {
+      "path": "cycle/demo49_tpu95hf/summary.json",
+      "sha256": "149ca17744cffd4ba99417d686074d773a59713622466515b6e43800e32fda94"
+    },
+    {
+      "path": "cycle/joint_stiffness_comparison.csv",
+      "sha256": "2a08d72e65cc7fdbd322ccda8fbd982742f3cd7b5590d938436cb887a148e71f"
+    },
+    {
+      "path": "cycle/model_comparison.pdf",
+      "sha256": "53cad3998bf2bc05df442acd28847ccba53215fdd38220b71b665f541d89bfd5"
+    },
+    {
+      "path": "cycle/model_comparison.png",
+      "sha256": "dad27d7063f3f42dc4a5a8c66d17106c302c2c39c280408b2eb2dcc19d5138b9"
+    },
+    {
+      "path": "cycle/model_comparison.svg",
+      "sha256": "127d4f6bfa1cd3f55033d0e66b54a937e39327b8f043fca4d05ab6d0d4f243d2"
+    },
+    {
+      "path": "cycle/summary.json",
+      "sha256": "264e71259d5560da966d9cf8c0dba7decfccfcebdc6aff9f0e287df785b7027b"
+    }
+  ],
+  "fresh_media_rendered": false,
+  "scope": "Fresh headless numeric runs and plots; historical videos remain labeled separately. Timing collected during this run is diagnostic, not an isolated benchmark."
+}

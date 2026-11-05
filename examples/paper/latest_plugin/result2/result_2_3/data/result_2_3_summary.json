@@ -1,0 +1,52 @@
+{
+  "mujocable_mu_0": {
+    "final_bend_deg": -527.7403911133233,
+    "hold_bend_deg": -525.5967005446523,
+    "tracking_rmse_deg": 24.26467306044254,
+    "maximum_active_tension_N": 1.8557275263200856,
+    "maximum_active_cable_takeup_mm": 87.59010946054892,
+    "minimum_active_cable_takeup_mm": 0.0,
+    "maximum_route_status": 0,
+    "mean_hold_joint_angle_deg": -29.199816696925126
+  },
+  "mujocable_mu_0.15": {
+    "final_bend_deg": -524.6609022857244,
+    "hold_bend_deg": -522.9701147777356,
+    "tracking_rmse_deg": 25.069619321011846,
+    "maximum_active_tension_N": 2.538014341639171,
+    "maximum_active_cable_takeup_mm": 92.69365141051439,
+    "minimum_active_cable_takeup_mm": 0.0,
+    "maximum_route_status": 0,
+    "mean_hold_joint_angle_deg": -29.053895265429755
+  },
+  "mujocable_mu_0.3": {
+    "final_bend_deg": -503.4997800129849,
+    "hold_bend_deg": -502.4958280705796,
+    "tracking_rmse_deg": 29.393846138481376,
+    "maximum_active_tension_N": 6.553321563111456,
+    "maximum_active_cable_takeup_mm": 98.90728475668051,
+    "minimum_active_cable_takeup_mm": 0.0,
+    "maximum_route_status": 0,
+    "mean_hold_joint_angle_deg": -27.916434892809974
+  },
+  "mujocable_mu_0.45": {
+    "final_bend_deg": -437.0446258052722,
+    "hold_bend_deg": -438.51312883283447,
+    "tracking_rmse_deg": 52.51188093876831,
+    "maximum_active_tension_N": 7.9585830595569025,
+    "maximum_active_cable_takeup_mm": 96.55270313025409,
+    "minimum_active_cable_takeup_mm": 0.0,
+    "maximum_route_status": 0,
+    "mean_hold_joint_angle_deg": -24.36184049071303
+  },
+  "mujocable_mu_0.6": {
+    "final_bend_deg": -391.80110048166944,
+    "hold_bend_deg": -392.3383971181011,
+    "tracking_rmse_deg": 76.77329026788732,
+    "maximum_active_tension_N": 7.951487480540914,
+    "maximum_active_cable_takeup_mm": 90.04075408757436,
+    "minimum_active_cable_takeup_mm": 0.0,
+    "maximum_route_status": 0,
+    "mean_hold_joint_angle_deg": -21.79657761767228
+  }
+}
