@@ -1,4 +1,4 @@
-{% set language_root = pathto('index') | replace('index.html', '') %}
+{% set language_root = pathto('index') | replace('index.html', '') | replace('#', '') %}
 <nav class="language-switch" aria-label="Documentation language">
   {% if language == 'en' %}
   <a href="{{ language_root }}../{{ pagename }}.html" lang="zh-CN" hreflang="zh-CN">中文</a>
