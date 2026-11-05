@@ -1,0 +1,7 @@
+_build/
+_generated/
+_static/media/
+_includes/
+gallery.md
+downloads/
+__pycache__/
