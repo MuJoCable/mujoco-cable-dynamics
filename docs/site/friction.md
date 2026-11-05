@@ -51,4 +51,4 @@ $$I\dot\omega+b\omega=R(T_{\rm source}-T_{\rm load}).$$
 
 绳直线通过理想点且折角为零时，该点不产生转角型 Capstan 损失。单个 guide 不表示孔径、孔道长度、孔壁分布压力、卡滞或磨损。若要研究这些现象，需要更细的接触/有直径绳模型。
 
-官方小型孔口模型可从 [Demo 31/32 的说明](https://github.com/MuJoCable/mujoco-cable-dynamics/blob/main/docs/DEMO_31_32_EYELET_FRICTION.md) 开始；单指与 SpiRobs 案例展示其在机器人里的用法。
+仓库中的孔口示例可从 [Demo 31/32 的说明](https://github.com/MuJoCable/mujoco-cable-dynamics/blob/main/docs/DEMO_31_32_EYELET_FRICTION.md) 开始；单指与 SpiRobs 案例展示其在机器人里的用法。

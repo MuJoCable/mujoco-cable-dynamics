@@ -55,6 +55,18 @@ def bundle(target, files, repo):
         package.writestr("BUNDLE_README.txt", "MuJoCable documentation resource bundle\nSource: " + REPO_URL + "/tree/" + REF + "\nExtract into a separate folder; preserve relative model/asset paths.\nUse a matching, compiled MuJoCable plugin and the repository viewer.\nThe model bundle is not a Python/MuJoCo runtime.\n")
 
 
+def viewer_command(case):
+    key = case["id"]
+    view_key = dict(rolling="rolling_mesh", calibrated="spirobs_calibrated",
+                    moving="moving_pulley", fixed="fixed_friction").get(key, key)
+    if case["model"].startswith("examples/showcase") or key == "friction":
+        parts = ["mjpython scripts/view_cpp_plugin_demo.py",
+                 "--plugin build/plugin/libcable_unilateral.dylib",
+                 f"--model {case['model']} --no-auto-control --show-cable-state"]
+        return (" \\" + "\n  ").join(parts)
+    return f"python examples/paper/run.py view {view_key} --show-cable-state"
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repo", type=Path, default=SITE.parents[1])
@@ -100,10 +112,7 @@ def main():
         url = f"{REPO_URL}/blob/{REF}/{case['model']}"
         actuator = ET.parse(model).getroot().find("actuator")
         names = [node.get("name", "") for node in actuator] if actuator is not None else []
-        view_key = dict(rolling="rolling_mesh", calibrated="spirobs_calibrated", friction="spirobs", moving="moving_pulley", fixed="fixed_friction").get(key, key)
-        commands = f"python examples/paper/run.py view {view_key} --show-cable-state"
-        if case["model"].startswith("examples/showcase") or key == "friction":
-            commands = " \\\n  ".join(["mjpython scripts/view_cpp_plugin_demo.py", "--plugin build/plugin/libcable_unilateral.dylib", f"--model {case['model']} --no-auto-control --show-cable-state"])
+        commands = viewer_command(case)
         text = [f"# {case['title']}", "", case["description"], "", f"**机构分组：** {case['group']}。本页模型资源固定到公开提交 `{REF[:8]}`。", "", f"![{case['title']}](../_static/media/{key}.jpg)", "", f'<video class="example-video" controls preload="none" playsinline poster="../_static/media/{key}.jpg"><source src="../_static/media/{video.name}" type="video/mp4"><a href="../_static/media/{video.name}">下载视频</a></video>', "", f"[带数字视频](../_static/media/{video.name}) · [Raw 视频](../_static/media/{raw.name})", "", "## 下载与源文件", "", f"[模型与完整依赖 ZIP](../downloads/{key}-model.zip) · [数据/图表 ZIP](../downloads/{key}-results.zip) · [单个 XML](../downloads/{key}.xml) · [GitHub 源文件]({url})", "", "ZIP 保留相对路径；解压到独立目录，不要把它误当成包含 MuJoCo 的独立应用。单个 XML 仍可能需要 mesh。", "", "## 如何驱动", "", "```bash", commands, "```", "", "macOS 使用 `mjpython`；Linux 使用 `python`，库后缀改为 `.so`。论文入口默认关闭自动控制，用 Control 滑块手动输入。", "", f"**实际 actuator 名称：** {', '.join('`'+name+'`' for name in names) or '无：这是被动模型'}。单位与通道类型请结合 XML 的 actuator 类型和 `ctrl_mode`，不要一律按 N 或 deg 输入。", "", "自动实验：仓库根目录运行 `python examples/paper/run.py result1 --skip-videos` 或 `result2 --skip-videos`。校准双向周期使用 `cycle`；曲面展示的自动控制命令见 examples/showcase/README.md。", "", "## 解释与限制", "", case["note"], "", "历史视频不冒称最新版重新录制。下载结果包含原始统计，保留偏差和失败诊断；不要只截取最好的一帧作为完整验证。"]
         (generated / f"{key}.md").write_text("\n".join(text) + "\n")
         gallery.append(f'<section class="example-item"><a href="_generated/{key}.html"><img src="_static/media/{key}.jpg" alt="{html.escape(case["title"])}" loading="lazy"><h3>{case["title"]}</h3></a><p>{case["group"]} · {case["description"]}</p></section>')

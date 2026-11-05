@@ -1,8 +1,8 @@
 # MuJoCable 技术文档
 
-MuJoCable 是 MuJoCo 的无质量、单边受拉绳索传动插件。它在运动的圆柱与闭合 mesh 上计算绳路，再计算伸长、张力、摩擦传播和刚体受力。这里是可操作的建模手册，不是论文摘要。
+MuJoCable 是 MuJoCo 的无质量、单边受拉绳索传动插件。它在运动的圆柱与闭合 mesh 上计算绳路，再计算伸长、张力、摩擦传播和刚体受力。
 
-<div class="manual-links"><a href="https://mujocable.github.io/">项目主页</a><a href="https://github.com/MuJoCable/mujoco-cable-dynamics">GitHub</a><a href="https://arxiv.org/abs/2609.09612">论文</a><a href="english.html">English Quick Start</a></div>
+<div class="manual-links"><a href="https://mujocable.github.io/">项目主页</a><a href="https://github.com/MuJoCable/mujoco-cable-dynamics">GitHub</a><a href="https://arxiv.org/abs/2609.09612">论文</a><a href="en/index.html" lang="en">English Documentation</a></div>
 
 <p class="manual-meta">文档更新：2026-11-05 · 验证环境：MuJoCo 3.4.0 / Python 3.12 · 模型资源固定到已公开提交，复跑与历史结果分开标记。</p>
 

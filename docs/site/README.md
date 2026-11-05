@@ -1,6 +1,6 @@
 # MuJoCable Technical Manual
 
-Chinese task-oriented manual with an English quick start. Sphinx/Furo provides
+Complete Chinese and English task-oriented manuals. Sphinx/Furo provides
 search, navigation, light/dark themes and static GitHub Pages output. KaTeX
 assets are local. Models, video and result resources come from public examples;
 no private working directories are required.
@@ -20,6 +20,12 @@ python -m http.server 8000 --directory docs/site/_build/html
 FFmpeg must be available to extract example posters. The plugin runtime and
 OpenGL are not required for a documentation build. To build this folder before
 it is installed at `docs/site`, pass `--repo PATH_TO_PUBLIC_CHECKOUT`.
+
+The build generates Chinese at `/docs/` and English at `/docs/en/`. Chapter,
+example and configuration-key parity is checked automatically. Translate
+chapters in `en/`, and case/configuration text in `catalog_en.py`. Model bundles,
+datasets and video files are shared rather than duplicated for each language.
+Language switching preserves the current chapter or example page.
 
 Generated output is intentionally ignored: case pages, resource bundles, media
 and HTML are rebuilt from `catalog.py` and the repository examples. Source

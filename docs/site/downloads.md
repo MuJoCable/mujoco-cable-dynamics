@@ -16,6 +16,8 @@
 
 ## 源码与发行
 
+- [SolidWorks 参考点导出工具](https://github.com/MuJoCable/solidworks-reference-geometry-exporter)：在复杂 CAD 上选点，导出 CSV 并绑定到 MJCF；操作见[穿绳教程](routing.md)。
+
 - [公开源码仓库](https://github.com/MuJoCable/mujoco-cable-dynamics)：安装、编译、测试、examples 与许可证。
 - [GitHub Releases](https://github.com/MuJoCable/mujoco-cable-dynamics/releases)：检查某次发行是否提供你的 OS/架构/MuJoCo ABI 对应资产；不要把源代码 ZIP 当作预编译插件。
 - [examples/paper](https://github.com/MuJoCable/mujoco-cable-dynamics/tree/main/examples/paper)：论文相关冻结模型、统计与复跑入口。

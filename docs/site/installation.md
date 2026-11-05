@@ -1,75 +1,95 @@
-# 安装与版本
+# 安装与运行
 
-## 推荐：从公开源码构建
+本页适用于 macOS 和 Linux，使用 Python 3.12、MuJoCo 3.4.0、Git 和 C++17 编译器。Windows 请按[中文安装教程](https://mujocable.github.io/tutorials/windows/zh.html)操作。
 
-所有命令在仓库根目录运行。新建 Python 环境，避免把已有旧动态库误当作最新版。
+## 1. 下载仓库
 
 ```bash
 git clone https://github.com/MuJoCable/mujoco-cable-dynamics.git
 cd mujoco-cable-dynamics
+```
+
+后续命令均在该目录执行。
+
+## 2. 创建环境并安装依赖
+
+```bash
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
 python -m pip install "mujoco==3.4.0" numpy cmake pillow matplotlib
+```
 
+## 3. 编译插件
+
+```bash
 MUJOCO_DIR="$(python -c 'from pathlib import Path; import mujoco; print(Path(mujoco.__file__).resolve().parent)')"
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \
   -DMUJOCO_PYTHON_PACKAGE_DIR="$MUJOCO_DIR"
 cmake --build build --config Release
 ```
 
-这个流程直接构建 C++ 动态库，不依赖仓库的 editable Python 打包。当前公开提交的 `pip install -e .` 可能因 setuptools 的顶层目录发现而失败；不要把这个打包问题误判成插件编译失败。需要运行 Python 辅助模块的测试时使用：
+编译产物：
+
+| 平台 | 插件文件 |
+|---|---|
+| macOS | `build/plugin/libcable_unilateral.dylib` |
+| Linux | `build/plugin/libcable_unilateral.so` |
+
+## 4. 检查插件
+
+设置插件位置，运行 50 步无界面测试：
+
+```bash
+export CABLE_PLUGIN_LIBRARY="$(python -c 'from pathlib import Path; import sys; print(Path("build/plugin/libcable_unilateral" + (".dylib" if sys.platform == "darwin" else ".so")).resolve())')"
+python scripts/smoke_cpp_plugin.py \
+  --plugin "$CABLE_PLUGIN_LIBRARY" \
+  --model cable_plugin_demos/15_cpp_plugin_surface_single_pulley.xml \
+  --steps 50
+```
+
+## 5. 打开 viewer 并手动收绳
+
+```bash
+./scripts/run_demo.sh 15 --no-auto-control --show-cable-state --duration 120
+```
+
+展开右侧 **Control**，调整 `cable_contraction`。输入 `0.010` 表示收绳 10 mm。关闭窗口后返回终端。
+
+## 6. 运行自动演示
+
+```bash
+./scripts/run_demo.sh 15 \
+  --auto-actuator cable_contraction --ctrl-final 0.030 \
+  --show-cable-state --duration 120
+```
+
+自动演示期间由脚本更新控制量；需要自己拖动滑块时，使用第 5 步命令。
+
+## 7. 打开其他案例
+
+```bash
+python examples/paper/run.py list
+python examples/paper/run.py view rolling_mesh --show-cable-state
+python examples/paper/run.py view finger --show-cable-state
+python examples/paper/run.py view spirobs --show-cable-state
+```
+
+这些命令默认手动控制。截图、视频、参数和完整模型包见[案例库](gallery.md)。自己的第一个模型见[快速入门](quickstart.md)。
+
+## 8. 运行测试（可选）
 
 ```bash
 PYTHONPATH=python python -m unittest discover tests
 ```
 
-如果动态库不在默认 `build/plugin/`，先设置 `CABLE_PLUGIN_LIBRARY` 指向该库。测试必须真正找到库；跳过测试不代表验证通过。
+## 下次打开与更新
 
-需要 C++17 编译器和 CMake。macOS 可使用已安装的 Xcode Command Line Tools；Linux 可使用系统 C++ 编译工具链。不要把不同 MuJoCo 版本、CPU 架构或操作系统编译的动态库混用。
-
-| 平台 | 典型动态库 | GUI 入口 |
-|---|---|---|
-| macOS | `build/plugin/libcable_unilateral.dylib` | `mjpython` |
-| Linux | `build/plugin/libcable_unilateral.so` | `python` |
-
-本手册的构建与案例验证基线是 **MuJoCo 3.4.0**。这不是对所有未来 MuJoCo 版本、Windows 或 GPU 后端的兼容承诺。
-
-Windows 用户可使用独立的[Windows 安装与肘关节教程](https://mujocable.github.io/tutorials/windows/zh.html)（[English](https://mujocable.github.io/tutorials/windows/)），按该发行包的版本和架构说明操作；不要直接复制本页 macOS 的 `.dylib` 命令。
-
-## 检查是否加载成功
+重新打开终端后，进入仓库目录并运行：
 
 ```bash
-python scripts/smoke_cpp_plugin.py \
-  --plugin build/plugin/libcable_unilateral.dylib \
-  --model cable_plugin_demos/15_cpp_plugin_surface_single_pulley.xml \
-  --steps 50
+source .venv/bin/activate
+./scripts/run_demo.sh 15 --no-auto-control --show-cable-state
 ```
 
-Linux 把 `.dylib` 改为 `.so`。先完成这个无界面检查，再排查 OpenGL/viewer 问题。
-
-## 打开已有模型
-
-```bash
-# 启动器按平台选择 mjpython 或 Python。
-./scripts/run_demo.sh 15 --show-cable-state --duration 120
-
-# 手工控制，关闭自动输入。
-./scripts/run_demo.sh 15 --no-auto-control --show-cable-state --duration 120
-
-# 论文案例入口。
-python examples/paper/run.py list
-python examples/paper/run.py view rolling_mesh --show-cable-state
-```
-
-此通用 viewer 的 `--duration` 是仿真循环重置时长，不是保证按墙钟时间退出。慢模型推进 1 秒仿真时间可能需要更长现实时间。
-
-## 二进制 Release
-
-可在 [Releases](https://github.com/MuJoCable/mujoco-cable-dynamics/releases) 查看已发布的平台包。**源码更新、已合并 PR 与已发布二进制不是同一件事。** 为使用本手册描述的最新接口，优先从当前源码构建；不要假定旧 Release 已包含全部更新。
-
-下载的 XML 通常还需要相对路径下的 mesh/纹理。使用案例页的“模型与资产 ZIP”，或 clone 完整仓库；只下载单个 XML 不一定能加载。
-
-## 更新动态库后
-
-退出旧 viewer，重新编译并新开进程。XML reload 不保证替换已由进程加载的动态库。当前每实例状态为 8 个标量；旧版 5 状态的 checkpoint 或 MJB 不应直接复用。保留 MJCF 作为可迁移源文件。
+更新代码后，关闭原 viewer，重新执行第 3 步编译，再打开模型。预编译包见 [Releases](https://github.com/MuJoCable/mujoco-cable-dynamics/releases)。
