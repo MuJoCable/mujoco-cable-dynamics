@@ -7,7 +7,7 @@
 
 ## 控制枚举
 
-`ctrl_mode` 支持 `target_contraction`、`contraction_velocity`、`target_spool_angle`、`spool_angular_velocity`、`joint_spool_angle`。单位、符号和物理卷轴的区别见[如何驱动](actuation.md)。
+`ctrl_mode` 支持 `target_contraction`、`spool_velocity`、`target_spool_angle`、`spool_angular_velocity`、`joint_spool_angle`。单位、符号和物理卷轴的区别见[如何驱动](actuation.md)。
 
 ## 最小模板
 

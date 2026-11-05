@@ -11,8 +11,14 @@ class Links(HTMLParser):
     def __init__(self):
         super().__init__()
         self.targets = []
+        self.language = None
+        self.language_links = []
 
     def handle_starttag(self, tag, attrs):
+        if tag == "html":
+            self.language = dict(attrs).get("lang")
+        if tag == "a" and dict(attrs).get("hreflang"):
+            self.language_links.append(dict(attrs).get("href", ""))
         for key, value in attrs:
             if key in {"href", "src", "poster"} and value:
                 self.targets.append(value)
@@ -25,6 +31,7 @@ def main():
     failures = []
     pages = list(root.rglob("*.html"))
     checked = 0
+    bilingual = (root / "en/index.html").exists()
     for path in pages:
         content = path.read_text()
         private_patterns = ("/" + "Users/", "/" + "private/tmp/", r"/home/[^/]+/", "cod" + "ex")
@@ -32,6 +39,17 @@ def main():
             failures.append(f"Private path/tool name in {path.relative_to(root)}")
         links = Links()
         links.feed(content)
+        for value in links.language_links:
+            if value.startswith("#") and value != "#":
+                failures.append(f"Invalid language-switch URL: {path.relative_to(root)} -> {value}")
+        if bilingual:
+            relative = path.relative_to(root)
+            english = relative.parts[0] == "en"
+            counterpart = root / Path(*relative.parts[1:]) if english else root / "en" / relative
+            if not counterpart.exists():
+                failures.append(f"Missing language counterpart: {relative}")
+            if links.language != ("en" if english else "zh-CN"):
+                failures.append(f"Wrong HTML language: {relative}")
         for value in links.targets:
             url = urlsplit(value)
             if url.scheme or url.netloc or not url.path or url.path.startswith("/"):

@@ -2,6 +2,9 @@
 body { letter-spacing: 0; }
 .sidebar-brand-text { font-size: 1.2rem; font-weight: 650; }
 .sidebar-tree { font-size: .94rem; }
+.language-switch { display: flex; gap: 1.2rem; padding: .2rem 1rem 1rem; font-size: .9rem; }
+.language-switch a { text-decoration: none; }
+.language-switch [aria-current="page"] { color: var(--color-foreground-primary); font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
 .content { max-width: 56rem; }
 article p, article li { line-height: 1.85; }
 article h1 { font-size: 2rem; line-height: 1.4; }
@@ -10,7 +13,7 @@ article h3 { font-size: 1.15rem; }
 article table { width: 100%; font-size: .9rem; }
 article td, article th { overflow-wrap: anywhere; }
 article .table-wrapper { max-width: 100%; overflow-x: auto; }
-article td:first-child code { white-space: nowrap; overflow-wrap: normal; }
+article td code { white-space: nowrap; overflow-wrap: normal; }
 article pre { font-size: .84rem; line-height: 1.65; }
 article code { overflow-wrap: anywhere; }
 .katex-display { overflow-x: auto; overflow-y: hidden; padding: .5rem 0; }
