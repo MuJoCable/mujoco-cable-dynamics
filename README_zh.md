@@ -16,6 +16,7 @@
 </p>
 
 [English README](README.md) | [学术项目主页](https://mujocable.github.io/) |
+[技术文档](https://mujocable.github.io/docs/) |
 [精选示例](docs/DEMO_CATALOG.md) |
 [穿绳设计指南](docs/CABLE_DESIGN_AND_THREADING_GUIDE_zh.md) |
 [全部命令](docs/RUN_ALL_DEMOS_zh.md)

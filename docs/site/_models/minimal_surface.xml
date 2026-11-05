@@ -1,0 +1,39 @@
+<mujoco model="mujocable_minimal_surface">
+  <compiler angle="radian"/>
+  <size nuser_site="1"/>
+  <option timestep="0.0005" integrator="implicitfast"/>
+  <extension><plugin plugin="mujoco.cable.unilateral">
+    <instance name="rope">
+      <config key="route_mode" value="surface"/>
+      <config key="route_tendon" value="seed"/>
+      <config key="wrap_geoms" value="pulley_wrap"/>
+      <config key="home_length" value="auto_initial"/>
+      <config key="stiffness" value="2000"/>
+      <config key="damping" value="5"/>
+      <config key="pretension_offset" value="0.000981"/>
+      <config key="ctrl_mode" value="target_contraction"/>
+      <config key="max_tension" value="20"/>
+      <config key="visual_width" value="3"/>
+    </instance>
+  </plugin></extension>
+  <worldbody>
+    <light pos="0 -1 2"/>
+    <camera name="overview" pos="0 -1.3 0.5" xyaxes="1 0 0 0 0 1"/>
+    <geom type="plane" size="0.6 0.6 0.01" rgba="0.2 0.22 0.24 1"/>
+    <geom name="pulley_wrap" type="cylinder" pos="0 0 0.6"
+          euler="1.57079632679 0 0" size="0.1 0.02" rgba="0.75 0.77 0.8 0.55"/>
+    <site name="start" pos="-0.22 0 0.6" user="1" size="0.006" rgba="0.1 0.8 0.3 1"/>
+    <site name="hint" pos="0 0 0.705" user="2" size="0.003" rgba="1 0.8 0 0"/>
+    <body name="load" pos="0.1 0 0.25">
+      <freejoint/>
+      <geom type="box" size="0.02 0.02 0.02" mass="0.2" rgba="0.1 0.5 0.85 1"/>
+      <site name="end" pos="0 0 0.02" user="1" size="0.006" rgba="0.1 0.8 0.3 1"/>
+    </body>
+  </worldbody>
+  <tendon><spatial name="seed" width="0.000000001" rgba="1 0.35 0.05 1">
+    <site site="start"/><site site="hint"/><site site="end"/>
+  </spatial></tendon>
+  <actuator><plugin name="pull" instance="rope" tendon="seed" gear="0"
+                    ctrllimited="true" ctrlrange="-0.02 0.06"/></actuator>
+  <sensor><plugin name="rope_state" instance="rope"/></sensor>
+</mujoco>

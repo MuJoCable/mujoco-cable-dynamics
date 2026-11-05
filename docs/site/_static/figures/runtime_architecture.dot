@@ -1,0 +1,25 @@
+digraph Runtime {
+  graph [rankdir=TB, bgcolor="transparent", pad="0.2", nodesep="0.35", ranksep="0.5"];
+  node [shape=box, style="filled,rounded", fillcolor="#f2f5f3", color="#748179", fontname="Helvetica", fontsize=12, margin="0.15,0.12"];
+  edge [color="#52665b", arrowsize=0.7, fontname="Helvetica", fontsize=10];
+  mjcf [label="MJCF model\nbody / geom / site / tendon / plugin"];
+  state [label="MuJoCo kinematics\nq, v -> body poses and velocities", fillcolor="#e9f1f8", color="#54758b"];
+  route [label="MuJoCable route backend\nNativeTendonRoute / SurfaceEnvelopeRoute"];
+  law [label="Cable constitutive law\nL, Ldot, c -> unilateral source tension"];
+  friction [label="Segment friction map\nsource tension -> segment tensions"];
+  surface [label="Surface force path\nnode forces -> body wrench -> mj_applyFT"];
+  native [label="Native force path\nactuator transmission + passive corrections"];
+  core [label="MuJoCo dynamics and integration\nM(q), contacts, constraints, other forces", fillcolor="#e9f1f8", color="#54758b"];
+  observe [label="Plugin observation\nsensor: 8 / 12 values\nvisualize: solved route", fillcolor="#f8f1e4", color="#9b8355"];
+  mjcf -> state [label="load / init"];
+  state -> route [label="passive evaluation"];
+  route -> law [label="physical path"];
+  law -> friction;
+  friction -> surface [label="surface"];
+  friction -> native [label="native"];
+  surface -> core [label="qfrc_passive"];
+  native -> core [label="qfrc_actuator + qfrc_passive"];
+  core -> state [style=dashed, label="next step", constraint=false];
+  route -> observe [style=dashed];
+  friction -> observe [style=dashed];
+}
