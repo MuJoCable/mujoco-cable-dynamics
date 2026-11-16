@@ -1,6 +1,6 @@
 # MuJoCable Technical Manual
 
-Chinese task-oriented manual with an English quick start. Sphinx/Furo provides
+Complete Chinese and English task-oriented manuals. Sphinx/Furo provides
 search, navigation, light/dark themes and static GitHub Pages output. KaTeX
 assets are local. Models, video and result resources come from public examples;
 no private working directories are required.
@@ -21,6 +21,12 @@ FFmpeg must be available to extract example posters. The plugin runtime and
 OpenGL are not required for a documentation build. To build this folder before
 it is installed at `docs/site`, pass `--repo PATH_TO_PUBLIC_CHECKOUT`.
 
+The build generates Chinese at `/docs/` and English at `/docs/en/`. Chapter,
+example and configuration-key parity is checked automatically. Translate
+chapters in `en/`, and case/configuration text in `catalog_en.py`. Model bundles,
+datasets and video files are shared rather than duplicated for each language.
+Language switching preserves the current chapter or example page.
+
 Generated output is intentionally ignored: case pages, resource bundles, media
 and HTML are rebuilt from `catalog.py` and the repository examples. Source
 diagrams, minimal XMLs and the local KaTeX assets are versioned.
@@ -40,6 +46,8 @@ running Python server.
 - `check_site.py` checks local links, ZIP integrity and private paths in HTML.
 - Keep archived videos separate from newly measured numerical evidence.
 - Re-run the simulation tests when editing XML examples or executable snippets.
+- Run `python _tests/verify_native_reference.py` for the downloadable native
+  cable and closed-loop models; no plugin is required.
 - Run `_tests/verify_minimal.py --plugin LIBRARY` and, with this directory on
   `PYTHONPATH`, `_tests/verify_bundles.py --plugin LIBRARY` to load the actual
   downloadable models in an independent extraction folder.

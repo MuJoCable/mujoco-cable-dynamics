@@ -16,7 +16,7 @@
 </p>
 
 [中文说明](README_zh.md) | [Project page](https://mujocable.github.io/) |
-[Technical documentation](https://mujocable.github.io/docs/) |
+[Documentation (EN)](https://mujocable.github.io/docs/en/) · [中文文档](https://mujocable.github.io/docs/) |
 [Selected demos](docs/DEMO_CATALOG.md) |
 [Threading guide](docs/CABLE_DESIGN_AND_THREADING_GUIDE.md) |
 [All commands](docs/RUN_ALL_DEMOS.md)

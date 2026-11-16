@@ -50,3 +50,5 @@ native actuator 的 `-T` 通过 MuJoCo tendon transmission 映射到广义力，
 源码里的 `implicit_compliant` 依赖额外的 `mjpPluginImplicit` 等宿主接口和编译条件。标准 MuJoCo 3.4.0 下不能把这个实验配置当作已启用的隐式求解。验证、发布与文档应分别记录“独立插件能力”和“需要修改宿主的扩展”。
 
 MuJoCo 通用插件机制参考[官方 Extensions 文档](https://mujoco.readthedocs.io/en/stable/programming/extension.html)。这份手册描述 MuJoCable 的实际实现，不替代 MuJoCo 官方 API 参考。
+
+原生 MJCF 建模、闭链、驱动、测量和运行时 API 见 [MuJoCo 接口速查](mujoco-api.md)。

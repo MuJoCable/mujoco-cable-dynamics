@@ -11,6 +11,33 @@
 
 图中的配色是教学标记，不是插件保留的物理颜色：端点绿色、hint 黄色、guide 青色、普通标记品红色，运行时路线与切点另行绘制。真实项目可自行调整 `rgba`。
 
+## 复杂 CAD：在 SolidWorks 中选点
+
+手指、多体机构等模型可以使用 [SOLIDWORKS Reference Geometry Exporter](https://github.com/MuJoCable/solidworks-reference-geometry-exporter)，先在 CAD 中确定穿绳位置，再导入 MJCF：
+
+1. 在 SolidWorks 中创建并命名参考点或 3D 草图点，分别标记系绳点、孔口和绕行提示位置。
+2. 在 Windows SolidWorks 中打开装配体，将组件设为 **Fully Resolved**。按[工具安装步骤](https://github.com/MuJoCable/solidworks-reference-geometry-exporter#installation)导入 `ExportAssemblyReferenceGeometry.bas`，运行 `ExportAssemblyReferenceGeometry.main`，得到 CSV。
+3. 使用工具中的 [MJCF 转换器](https://github.com/MuJoCable/solidworks-reference-geometry-exporter/blob/main/docs/MJCF_CONVERTER.md)，把选中的记录绑定到对应 body，并设置 `user=1/2/3`。
+4. 在 viewer 中核对至少三个已知点的位置，再连接 seed tendon。
+
+先运行转换器自带示例，命令在该工具的仓库目录执行：
+
+```bash
+git clone https://github.com/MuJoCable/solidworks-reference-geometry-exporter.git
+cd solidworks-reference-geometry-exporter
+python -m pip install -r requirements.txt
+python tools/sw_reference_to_mjcf.py \
+  --csv examples/example_output.csv \
+  --mjcf examples/minimal_model.xml \
+  --mapping examples/mapping.json \
+  --output generated/bound_model.xml \
+  --report generated/binding_report.json
+```
+
+随后将示例 CSV、MJCF 和 mapping 路径替换为自己的文件。输入模型包含 MuJoCable 时，追加 `--plugin "$CABLE_PLUGIN_LIBRARY"`。输出 XML 放在输入 XML 同一目录，以保持 mesh 相对路径可用。
+
+装配体 STL 使用装配坐标，单零件 STL 使用零件局部坐标；在转换器中匹配相应坐标系。CSV 同时提供 m 和 mm，MJCF 的位置使用 m。孔口未建参考点时，先在 CAD 中补点，工具不会自动推断所有孔的位置。
+
 ## 路由模式怎么选
 
 | 模式 | 场景 | 必须知道的限制 |
