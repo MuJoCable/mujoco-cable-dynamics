@@ -1,5 +1,7 @@
 # MuJoCo Interfaces and Architecture
 
+For native MJCF, closed loops, actuation, measurement and runtime APIs, see the [MuJoCo interface reference](mujoco-api.md).
+
 ## The Technical Boundary
 
 | MuJoCo core | MuJoCable plugin |

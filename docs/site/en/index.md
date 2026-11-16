@@ -14,6 +14,7 @@ MuJoCable is a massless, pull-only cable-transmission plugin for MuJoCo. It comp
 | Thread a new robot | [MJCF structure](modeling.md) → [Routing](routing.md) → [Friction and eyelets](friction.md) |
 | Record experiments | [Sensors and Python](sensors.md) → [Examples](gallery.md) → [Validation](validation.md) |
 | Understand the implementation | [Physics](computation.md) → [MuJoCo interfaces](architecture.md) → [XML reference](reference.md) |
+| Look up native simulation APIs | [MuJoCo reference for cable-driven and parallel robots](mujoco-api.md) |
 | Diagnose a model | [Troubleshooting](debugging.md) → [Limitations](limitations.md) |
 
 ## Division of Responsibility
@@ -50,6 +51,7 @@ debugging
 
 computation
 architecture
+mujoco-api
 reference
 limitations
 ```

@@ -14,6 +14,7 @@ MuJoCable 是 MuJoCo 的无质量、单边受拉绳索传动插件。它在运�
 | 给自己的机器人穿绳 | [MJCF 结构](modeling.md) → [参考点与 mesh 路由](routing.md) → [孔口与摩擦](friction.md) |
 | 做实验与记录数据 | [传感器和 Python](sensors.md) → [案例库](gallery.md) → [验证与复现](validation.md) |
 | 理解实现 | [计算模型](computation.md) → [MuJoCo 接口](architecture.md) → [XML 配置参考](reference.md) |
+| 查原生仿真接口 | [MuJoCo 接口速查：绳驱与并联机器人](mujoco-api.md) |
 | 排查异常 | [调试](debugging.md) → [能力边界](limitations.md) |
 
 ## 插件负责什么
@@ -53,6 +54,7 @@ debugging
 
 computation
 architecture
+mujoco-api
 reference
 limitations
 ```

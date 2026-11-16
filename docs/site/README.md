@@ -46,6 +46,8 @@ running Python server.
 - `check_site.py` checks local links, ZIP integrity and private paths in HTML.
 - Keep archived videos separate from newly measured numerical evidence.
 - Re-run the simulation tests when editing XML examples or executable snippets.
+- Run `python _tests/verify_native_reference.py` for the downloadable native
+  cable and closed-loop models; no plugin is required.
 - Run `_tests/verify_minimal.py --plugin LIBRARY` and, with this directory on
   `PYTHONPATH`, `_tests/verify_bundles.py --plugin LIBRARY` to load the actual
   downloadable models in an independent extraction folder.

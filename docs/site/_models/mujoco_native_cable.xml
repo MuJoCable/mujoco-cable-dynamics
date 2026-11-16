@@ -1,0 +1,31 @@
+<mujoco model="native_cable_reference">
+  <compiler angle="radian"/>
+  <option timestep="0.001" gravity="0 0 0" integrator="implicitfast"/>
+  <worldbody>
+    <site name="fixed_end" pos="-0.12 0 0.15" size="0.004"/>
+    <site name="upper_side" pos="0 0.06 0.15" size="0.003"/>
+    <geom name="pulley" type="cylinder" pos="0 0 0.15"
+          size="0.035 0.014" rgba="0.65 0.68 0.72 1"/>
+    <body name="carriage" pos="0.12 0 0.15">
+      <joint name="carriage_slide" type="slide" axis="1 0 0" damping="1"
+             limited="true" range="-0.045 0.045"/>
+      <geom type="box" size="0.01 0.01 0.01" mass="0.15"/>
+      <site name="moving_end" size="0.004"/>
+    </body>
+  </worldbody>
+  <tendon>
+    <spatial name="cable" width="0.002" rgba="0.8 0.2 0.08 1">
+      <site site="fixed_end"/>
+      <geom geom="pulley" sidesite="upper_side"/>
+      <site site="moving_end"/>
+    </spatial>
+  </tendon>
+  <actuator>
+    <motor name="pull" tendon="cable" gear="-1" ctrllimited="true" ctrlrange="0 4"/>
+  </actuator>
+  <sensor>
+    <tendonpos name="cable_length" tendon="cable"/>
+    <tendonvel name="cable_rate" tendon="cable"/>
+    <actuatorfrc name="pull_output" actuator="pull"/>
+  </sensor>
+</mujoco>

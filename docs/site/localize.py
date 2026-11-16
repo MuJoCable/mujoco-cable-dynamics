@@ -28,8 +28,9 @@ def prepare_english(destination, repo):
                     ignore=shutil.ignore_patterns("media"))
     shutil.copytree(SITE / "_templates", destination / "_templates", dirs_exist_ok=True)
     (destination / "downloads").mkdir(exist_ok=True)
-    for path in (SITE / "downloads").glob("minimal_*.xml"):
-        shutil.copy2(path, destination / "downloads" / path.name)
+    for pattern in ("minimal_*.xml", "mujoco_*.xml"):
+        for path in (SITE / "downloads").glob(pattern):
+            shutil.copy2(path, destination / "downloads" / path.name)
     includes = destination / "_includes"
     includes.mkdir(exist_ok=True)
     rows = ["| Key | Default | Unit/type | Meaning |", "|---|---|---|---|"]
